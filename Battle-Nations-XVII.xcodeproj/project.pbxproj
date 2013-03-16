@@ -139,6 +139,10 @@
 		F276CFB516F49A30009D09E7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F276CFB416F49A30009D09E7 /* AppDelegate.m */; };
 		F276CFB816F49A30009D09E7 /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F276CFB716F49A30009D09E7 /* HelloWorldLayer.m */; };
 		F276CFBB16F49A30009D09E7 /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F276CFBA16F49A30009D09E7 /* IntroLayer.m */; };
+		F285E7C516F4B8740057C247 /* ListOfGamesGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = F285E7C416F4B8740057C247 /* ListOfGamesGetter.m */; };
+		F285E7C916F4ED8C0057C247 /* flag_ukraine.png in Resources */ = {isa = PBXBuildFile; fileRef = F285E7C816F4ED8C0057C247 /* flag_ukraine.png */; };
+		F285E7CB16F4EDCB0057C247 /* flag_poland.png in Resources */ = {isa = PBXBuildFile; fileRef = F285E7CA16F4EDCB0057C247 /* flag_poland.png */; };
+		F2AE9D8A16F49DE0005F98AF /* ListOfGamesLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2AE9D8916F49DE0005F98AF /* ListOfGamesLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -420,6 +424,12 @@
 		F276CFB716F49A30009D09E7 /* HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldLayer.m; sourceTree = "<group>"; };
 		F276CFB916F49A30009D09E7 /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		F276CFBA16F49A30009D09E7 /* IntroLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
+		F285E7C316F4B8740057C247 /* ListOfGamesGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ListOfGamesGetter.h; path = network/ListOfGamesGetter.h; sourceTree = "<group>"; };
+		F285E7C416F4B8740057C247 /* ListOfGamesGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ListOfGamesGetter.m; path = network/ListOfGamesGetter.m; sourceTree = "<group>"; };
+		F285E7C816F4ED8C0057C247 /* flag_ukraine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flag_ukraine.png; path = Resources/flags/flag_ukraine.png; sourceTree = "<group>"; };
+		F285E7CA16F4EDCB0057C247 /* flag_poland.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flag_poland.png; path = Resources/flags/flag_poland.png; sourceTree = "<group>"; };
+		F2AE9D8816F49DE0005F98AF /* ListOfGamesLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListOfGamesLayer.h; sourceTree = "<group>"; };
+		F2AE9D8916F49DE0005F98AF /* ListOfGamesLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListOfGamesLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -478,12 +488,15 @@
 		F276CE2516F49A2D009D09E7 /* Battle-Nations-XVII */ = {
 			isa = PBXGroup;
 			children = (
+				F285E7C616F4B88D0057C247 /* network */,
 				F276CFB316F49A30009D09E7 /* AppDelegate.h */,
 				F276CFB416F49A30009D09E7 /* AppDelegate.m */,
 				F276CFB616F49A30009D09E7 /* HelloWorldLayer.h */,
 				F276CFB716F49A30009D09E7 /* HelloWorldLayer.m */,
 				F276CFB916F49A30009D09E7 /* IntroLayer.h */,
 				F276CFBA16F49A30009D09E7 /* IntroLayer.m */,
+				F2AE9D8816F49DE0005F98AF /* ListOfGamesLayer.h */,
+				F2AE9D8916F49DE0005F98AF /* ListOfGamesLayer.m */,
 				F276CE2616F49A2D009D09E7 /* Resources */,
 				F276CE3E16F49A2D009D09E7 /* libs */,
 				F276CFAF16F49A30009D09E7 /* Supporting Files */,
@@ -494,6 +507,7 @@
 		F276CE2616F49A2D009D09E7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F285E7C716F4ECA10057C247 /* flags */,
 				F276CE2716F49A2D009D09E7 /* Default.png */,
 				F276CE2916F49A2D009D09E7 /* Default@2x.png */,
 				F276CE2B16F49A2D009D09E7 /* Default-568h@2x.png */,
@@ -870,6 +884,24 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F285E7C616F4B88D0057C247 /* network */ = {
+			isa = PBXGroup;
+			children = (
+				F285E7C316F4B8740057C247 /* ListOfGamesGetter.h */,
+				F285E7C416F4B8740057C247 /* ListOfGamesGetter.m */,
+			);
+			name = network;
+			sourceTree = "<group>";
+		};
+		F285E7C716F4ECA10057C247 /* flags */ = {
+			isa = PBXGroup;
+			children = (
+				F285E7CA16F4EDCB0057C247 /* flag_poland.png */,
+				F285E7C816F4ED8C0057C247 /* flag_ukraine.png */,
+			);
+			name = flags;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -933,6 +965,8 @@
 				F276CE3A16F49A2D009D09E7 /* Icon@2x.png in Resources */,
 				F276CE3D16F49A2D009D09E7 /* iTunesArtwork in Resources */,
 				F276CF9316F49A30009D09E7 /* ChangeLog in Resources */,
+				F285E7C916F4ED8C0057C247 /* flag_ukraine.png in Resources */,
+				F285E7CB16F4EDCB0057C247 /* flag_poland.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1054,6 +1088,8 @@
 				F276CFB516F49A30009D09E7 /* AppDelegate.m in Sources */,
 				F276CFB816F49A30009D09E7 /* HelloWorldLayer.m in Sources */,
 				F276CFBB16F49A30009D09E7 /* IntroLayer.m in Sources */,
+				F2AE9D8A16F49DE0005F98AF /* ListOfGamesLayer.m in Sources */,
+				F285E7C516F4B8740057C247 /* ListOfGamesGetter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1110,6 +1146,7 @@
 				GCC_PREFIX_HEADER = "Battle-Nations-XVII/Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"Battle-Nations-XVII/libs/kazmath/include\"";
 				INFOPLIST_FILE = "Battle-Nations-XVII/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",
@@ -1129,6 +1166,7 @@
 				GCC_PREFIX_HEADER = "Battle-Nations-XVII/Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"Battle-Nations-XVII/libs/kazmath/include\"";
 				INFOPLIST_FILE = "Battle-Nations-XVII/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",
@@ -1159,6 +1197,7 @@
 				F276CFC016F49A30009D09E7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
