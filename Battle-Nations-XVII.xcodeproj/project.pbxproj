@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F211FF5916F53136009CF4A0 /* GameFieldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F211FF5816F53136009CF4A0 /* GameFieldLayer.m */; };
+		F211FF5D16F53394009CF4A0 /* cossack.png in Resources */ = {isa = PBXBuildFile; fileRef = F211FF5C16F53394009CF4A0 /* cossack.png */; };
 		F276CE1416F49A2D009D09E7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F276CE1316F49A2D009D09E7 /* QuartzCore.framework */; };
 		F276CE1616F49A2D009D09E7 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F276CE1516F49A2D009D09E7 /* OpenGLES.framework */; };
 		F276CE1816F49A2D009D09E7 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F276CE1716F49A2D009D09E7 /* OpenAL.framework */; };
@@ -142,10 +144,15 @@
 		F285E7C516F4B8740057C247 /* ListOfGamesGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = F285E7C416F4B8740057C247 /* ListOfGamesGetter.m */; };
 		F285E7C916F4ED8C0057C247 /* flag_ukraine.png in Resources */ = {isa = PBXBuildFile; fileRef = F285E7C816F4ED8C0057C247 /* flag_ukraine.png */; };
 		F285E7CB16F4EDCB0057C247 /* flag_poland.png in Resources */ = {isa = PBXBuildFile; fileRef = F285E7CA16F4EDCB0057C247 /* flag_poland.png */; };
+		F29802DE16F6585000559974 /* ukraine_steppe.png in Resources */ = {isa = PBXBuildFile; fileRef = F29802DD16F6585000559974 /* ukraine_steppe.png */; };
+		F2A6ECFE16F5E61C000AF8FD /* CCScrollLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2A6ECFD16F5E61C000AF8FD /* CCScrollLayer.m */; };
 		F2AE9D8A16F49DE0005F98AF /* ListOfGamesLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2AE9D8916F49DE0005F98AF /* ListOfGamesLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F211FF5716F53136009CF4A0 /* GameFieldLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameFieldLayer.h; path = GameLayer/GameFieldLayer.h; sourceTree = "<group>"; };
+		F211FF5816F53136009CF4A0 /* GameFieldLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameFieldLayer.m; path = GameLayer/GameFieldLayer.m; sourceTree = "<group>"; };
+		F211FF5C16F53394009CF4A0 /* cossack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cossack.png; path = Resources/units/ukraine/cossack.png; sourceTree = "<group>"; };
 		F276CE1016F49A2D009D09E7 /* Battle-Nations-XVII.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Battle-Nations-XVII.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F276CE1316F49A2D009D09E7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F276CE1516F49A2D009D09E7 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -428,6 +435,9 @@
 		F285E7C416F4B8740057C247 /* ListOfGamesGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ListOfGamesGetter.m; path = network/ListOfGamesGetter.m; sourceTree = "<group>"; };
 		F285E7C816F4ED8C0057C247 /* flag_ukraine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flag_ukraine.png; path = Resources/flags/flag_ukraine.png; sourceTree = "<group>"; };
 		F285E7CA16F4EDCB0057C247 /* flag_poland.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flag_poland.png; path = Resources/flags/flag_poland.png; sourceTree = "<group>"; };
+		F29802DD16F6585000559974 /* ukraine_steppe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ukraine_steppe.png; path = Resources/backgrounds/ukraine_steppe.png; sourceTree = "<group>"; };
+		F2A6ECFC16F5E61C000AF8FD /* CCScrollLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCScrollLayer.h; sourceTree = "<group>"; };
+		F2A6ECFD16F5E61C000AF8FD /* CCScrollLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCScrollLayer.m; sourceTree = "<group>"; };
 		F2AE9D8816F49DE0005F98AF /* ListOfGamesLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListOfGamesLayer.h; sourceTree = "<group>"; };
 		F2AE9D8916F49DE0005F98AF /* ListOfGamesLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListOfGamesLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -452,6 +462,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F211FF5616F530CD009CF4A0 /* GameLayer */ = {
+			isa = PBXGroup;
+			children = (
+				F211FF5716F53136009CF4A0 /* GameFieldLayer.h */,
+				F211FF5816F53136009CF4A0 /* GameFieldLayer.m */,
+			);
+			name = GameLayer;
+			sourceTree = "<group>";
+		};
+		F211FF5A16F5337A009CF4A0 /* units */ = {
+			isa = PBXGroup;
+			children = (
+				F211FF5B16F5337E009CF4A0 /* ukraine */,
+			);
+			name = units;
+			sourceTree = "<group>";
+		};
+		F211FF5B16F5337E009CF4A0 /* ukraine */ = {
+			isa = PBXGroup;
+			children = (
+				F211FF5C16F53394009CF4A0 /* cossack.png */,
+			);
+			name = ukraine;
+			sourceTree = "<group>";
+		};
 		F276CE0716F49A2D009D09E7 = {
 			isa = PBXGroup;
 			children = (
@@ -488,6 +523,7 @@
 		F276CE2516F49A2D009D09E7 /* Battle-Nations-XVII */ = {
 			isa = PBXGroup;
 			children = (
+				F211FF5616F530CD009CF4A0 /* GameLayer */,
 				F285E7C616F4B88D0057C247 /* network */,
 				F276CFB316F49A30009D09E7 /* AppDelegate.h */,
 				F276CFB416F49A30009D09E7 /* AppDelegate.m */,
@@ -507,6 +543,8 @@
 		F276CE2616F49A2D009D09E7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F29802DC16F6583600559974 /* Backgrounds */,
+				F211FF5A16F5337A009CF4A0 /* units */,
 				F285E7C716F4ECA10057C247 /* flags */,
 				F276CE2716F49A2D009D09E7 /* Default.png */,
 				F276CE2916F49A2D009D09E7 /* Default@2x.png */,
@@ -527,6 +565,8 @@
 		F276CE3E16F49A2D009D09E7 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				F2A6ECFC16F5E61C000AF8FD /* CCScrollLayer.h */,
+				F2A6ECFD16F5E61C000AF8FD /* CCScrollLayer.m */,
 				F276CF6616F49A30009D09E7 /* LICENSE_cocos2d.txt */,
 				F276CF7C16F49A30009D09E7 /* LICENSE_CocosDenshion.txt */,
 				F276CFAE16F49A30009D09E7 /* LICENSE_Kazmath.txt */,
@@ -902,6 +942,14 @@
 			name = flags;
 			sourceTree = "<group>";
 		};
+		F29802DC16F6583600559974 /* Backgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				F29802DD16F6585000559974 /* ukraine_steppe.png */,
+			);
+			name = Backgrounds;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -967,6 +1015,8 @@
 				F276CF9316F49A30009D09E7 /* ChangeLog in Resources */,
 				F285E7C916F4ED8C0057C247 /* flag_ukraine.png in Resources */,
 				F285E7CB16F4EDCB0057C247 /* flag_poland.png in Resources */,
+				F211FF5D16F53394009CF4A0 /* cossack.png in Resources */,
+				F29802DE16F6585000559974 /* ukraine_steppe.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1090,6 +1140,8 @@
 				F276CFBB16F49A30009D09E7 /* IntroLayer.m in Sources */,
 				F2AE9D8A16F49DE0005F98AF /* ListOfGamesLayer.m in Sources */,
 				F285E7C516F4B8740057C247 /* ListOfGamesGetter.m in Sources */,
+				F211FF5916F53136009CF4A0 /* GameFieldLayer.m in Sources */,
+				F2A6ECFE16F5E61C000AF8FD /* CCScrollLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

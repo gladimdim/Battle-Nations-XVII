@@ -8,6 +8,9 @@
 
 #import "ListOfGamesLayer.h"
 #import "ListOfGamesGetter.h"
+#import "GameFieldLayer.h"
+#import "CCScrollLayer.h"
+#import "HelloWorldLayer.h"
 
 @interface ListOfGamesLayer()
 @property NSMutableData *receivedData;
@@ -39,81 +42,95 @@
 {
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super's" return value
-	if( (self=[super init]) ) {
+	if( (self=[super initWithColor:ccc4(100, 100, 100, 100)]) ) {
         // to avoid a retain-cycle with the menuitem and blocks
         __block id copy_self = self;
         self.getter = [[ListOfGamesGetter alloc] init];
-        self.playerID = @"306";
-        [self.getter getListOfGamesFor:self.playerID withCallBack:^(NSDictionary *dict) {
-            NSLog(@"dict: %@", dict);
-            if (dict) {
-                NSArray *array = (NSArray *) dict;
-                NSLog(@"array count: %i", array.count);
-                [self.menu removeAllChildren];
-                for (int i = 0; i < array.count; i++) {
-                    NSDictionary *game = [array[i] objectForKey:@"game"];
-                    NSString *playerLeft = [game valueForKey:@"player_left"];
-                    NSString *nationLeft = [[game objectForKey:playerLeft] valueForKey:@"nation"];
-                    NSString *leftFlag = [nationLeft isEqualToString:@"ukraine"] ? @"flag_ukraine.png" : @"flag_poland.png";
-                    NSString *playerRight = [game valueForKey:@"player_right"];
-                    NSString *nationRight = [[game objectForKey:playerRight] valueForKey:@"nation"];
-                    NSString *rightFlag = [nationRight isEqualToString:@"ukraine"] ? @"flag_ukraine.png" : @"flag_poland.png";
-                    CCMenuItemImage *itemImageLeft = [CCMenuItemImage itemWithNormalImage:leftFlag selectedImage:leftFlag];
-                    itemImageLeft.position = ccp(0, 15);
-                   /* CCLabelTTF *iconLabel = [CCLabelTTF labelWithString:[game valueForKey:@"game_id"] fontName:@"Arial" fontSize:20];
-                    iconLabel.color = ccc3(255, 255, 255);
-                    iconLabel.position = ccp(70, 8);
-                    iconLabel.tag = 1;
-                    */
-                    CCMenuItemImage *itemImageRight = [CCMenuItemImage itemWithNormalImage:rightFlag selectedImage:rightFlag];
-                    itemImageRight.position = ccp(260, 15);
-                    CCMenuItem *item = [CCMenuItemFont itemWithString:[NSString stringWithFormat:@"   %@    ", [game valueForKey:@"game_id"]] block:^(id sender)  {
-                        NSLog(@"pressed %@", [game valueForKey:@"game_id"]);
-                    }];
-                    [item addChild:itemImageLeft];
-                    [item addChild:itemImageRight];
-                    
-                   // [item addChild:itemImage];
-                    [self.menu addChild:item];
-
-                    
-                }
-            }
-            else {
-                CCMenuItemFont *errorItem = [CCMenuItemFont itemWithString:@"Retry"];
-                [self.menu addChild:errorItem];
-            }
-            [self.menu alignItemsVertically];
-            [self.menu draw];
-
-        }];
-        
-        CCMenuItem *itemAchievement = [CCMenuItemFont itemWithString:@"Send request" block:^(id sender) {
-            NSLog(@"pressed");
-            
-        }];
+        self.playerID = @"gladkyi";
+        self.menu = [[CCMenu alloc] init];
+        [self getListOfGames];
         
         // ask director for the window size
         CGSize size = [[CCDirector sharedDirector] winSize];
         
         // Default font size will be 28 points.
         [CCMenuItemFont setFontSize:28];
-        
-        self.menu = [CCMenu menuWithItems:itemAchievement, nil];
-        
+        [self addRefreshAndBackItems];
+
+        self.menu.zOrder = 1;
         [self.menu alignItemsHorizontallyWithPadding:20];
-        [self.menu setPosition:ccp( size.width/2, size.height/2 - 50)];
+        [self.menu setPosition:ccp(size.width/2, size.height/2)];
         
         // Add the menu to the layer
         [self addChild:self.menu];
-
-       
-		
-		// Achievement Menu Item using blocks
-		
         
+        //create new layer for background image and add it
+        CCLayer *backGroundLayer = [[CCLayer alloc] init];
+       /* CCSprite *backSprite = [CCSprite spriteWithFile:@"ukraine_steppe.png"];
+        backSprite.zOrder = -1;
+        backSprite.position = ccp(0, 0);
+        backSprite.anchorPoint = ccp (0, 0);
+        [self addChild:backSprite];*/
+
 	}
 	return self;
+}
+
+-(void) addRefreshAndBackItems {
+    CCMenuItemFont *refreshItem = [CCMenuItemFont itemWithString:NSLocalizedString(@"Refresh", nil) block:^(id sender) {
+        [self getListOfGames];
+    }];
+
+    CCMenuItemFont *backItem = [CCMenuItemFont itemWithString:NSLocalizedString(@"Back", nil) block:^(id sender) {
+        [[CCDirector sharedDirector] popScene];
+    }];
+    [self.menu addChild:refreshItem];
+    [self.menu addChild:backItem];
+}
+
+-(void) getListOfGames {
+    [self.getter getListOfGamesFor:self.playerID withCallBack:^(NSDictionary *dict) {
+        NSLog(@"dict: %@", dict);
+        if (dict) {
+            NSArray *array = (NSArray *) dict;
+            NSLog(@"array count: %i", array.count);
+            [self.menu removeAllChildren];
+            for (int i = 0; i < array.count; i++) {
+                NSDictionary *game = [array[i] objectForKey:@"game"];
+                NSString *playerLeft = [game valueForKey:@"player_left"];
+                NSString *nationLeft = [[game objectForKey:playerLeft] valueForKey:@"nation"];
+                NSString *leftFlag = [nationLeft isEqualToString:@"ukraine"] ? @"flag_ukraine.png" : @"flag_poland.png";
+                NSString *playerRight = [game valueForKey:@"player_right"];
+                NSString *nationRight = [[game objectForKey:playerRight] valueForKey:@"nation"];
+                NSString *rightFlag = [nationRight isEqualToString:@"ukraine"] ? @"flag_ukraine.png" : @"flag_poland.png";
+                CCMenuItemImage *itemImageLeft = [CCMenuItemImage itemWithNormalImage:leftFlag selectedImage:leftFlag];
+                itemImageLeft.position = ccp(0, 15);
+                CCMenuItemImage *itemImageRight = [CCMenuItemImage itemWithNormalImage:rightFlag selectedImage:rightFlag];
+                itemImageRight.position = ccp(260, 15);
+                CCMenuItem *item = [CCMenuItemFont itemWithString:[NSString stringWithFormat:@"   %@ - %@   ", playerLeft, playerRight] block:^(id sender)  {
+                    NSLog(@"pressed %@", [game valueForKey:@"game_id"]);
+                    [[CCDirector sharedDirector] pushScene:[CCTransitionFadeDown transitionWithDuration:1.0 scene:[GameFieldLayer scene]]];
+                }];
+                //determine if it is player's turn
+                BOOL leftArmyTurn = [game objectForKey:@"left_army_turn"];
+                [item setIsEnabled:(leftArmyTurn && [playerLeft isEqualToString:self.playerID])];
+                [item addChild:itemImageLeft];
+                [item addChild:itemImageRight];
+                [self.menu addChild:item];
+                
+            }
+            
+        }
+        else {
+            CCMenuItemFont *errorItem = [CCMenuItemFont itemWithString:@"Retry"];
+            [self.menu addChild:errorItem];
+        }
+        [self addRefreshAndBackItems];
+        [self.menu alignItemsVertically];
+        [self.menu draw];
+        
+    }];
+
 }
 
 

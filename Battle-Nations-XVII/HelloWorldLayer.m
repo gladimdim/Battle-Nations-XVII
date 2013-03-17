@@ -68,8 +68,8 @@
 		
 		// Achievement Menu Item using blocks
 		CCMenuItem *itemAchievement = [CCMenuItemFont itemWithString:@"Show games" block:^(id sender) {
-
-			[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[ListOfGamesLayer scene] ]];
+            [[CCDirector sharedDirector] pushScene:[CCTransitionFadeDown transitionWithDuration:1.0 scene:[ListOfGamesLayer scene]]];
+			//[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[ListOfGamesLayer scene] ]];
 		}];
 		
 		
