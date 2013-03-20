@@ -10,6 +10,6 @@
 #import "cocos2d.h"
 
 @interface GameFieldLayer : CCLayer
-+(CCScene *) scene;
++(CCScene *) sceneWithDictOfGame:(NSDictionary *) dictOfGame;
 @property (strong) NSDictionary *dictOfGame;
 @end

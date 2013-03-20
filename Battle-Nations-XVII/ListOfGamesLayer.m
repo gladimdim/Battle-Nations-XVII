@@ -46,7 +46,7 @@
         // to avoid a retain-cycle with the menuitem and blocks
         __block id copy_self = self;
         self.getter = [[ListOfGamesGetter alloc] init];
-        self.playerID = @"gladkyi";
+        self.playerID = @"123";
         self.menu = [[CCMenu alloc] init];
         [self getListOfGames];
         
@@ -109,7 +109,7 @@
                 itemImageRight.position = ccp(260, 15);
                 CCMenuItem *item = [CCMenuItemFont itemWithString:[NSString stringWithFormat:@"   %@ - %@   ", playerLeft, playerRight] block:^(id sender)  {
                     NSLog(@"pressed %@", [game valueForKey:@"game_id"]);
-                    [[CCDirector sharedDirector] pushScene:[CCTransitionFadeDown transitionWithDuration:1.0 scene:[GameFieldLayer scene]]];
+                    [[CCDirector sharedDirector] pushScene:[CCTransitionFadeDown transitionWithDuration:1.0 scene:[GameFieldLayer sceneWithDictOfGame:game]]];
                 }];
                 //determine if it is player's turn
                 BOOL leftArmyTurn = [game objectForKey:@"left_army_turn"];

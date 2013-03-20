@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F20085CE16F7B8D900A5CC4E /* GameDictProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = F20085CD16F7B8D900A5CC4E /* GameDictProcessor.m */; };
 		F211FF5916F53136009CF4A0 /* GameFieldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F211FF5816F53136009CF4A0 /* GameFieldLayer.m */; };
 		F211FF5D16F53394009CF4A0 /* cossack.png in Resources */ = {isa = PBXBuildFile; fileRef = F211FF5C16F53394009CF4A0 /* cossack.png */; };
 		F276CE1416F49A2D009D09E7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F276CE1316F49A2D009D09E7 /* QuartzCore.framework */; };
@@ -150,6 +151,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F20085CC16F7B8D900A5CC4E /* GameDictProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameDictProcessor.h; path = Utilities/GameDictProcessor.h; sourceTree = "<group>"; };
+		F20085CD16F7B8D900A5CC4E /* GameDictProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameDictProcessor.m; path = Utilities/GameDictProcessor.m; sourceTree = "<group>"; };
 		F211FF5716F53136009CF4A0 /* GameFieldLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameFieldLayer.h; path = GameLayer/GameFieldLayer.h; sourceTree = "<group>"; };
 		F211FF5816F53136009CF4A0 /* GameFieldLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameFieldLayer.m; path = GameLayer/GameFieldLayer.m; sourceTree = "<group>"; };
 		F211FF5C16F53394009CF4A0 /* cossack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cossack.png; path = Resources/units/ukraine/cossack.png; sourceTree = "<group>"; };
@@ -462,6 +465,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F20085CB16F7B8B700A5CC4E /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				F20085CC16F7B8D900A5CC4E /* GameDictProcessor.h */,
+				F20085CD16F7B8D900A5CC4E /* GameDictProcessor.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		F211FF5616F530CD009CF4A0 /* GameLayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -523,6 +535,7 @@
 		F276CE2516F49A2D009D09E7 /* Battle-Nations-XVII */ = {
 			isa = PBXGroup;
 			children = (
+				F20085CB16F7B8B700A5CC4E /* Utilities */,
 				F211FF5616F530CD009CF4A0 /* GameLayer */,
 				F285E7C616F4B88D0057C247 /* network */,
 				F276CFB316F49A30009D09E7 /* AppDelegate.h */,
@@ -1142,6 +1155,7 @@
 				F285E7C516F4B8740057C247 /* ListOfGamesGetter.m in Sources */,
 				F211FF5916F53136009CF4A0 /* GameFieldLayer.m in Sources */,
 				F2A6ECFE16F5E61C000AF8FD /* CCScrollLayer.m in Sources */,
+				F20085CE16F7B8D900A5CC4E /* GameDictProcessor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
