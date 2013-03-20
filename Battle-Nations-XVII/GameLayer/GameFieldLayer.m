@@ -45,11 +45,14 @@
     self.arrayLeftField = [self.gameObj getLeftField];
     self.arrayRightField = [self.gameObj getRightField];
     for (int i = 0; i < self.arrayLeftField.count; i++) {
-        [self placeUnit:self.arrayLeftField[i]];
+        [self placeUnit:self.arrayLeftField[i] forLeftArmy:YES];
+    }
+    for (int i = 0; i < self.arrayRightField.count; i++) {
+        [self placeUnit:self.arrayRightField[i] forLeftArmy:NO];
     }
 }
 
--(void) placeUnit:(NSDictionary *) unit {
+-(void) placeUnit:(NSDictionary *) unit forLeftArmy:(BOOL) leftArmy {
     NSString *unitName = [unit allKeys][0];
     NSDictionary *unitDetails = [unit objectForKey:unitName];
     NSArray *position = [unitDetails objectForKey:@"position"];
@@ -58,6 +61,10 @@
     NSNumber *posY = [NSNumber numberWithInt:(int)[position[1] intValue]];
     int x = [posX intValue] * self.horizontalStep + FIELD_OFFSET;
     int y = [posY intValue] * self.verticalStep + self.verticalStep;
+    if (!leftArmy) {
+        [sprite setScaleX:-1.0];
+        //[sprite setScaleY:-1.0];
+    }
     NSLog(@"placing sprite at %i %i", x, y);
     sprite.position = ccp(x, y);
     [self addChild:sprite];
@@ -81,7 +88,7 @@
             [[CCDirector sharedDirector] popScene];
         }];
         CCMenu *menu = [[CCMenu alloc] initWithArray:@[back]];
-        menu.position = ccp(10, 10);
+        menu.position = ccp(size.width - 20, 10);
         [self addChild:menu];
     }
 	return self;
