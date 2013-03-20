@@ -43,7 +43,7 @@
 	if( (self=[super init]) ) {
 		
 		// create and initialize a Label
-		CCLabelTTF *label = [CCLabelTTF labelWithString:@"Hello World" fontName:@"Marker Felt" fontSize:64];
+		CCLabelTTF *label = [CCLabelTTF labelWithString:@"Battle Nations XVII" fontName:@"Marker Felt" fontSize:56];
 
 		// ask director for the window size
 		CGSize size = [[CCDirector sharedDirector] winSize];
