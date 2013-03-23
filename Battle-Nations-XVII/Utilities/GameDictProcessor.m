@@ -28,27 +28,7 @@
     }
     return game;
 }
-/*
--(NSDictionary *) getLeftArmy {
-    NSString *leftArmyPlayerID = [self.dictOfGame valueForKey:@"player_left"];
-    return [self.dictOfGame objectForKey:leftArmyPlayerID];
-}
 
--(NSDictionary *) getRightArmy {
-    NSString *rightArmyPlayerID = [self.dictOfGame valueForKey:@"player_right"];
-    return [self.dictOfGame objectForKey:rightArmyPlayerID];
-}
-
--(NSArray *) getLeftField {
-    NSArray *arrayOfFieldUnits = [[self getLeftArmy] objectForKey:@"field"];
-    return arrayOfFieldUnits;
-}
-
--(NSArray *) getRightField {
-    NSArray *arrayOfFieldUnits = [[self getRightArmy] objectForKey:@"field"];
-    return arrayOfFieldUnits;
-}
-*/
 -(BOOL) unitPresentAtPosition:(CGPoint ) spritePoint winSize:(CGSize) winSize horizontalStep:(int) hStep verticalStep:(int) vStep {
     
     NSUInteger x = floor(spritePoint.x / hStep);
@@ -58,8 +38,8 @@
         NSString *unitName = [self.arrayLeftField[i] allKeys][0];
         NSDictionary *unitDetails = [self.arrayLeftField[i] objectForKey:unitName];
         NSArray *position = [unitDetails objectForKey:@"position"];
-        NSUInteger posX = (NSUInteger) position[0];
-        NSUInteger posY = (NSUInteger) position[1];
+        NSUInteger posX = (NSUInteger) [position[0] integerValue];
+        NSUInteger posY = (NSUInteger) [position[1] integerValue];
         if (posX == x && posY == y) {
             return true;
         }
@@ -71,6 +51,7 @@
         if ((int)position[0] == x && (int)position[1] == y) {
             return true;
         }
-    }    
+    }
+    return false;
 }
 @end
