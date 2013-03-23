@@ -10,13 +10,12 @@
 #import "GameDictProcessor.h"
 
 @interface GameFieldLayer()
-@property NSDictionary *dictLeftArmy;
-@property NSDictionary *dictRightArmy;
-@property NSArray *arrayLeftField;
-@property NSArray *arrayRightField;
+
 @property int horizontalStep;
 @property int verticalStep;
 @property (strong) GameDictProcessor *gameObj;
+@property CGPoint lastTouchedPoint;
+@property BOOL moving;
 @end
 
 #define FIELD_OFFSET 20
@@ -40,15 +39,12 @@
 }
 
 -(void) initObject {
-    self.dictLeftArmy = [self.gameObj getLeftArmy];
-    self.dictRightArmy = [self.gameObj getRightArmy];
-    self.arrayLeftField = [self.gameObj getLeftField];
-    self.arrayRightField = [self.gameObj getRightField];
-    for (int i = 0; i < self.arrayLeftField.count; i++) {
-        [self placeUnit:self.arrayLeftField[i] forLeftArmy:YES];
+
+    for (int i = 0; i < self.gameObj.arrayLeftField.count; i++) {
+        [self placeUnit:self.gameObj.arrayLeftField[i] forLeftArmy:YES];
     }
-    for (int i = 0; i < self.arrayRightField.count; i++) {
-        [self placeUnit:self.arrayRightField[i] forLeftArmy:NO];
+    for (int i = 0; i < self.gameObj.arrayRightField.count; i++) {
+        [self placeUnit:self.gameObj.arrayRightField[i] forLeftArmy:NO];
     }
 }
 
@@ -81,8 +77,8 @@
         
         CGSize size = [[CCDirector sharedDirector] winSize];
         //int x = (size.width - FIELD_OFFSET) / 9;
-        self.horizontalStep = floor((size.width - FIELD_OFFSET) / 9);
-        self.verticalStep = floor((size.height - FIELD_OFFSET) / 6);
+        self.horizontalStep = floor(size.width / 9);
+        self.verticalStep = floor((size.height - FIELD_OFFSET) / 5);
         NSLog(@"horizontal step: %i, vertical: %i", self.horizontalStep, self.verticalStep);
         CCMenuItemFont *back = [CCMenuItemFont itemWithString:@"Back" block:^(id sender) {
             [[CCDirector sharedDirector] popScene];
@@ -90,9 +86,45 @@
         CCMenu *menu = [[CCMenu alloc] initWithArray:@[back]];
         menu.position = ccp(size.width - 20, 10);
         [self addChild:menu];
+         [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
     }
 	return self;
 }
 
-@end
+#pragma Deal with touch callbacks
+//set the last touched point so we can know were to put
+-(void) setTouchedPoint:(CGPoint) point {
+    self.lastTouchedPoint = point;
+}
 
+- (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
+	return YES;
+}
+
+- (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
+	CGPoint location = [self convertTouchToNodeSpace:touch];
+    NSLog(@"touch ended at: %@", NSStringFromCGPoint(location));
+    [self setTouchedPoint:location];
+    if (!self.moving) {
+        [self selectSpriteSquareAt:location];
+    }
+    self.moving = NO;
+}
+#pragma End of touch callbacks
+//method used just to get i and j coordinates of the selected sprite
+//then selectSpriteSquareAt:i j is called to actually select the sprite and do all actions
+//like select sprite at i and j coordinates, if question selected - mark all sprites of the answer.
+-(void) selectSpriteSquareAt:(CGPoint) touchPoint {
+    NSLog(@"Entered select spriteSquare At point: %@", NSStringFromCGPoint(touchPoint));
+    if (touchPoint.y  < FIELD_OFFSET) {
+        NSLog(@"touch beyond field");
+        return;
+    }
+    /*else if (touchPoint.x < FIELD_OFFSET || touchPoint.x > ([[CCDirector sharedDirector] winSize].width) - FIELD_OFFSET) {
+        NSLog(@"touch beynod field");
+        return;
+    }*/
+    [self.gameObj unitPresentAtPosition:touchPoint winSize:[[CCDirector sharedDirector] winSize] horizontalStep:self.horizontalStep verticalStep:self.verticalStep];
+}
+
+@end

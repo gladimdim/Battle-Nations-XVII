@@ -12,8 +12,13 @@
 
 -(GameDictProcessor *) initWithDictOfGame:(NSDictionary *) dictOfGame;
 
--(NSDictionary *) getLeftArmy;
+/*-(NSDictionary *) getLeftArmy;
 -(NSDictionary *) getRightArmy;
 -(NSArray *) getLeftField;
--(NSArray *) getRightField;
+-(NSArray *) getRightField;*/
+@property (assign) NSDictionary *leftArmy;
+@property (assign) NSDictionary *rightArmy;
+@property (assign) NSArray *arrayLeftField;
+@property (assign) NSArray *arrayRightField;
+-(BOOL) unitPresentAtPosition:(CGPoint ) spritePoint winSize:(CGSize) winSize horizontalStep:(int) hStep verticalStep:(int) vStep;
 @end
