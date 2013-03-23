@@ -123,7 +123,7 @@
         }
         else {
             CCMenuItemFont *errorItem = [CCMenuItemFont itemWithString:@"Retry"];
-            [self.menu addChild:errorItem];
+            [self.menu removeAllChildren];
         }
         [self addRefreshAndBackItems];
         [self.menu alignItemsVertically];

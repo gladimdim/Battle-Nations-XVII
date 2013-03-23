@@ -18,7 +18,6 @@
 @property BOOL moving;
 @end
 
-#define FIELD_OFFSET 20
 @implementation GameFieldLayer
 
 +(CCScene *) sceneWithDictOfGame:(NSDictionary *) dictOfGame;
@@ -33,7 +32,8 @@
     [layer initObject];
 	// add layer as a child to scene
 	[scene addChild: layer];
-	
+	NSLog(@"pixel winsize: %@", NSStringFromCGSize([[CCDirector sharedDirector] winSizeInPixels]));
+    
 	// return the scene
 	return scene;
 }
@@ -41,21 +41,21 @@
 -(void) initObject {
 
     for (int i = 0; i < self.gameObj.arrayLeftField.count; i++) {
-        [self placeUnit:self.gameObj.arrayLeftField[i] forLeftArmy:YES];
+        [self placeUnit:self.gameObj.arrayLeftField[i] forLeftArmy:YES nationName:[self.gameObj.leftArmy valueForKey:@"nation" ]];
     }
     for (int i = 0; i < self.gameObj.arrayRightField.count; i++) {
-        [self placeUnit:self.gameObj.arrayRightField[i] forLeftArmy:NO];
+        [self placeUnit:self.gameObj.arrayRightField[i] forLeftArmy:NO nationName:[self.gameObj.rightArmy valueForKey:@"nation"]];
     }
 }
 
--(void) placeUnit:(NSDictionary *) unit forLeftArmy:(BOOL) leftArmy {
+-(void) placeUnit:(NSDictionary *) unit forLeftArmy:(BOOL) leftArmy nationName:(NSString *) nationName {
     NSString *unitName = [unit allKeys][0];
     NSDictionary *unitDetails = [unit objectForKey:unitName];
     NSArray *position = [unitDetails objectForKey:@"position"];
-    CCSprite *sprite = [CCSprite spriteWithFile:@"cossack.png"];
+    CCSprite *sprite = [CCSprite spriteWithFile:[NSString stringWithFormat:@"%@_infantry.png", nationName]];
     NSNumber *posX = [NSNumber numberWithInt:(int)[position[0] intValue]];
     NSNumber *posY = [NSNumber numberWithInt:(int)[position[1] intValue]];
-    int x = [posX intValue] * self.horizontalStep + FIELD_OFFSET;
+    int x = [posX intValue] * self.horizontalStep;
     int y = [posY intValue] * self.verticalStep + self.verticalStep;
     if (!leftArmy) {
         [sprite setScaleX:-1.0];

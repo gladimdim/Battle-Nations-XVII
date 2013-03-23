@@ -10,6 +10,8 @@
 		F20085CE16F7B8D900A5CC4E /* GameDictProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = F20085CD16F7B8D900A5CC4E /* GameDictProcessor.m */; };
 		F211FF5916F53136009CF4A0 /* GameFieldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F211FF5816F53136009CF4A0 /* GameFieldLayer.m */; };
 		F211FF5D16F53394009CF4A0 /* cossack.png in Resources */ = {isa = PBXBuildFile; fileRef = F211FF5C16F53394009CF4A0 /* cossack.png */; };
+		F215CC1816FE2C6D0016D868 /* ukraine_infantry-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F215CC1716FE2C6D0016D868 /* ukraine_infantry-hd.png */; };
+		F215CC1A16FE2C7E0016D868 /* poland_infantry-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F215CC1916FE2C7E0016D868 /* poland_infantry-hd.png */; };
 		F276CE1416F49A2D009D09E7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F276CE1316F49A2D009D09E7 /* QuartzCore.framework */; };
 		F276CE1616F49A2D009D09E7 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F276CE1516F49A2D009D09E7 /* OpenGLES.framework */; };
 		F276CE1816F49A2D009D09E7 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F276CE1716F49A2D009D09E7 /* OpenAL.framework */; };
@@ -156,6 +158,8 @@
 		F211FF5716F53136009CF4A0 /* GameFieldLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameFieldLayer.h; path = GameLayer/GameFieldLayer.h; sourceTree = "<group>"; };
 		F211FF5816F53136009CF4A0 /* GameFieldLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameFieldLayer.m; path = GameLayer/GameFieldLayer.m; sourceTree = "<group>"; };
 		F211FF5C16F53394009CF4A0 /* cossack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cossack.png; path = Resources/units/ukraine/cossack.png; sourceTree = "<group>"; };
+		F215CC1716FE2C6D0016D868 /* ukraine_infantry-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ukraine_infantry-hd.png"; path = "Resources/units/ukraine/ukraine_infantry-hd.png"; sourceTree = "<group>"; };
+		F215CC1916FE2C7E0016D868 /* poland_infantry-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "poland_infantry-hd.png"; path = "Resources/units/poland/poland_infantry-hd.png"; sourceTree = "<group>"; };
 		F276CE1016F49A2D009D09E7 /* Battle-Nations-XVII.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Battle-Nations-XVII.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F276CE1316F49A2D009D09E7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F276CE1516F49A2D009D09E7 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -486,6 +490,7 @@
 		F211FF5A16F5337A009CF4A0 /* units */ = {
 			isa = PBXGroup;
 			children = (
+				F215CC1616FE2C5A0016D868 /* poland */,
 				F211FF5B16F5337E009CF4A0 /* ukraine */,
 			);
 			name = units;
@@ -494,9 +499,18 @@
 		F211FF5B16F5337E009CF4A0 /* ukraine */ = {
 			isa = PBXGroup;
 			children = (
+				F215CC1716FE2C6D0016D868 /* ukraine_infantry-hd.png */,
 				F211FF5C16F53394009CF4A0 /* cossack.png */,
 			);
 			name = ukraine;
+			sourceTree = "<group>";
+		};
+		F215CC1616FE2C5A0016D868 /* poland */ = {
+			isa = PBXGroup;
+			children = (
+				F215CC1916FE2C7E0016D868 /* poland_infantry-hd.png */,
+			);
+			name = poland;
 			sourceTree = "<group>";
 		};
 		F276CE0716F49A2D009D09E7 = {
@@ -1030,6 +1044,8 @@
 				F285E7CB16F4EDCB0057C247 /* flag_poland.png in Resources */,
 				F211FF5D16F53394009CF4A0 /* cossack.png in Resources */,
 				F29802DE16F6585000559974 /* ukraine_steppe.png in Resources */,
+				F215CC1816FE2C6D0016D868 /* ukraine_infantry-hd.png in Resources */,
+				F215CC1A16FE2C7E0016D868 /* poland_infantry-hd.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
