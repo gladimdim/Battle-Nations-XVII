@@ -61,6 +61,8 @@
         [sprite setScaleX:-1.0];
         //[sprite setScaleY:-1.0];
     }
+    x = x + self.horizontalStep /2;
+    y = y + self.verticalStep / 2;
     NSLog(@"placing sprite at %i %i", x, y);
     sprite.position = ccp(x, y);
     [self addChild:sprite];
@@ -78,7 +80,7 @@
         CGSize size = [[CCDirector sharedDirector] winSize];
         //int x = (size.width - FIELD_OFFSET) / 9;
         self.horizontalStep = floor(size.width / 9);
-        self.verticalStep = floor((size.height - FIELD_OFFSET) / 5);
+        self.verticalStep = floor(size.height / 6);
         NSLog(@"horizontal step: %i, vertical: %i", self.horizontalStep, self.verticalStep);
         CCMenuItemFont *back = [CCMenuItemFont itemWithString:@"Back" block:^(id sender) {
             [[CCDirector sharedDirector] popScene];
@@ -116,7 +118,7 @@
 //like select sprite at i and j coordinates, if question selected - mark all sprites of the answer.
 -(void) selectSpriteSquareAt:(CGPoint) touchPoint {
     NSLog(@"Entered select spriteSquare At point: %@", NSStringFromCGPoint(touchPoint));
-    if (touchPoint.y  < FIELD_OFFSET) {
+    if (touchPoint.y  < self.verticalStep) {
         NSLog(@"touch beyond field");
         return;
     }

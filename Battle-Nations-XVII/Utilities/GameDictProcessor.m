@@ -12,7 +12,6 @@
 @property NSDictionary *dictOfGame;
 @end
 
-#define FIELD_OFFSET 20
 @implementation GameDictProcessor
 
 -(GameDictProcessor *) initWithDictOfGame:(NSDictionary *) dictOfGame {
@@ -52,14 +51,16 @@
 */
 -(BOOL) unitPresentAtPosition:(CGPoint ) spritePoint winSize:(CGSize) winSize horizontalStep:(int) hStep verticalStep:(int) vStep {
     
-    int x = floor(spritePoint.x / hStep);
-    int y = floor(spritePoint.y / hStep);
+    NSUInteger x = floor(spritePoint.x / hStep);
+    NSUInteger y = floor(spritePoint.y / vStep) - 1;
     NSLog(@"unitPresentAtPos x: %i, y: %i", x, y);
     for (int i = 0; i < self.arrayLeftField.count; i++) {
         NSString *unitName = [self.arrayLeftField[i] allKeys][0];
         NSDictionary *unitDetails = [self.arrayLeftField[i] objectForKey:unitName];
         NSArray *position = [unitDetails objectForKey:@"position"];
-        if ((int)position[0] == x && (int) position[1] == y) {
+        NSUInteger posX = (NSUInteger) position[0];
+        NSUInteger posY = (NSUInteger) position[1];
+        if (posX == x && posY == y) {
             return true;
         }
     }
