@@ -11,5 +11,5 @@
 
 @interface GameFieldLayer : CCLayer
 +(CCScene *) sceneWithDictOfGame:(NSDictionary *) dictOfGame;
-@property (strong) NSDictionary *dictOfGame;
+@property NSDictionary *dictOfGame;
 @end

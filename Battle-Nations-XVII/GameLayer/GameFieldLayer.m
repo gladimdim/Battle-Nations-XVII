@@ -8,6 +8,7 @@
 
 #import "GameFieldLayer.h"
 #import "GameDictProcessor.h"
+#import "GameLogic.h"
 
 @interface GameFieldLayer()
 
@@ -16,6 +17,9 @@
 @property (strong) GameDictProcessor *gameObj;
 @property CGPoint lastTouchedPoint;
 @property BOOL moving;
+@property NSArray *unitWasSelectedPosition;
+@property NSMutableArray *arrayOfMoves;
+@property NSMutableArray *arrayOfStates;
 @end
 
 @implementation GameFieldLayer
@@ -29,6 +33,9 @@
 	GameFieldLayer *layer = [GameFieldLayer node];
 	layer.dictOfGame = dictOfGame;
     layer.gameObj = [[GameDictProcessor alloc] initWithDictOfGame:dictOfGame];
+    layer.arrayOfStates = [[NSMutableArray alloc] init];
+    [layer.arrayOfStates addObject:dictOfGame];
+    layer.arrayOfMoves  = [[NSMutableArray alloc] init];
     [layer initObject];
 	// add layer as a child to scene
 	[scene addChild: layer];
@@ -53,20 +60,15 @@
     NSDictionary *unitDetails = [unit objectForKey:unitName];
     NSArray *position = [unitDetails objectForKey:@"position"];
     CCSprite *sprite = [CCSprite spriteWithFile:[NSString stringWithFormat:@"%@_infantry.png", nationName]];
-    NSNumber *posX = [NSNumber numberWithInt:(int)[position[0] intValue]];
-    NSNumber *posY = [NSNumber numberWithInt:(int)[position[1] intValue]];
-    int x = [posX intValue] * self.horizontalStep;
-    int y = [posY intValue] * self.verticalStep + self.verticalStep;
     if (!leftArmy) {
         [sprite setScaleX:-1.0];
-        //[sprite setScaleY:-1.0];
     }
-    x = x + self.horizontalStep /2;
-    y = y + self.verticalStep / 2;
-    NSLog(@"placing sprite at %i %i", x, y);
-    sprite.position = ccp(x, y);
+    CGPoint newPoint = [GameLogic gameToCocosCoordinate:position hStep:self.horizontalStep vStep:self.verticalStep];
+    NSLog(@"placing sprite at %@", NSStringFromCGPoint(newPoint));
+    sprite.position = newPoint;
     [self addChild:sprite];
 }
+
 // on "init" you need to initialize your instance
 -(id) init
 {
@@ -75,10 +77,8 @@
 	if( (self=[super init]) ) {
         // to avoid a retain-cycle with the menuitem and blocks
         __block id copy_self = self;
-     //   CCSprite *sprite = [CCSprite spriteWithFile:@"cossack.png"];
-        
+
         CGSize size = [[CCDirector sharedDirector] winSize];
-        //int x = (size.width - FIELD_OFFSET) / 9;
         self.horizontalStep = floor(size.width / 9);
         self.verticalStep = floor(size.height / 6);
         NSLog(@"horizontal step: %i, vertical: %i", self.horizontalStep, self.verticalStep);
@@ -122,11 +122,54 @@
         NSLog(@"touch beyond field");
         return;
     }
-    /*else if (touchPoint.x < FIELD_OFFSET || touchPoint.x > ([[CCDirector sharedDirector] winSize].width) - FIELD_OFFSET) {
-        NSLog(@"touch beynod field");
-        return;
-    }*/
-    [self.gameObj unitPresentAtPosition:touchPoint winSize:[[CCDirector sharedDirector] winSize] horizontalStep:self.horizontalStep verticalStep:self.verticalStep];
+
+    NSArray *selectedPosition = [self.gameObj unitPresentAtPosition:touchPoint winSize:[[CCDirector sharedDirector] winSize] horizontalStep:self.horizontalStep verticalStep:self.verticalStep];
+    //attack or heal or deselect
+    if (self.unitWasSelectedPosition && selectedPosition) {
+        //deselect if selected the same unit
+        if ([self.unitWasSelectedPosition[0] integerValue] == [selectedPosition[0] integerValue] && [self.unitWasSelectedPosition[1] integerValue] == [selectedPosition[1] integerValue]) {
+            self.unitWasSelectedPosition = nil;
+            return;
+        }
+        self.unitWasSelectedPosition = nil;
+    }
+    //move
+    else if (self.unitWasSelectedPosition && !selectedPosition) {
+        for (int i = 0; i < self.children.count; i++) {
+            //find old sprite which was selected
+            CCSprite *node = (CCSprite *) [self.children objectAtIndex:i];
+            NSLog(@"Checking node: %@", NSStringFromCGPoint(node.position));
+            //calculate old CGPoint by using old game coordinates
+            CGPoint oldPoint = CGPointMake([self.unitWasSelectedPosition[0] integerValue] * self.horizontalStep + self.horizontalStep/2, [self.unitWasSelectedPosition[1] integerValue] * self.verticalStep + self.verticalStep + self.verticalStep / 2);
+            if (CGRectContainsPoint(node.boundingBox, oldPoint)) {
+                NSLog(@"found sprite");
+                //calculate new position in game coordinates
+                NSArray *newGameCoordinates = [GameLogic cocosToGameCoordinate:touchPoint hStep:self.horizontalStep vStep:self.verticalStep];
+                CGPoint newPoint = [GameLogic gameToCocosCoordinate:newGameCoordinates hStep:self.horizontalStep vStep:self.verticalStep];
+               // CGPoint newPoint = CGPointMake(, [self.unitWasSelectedPosition[1] integerValue] * self.verticalStep + self.verticalStep);
+                node.position = newPoint;
+                //update gameObj dictionary with new position of unit
+                //add gameObj to arrayOfMoves
+                //this array contains initial position of unit and its target action;
+                NSArray *arrayOfPositionsInMove = [NSArray arrayWithObjects:self.unitWasSelectedPosition, newGameCoordinates, nil];
+                [self.arrayOfMoves addObject:arrayOfPositionsInMove];
+                [self.arrayOfStates addObject:self.gameObj.dictOfGame];
+                NSDictionary *newDictOfGame = [GameLogic applyMove:arrayOfPositionsInMove toGame:self.gameObj];
+                self.gameObj = nil;
+                self.gameObj = [[GameDictProcessor alloc] initWithDictOfGame:newDictOfGame];
+                self.unitWasSelectedPosition = nil;
+                return;
+            }
+           
+            
+
+        }
+        self.unitWasSelectedPosition = nil;
+    }
+    //first selection
+    else if (!self.unitWasSelectedPosition && selectedPosition) {
+        self.unitWasSelectedPosition = selectedPosition;
+    }
 }
 
 @end

@@ -7,9 +7,10 @@
 //
 
 #import "GameDictProcessor.h"
+#import "GameLogic.h"
 
 @interface GameDictProcessor()
-@property NSDictionary *dictOfGame;
+//@property NSDictionary *dictOfGame;
 @end
 
 @implementation GameDictProcessor
@@ -29,10 +30,10 @@
     return game;
 }
 
--(BOOL) unitPresentAtPosition:(CGPoint ) spritePoint winSize:(CGSize) winSize horizontalStep:(int) hStep verticalStep:(int) vStep {
-    
-    NSUInteger x = floor(spritePoint.x / hStep);
-    NSUInteger y = floor(spritePoint.y / vStep) - 1;
+-(NSArray *) unitPresentAtPosition:(CGPoint ) spritePoint winSize:(CGSize) winSize horizontalStep:(int) hStep verticalStep:(int) vStep {
+    NSArray *gameCoordinates = [GameLogic cocosToGameCoordinate:spritePoint hStep:hStep vStep:vStep];
+    NSUInteger x = [gameCoordinates[0] integerValue]; //floor(spritePoint.x / hStep);
+    NSUInteger y = [gameCoordinates[1] integerValue]; //floor(spritePoint.y / vStep) - 1;
     NSLog(@"unitPresentAtPos x: %i, y: %i", x, y);
     for (int i = 0; i < self.arrayLeftField.count; i++) {
         NSString *unitName = [self.arrayLeftField[i] allKeys][0];
@@ -41,7 +42,7 @@
         NSUInteger posX = (NSUInteger) [position[0] integerValue];
         NSUInteger posY = (NSUInteger) [position[1] integerValue];
         if (posX == x && posY == y) {
-            return true;
+            return position;
         }
     }
     for (int i = 0; i < self.arrayRightField.count; i++) {
@@ -49,9 +50,9 @@
         NSDictionary *unitDetails = [self.arrayRightField[i] objectForKey:unitName];
         NSArray *position = [unitDetails objectForKey:@"position"];
         if ((int)position[0] == x && (int)position[1] == y) {
-            return true;
+            return position;
         }
     }
-    return false;
+    return nil;
 }
 @end
