@@ -17,9 +17,11 @@
 @property (strong) GameDictProcessor *gameObj;
 @property CGPoint lastTouchedPoint;
 @property BOOL moving;
-@property NSArray *unitWasSelectedPosition;
+@property (strong) NSArray *unitWasSelectedPosition;
 @property NSMutableArray *arrayOfMoves;
 @property NSMutableArray *arrayOfStates;
+@property BOOL bMyTurn;
+@property NSString *currentPlayerID;
 @end
 
 @implementation GameFieldLayer
@@ -53,6 +55,8 @@
     for (int i = 0; i < self.gameObj.arrayRightField.count; i++) {
         [self placeUnit:self.gameObj.arrayRightField[i] forLeftArmy:NO nationName:[self.gameObj.rightArmy valueForKey:@"nation"]];
     }
+    self.currentPlayerID = @"123";
+    self.bMyTurn = [self.gameObj isMyTurn:self.currentPlayerID];
 }
 
 -(void) placeUnit:(NSDictionary *) unit forLeftArmy:(BOOL) leftArmy nationName:(NSString *) nationName {
@@ -123,9 +127,21 @@
         return;
     }
 
-    NSArray *selectedPosition = [self.gameObj unitPresentAtPosition:touchPoint winSize:[[CCDirector sharedDirector] winSize] horizontalStep:self.horizontalStep verticalStep:self.verticalStep];
+    NSArray *selectedPosition = [self.gameObj unitPresentAtPosition:touchPoint winSize:[[CCDirector sharedDirector] winSize] horizontalStep:self.horizontalStep verticalStep:self.verticalStep currentPlayerID:self.currentPlayerID];
     //attack or heal or deselect
     if (self.unitWasSelectedPosition && selectedPosition) {
+        //friendly unit was selected on second touch
+        //healing
+        NSNumber *nFriendlyUnit = (NSNumber *) selectedPosition[2];
+        BOOL friendlyUnit = [nFriendlyUnit boolValue];
+        if (friendlyUnit) {
+            NSLog(@"healing is to be implemented");
+        }
+        //unfriendly unit was selected
+        //attack
+        else {
+            NSLog(@"Attack is to be implemented");
+        }
         //deselect if selected the same unit
         if ([self.unitWasSelectedPosition[0] integerValue] == [selectedPosition[0] integerValue] && [self.unitWasSelectedPosition[1] integerValue] == [selectedPosition[1] integerValue]) {
             self.unitWasSelectedPosition = nil;
@@ -154,7 +170,7 @@
                 NSArray *arrayOfPositionsInMove = [NSArray arrayWithObjects:self.unitWasSelectedPosition, newGameCoordinates, nil];
                 [self.arrayOfMoves addObject:arrayOfPositionsInMove];
                 [self.arrayOfStates addObject:self.gameObj.dictOfGame];
-                NSDictionary *newDictOfGame = [GameLogic applyMove:arrayOfPositionsInMove toGame:self.gameObj];
+                NSDictionary *newDictOfGame = [GameLogic applyMove:arrayOfPositionsInMove toGame:self.gameObj forLeftPlayer:self.bMyTurn];
                 self.gameObj = nil;
                 self.gameObj = [[GameDictProcessor alloc] initWithDictOfGame:newDictOfGame];
                 self.unitWasSelectedPosition = nil;
@@ -168,7 +184,11 @@
     }
     //first selection
     else if (!self.unitWasSelectedPosition && selectedPosition) {
-        self.unitWasSelectedPosition = selectedPosition;
+        //remember only if friendly unit was selected;
+        NSNumber *nFriendlyUnit = (NSNumber *) selectedPosition[2];
+        BOOL friendlyUnit = [nFriendlyUnit boolValue];
+        if (friendlyUnit)
+            self.unitWasSelectedPosition = selectedPosition;
     }
 }
 

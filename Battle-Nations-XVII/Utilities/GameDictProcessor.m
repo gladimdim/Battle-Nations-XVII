@@ -30,7 +30,9 @@
     return game;
 }
 
--(NSArray *) unitPresentAtPosition:(CGPoint ) spritePoint winSize:(CGSize) winSize horizontalStep:(int) hStep verticalStep:(int) vStep {
+//checks if touched point contains friendly/enemy unit.
+//Returns array with three objects: first to are game coordinates, the third one is NSNumber with bool value. BOOL represents if friendly unit was selected
+-(NSArray *) unitPresentAtPosition:(CGPoint ) spritePoint winSize:(CGSize) winSize horizontalStep:(int) hStep verticalStep:(int) vStep currentPlayerID:(NSString *) playerID {
     NSArray *gameCoordinates = [GameLogic cocosToGameCoordinate:spritePoint hStep:hStep vStep:vStep];
     NSUInteger x = [gameCoordinates[0] integerValue]; //floor(spritePoint.x / hStep);
     NSUInteger y = [gameCoordinates[1] integerValue]; //floor(spritePoint.y / vStep) - 1;
@@ -42,17 +44,30 @@
         NSUInteger posX = (NSUInteger) [position[0] integerValue];
         NSUInteger posY = (NSUInteger) [position[1] integerValue];
         if (posX == x && posY == y) {
-            return position;
+            BOOL friendlyUnit = [[self.dictOfGame valueForKey:@"player_left"] isEqualToString:playerID];
+            NSMutableArray *arrayToReturn = [NSMutableArray arrayWithArray:position];
+            [arrayToReturn addObject:[NSNumber numberWithBool:friendlyUnit]];
+            return arrayToReturn;
         }
     }
     for (int i = 0; i < self.arrayRightField.count; i++) {
         NSString *unitName = [self.arrayRightField[i] allKeys][0];
         NSDictionary *unitDetails = [self.arrayRightField[i] objectForKey:unitName];
         NSArray *position = [unitDetails objectForKey:@"position"];
-        if ((int)position[0] == x && (int)position[1] == y) {
-            return position;
+        NSUInteger posX = (NSUInteger) [position[0] integerValue];
+        NSUInteger posY = (NSUInteger) [position[1] integerValue];
+        if (posX == x && posY == y) {
+            BOOL friendlyUnit = [[self.dictOfGame valueForKey:@"player_right"] isEqualToString:playerID];
+            NSMutableArray *arrayToReturn = [NSMutableArray arrayWithArray:position];
+            [arrayToReturn addObject:[NSNumber numberWithBool:friendlyUnit]];
+            return arrayToReturn;
         }
     }
     return nil;
+}
+
+-(BOOL) isMyTurn:(NSString *) playerID {
+    BOOL leftPlayerTurn = [self.dictOfGame valueForKey:@"left_army_turn"]; //[[self.gameObj.dictOfGame valueForKey:@"left_army_turn"] isEqualToString:@"true"] ? YES: NO;
+    return ([playerID isEqualToString:[self.dictOfGame valueForKey:@"player_left"]] && leftPlayerTurn);
 }
 @end

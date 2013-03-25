@@ -21,5 +21,6 @@
 @property (strong) NSDictionary *rightArmy;
 @property (strong) NSArray *arrayLeftField;
 @property (strong) NSArray *arrayRightField;
--(NSArray *) unitPresentAtPosition:(CGPoint ) spritePoint winSize:(CGSize) winSize horizontalStep:(int) hStep verticalStep:(int) vStep;
+-(NSArray *) unitPresentAtPosition:(CGPoint ) spritePoint winSize:(CGSize) winSize horizontalStep:(int) hStep verticalStep:(int) vStep currentPlayerID:(NSString *) playerID;
+-(BOOL) isMyTurn:(NSString *) playerID;
 @end

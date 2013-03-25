@@ -28,25 +28,25 @@
     return array;
 }
 
-+(NSDictionary *) applyMove:(NSArray *) arrayOfActionsInMove toGame:(GameDictProcessor *) gameObj {
++(NSDictionary *) applyMove:(NSArray *) arrayOfActionsInMove toGame:(GameDictProcessor *) gameObj forLeftPlayer:(BOOL) leftPlayerTurn {
     NSMutableDictionary *dictGame = [NSMutableDictionary dictionaryWithDictionary:gameObj.dictOfGame];
-    NSMutableArray *leftField = [NSMutableArray arrayWithArray:[gameObj arrayLeftField]];
+    NSMutableArray *field = [NSMutableArray arrayWithArray:leftPlayerTurn ? [gameObj arrayLeftField] : [gameObj arrayRightField]];
     NSArray *initPosition = arrayOfActionsInMove[0];
     NSArray *targetPosition = arrayOfActionsInMove[1];
-    for (int i = 0; i < leftField.count; i++) {
-        NSString *unitName = [leftField[i] allKeys][0];
-        NSMutableDictionary *unitDict = [NSMutableDictionary dictionaryWithDictionary:leftField[i]];
+    for (int i = 0; i < field.count; i++) {
+        NSString *unitName = [field[i] allKeys][0];
+        NSMutableDictionary *unitDict = [NSMutableDictionary dictionaryWithDictionary:field[i]];
         NSMutableDictionary *unitDetails = [NSMutableDictionary dictionaryWithDictionary:[unitDict objectForKey:unitName]];
         NSMutableArray *position = [NSMutableArray arrayWithArray:[unitDetails objectForKey:@"position"]];
         if (position[0] == initPosition[0] && position[1] == initPosition[1])  {
             [unitDetails setObject:targetPosition forKey:@"position"];
             [unitDict setObject:unitDetails forKey:unitName];
-            [leftField setObject:unitDict atIndexedSubscript:i];
+            [field setObject:unitDict atIndexedSubscript:i];
 //            leftField[i] = unitDict;
-            NSString *leftArmyPlayerID = [dictGame valueForKey:@"player_left"];
-            NSMutableDictionary *armyDict = [NSMutableDictionary dictionaryWithDictionary:[dictGame objectForKey:leftArmyPlayerID]];
-            [armyDict setObject:leftField forKey:@"field"];
-            [dictGame setObject:armyDict forKey:leftArmyPlayerID];
+            NSString *armyPlayerID = [dictGame valueForKey:leftPlayerTurn ? @"player_left" : @"player_right"];
+            NSMutableDictionary *armyDict = [NSMutableDictionary dictionaryWithDictionary:[dictGame objectForKey:armyPlayerID]];
+            [armyDict setObject:field forKey:@"field"];
+            [dictGame setObject:armyDict forKey:armyPlayerID];
             return dictGame;
         }
     }
