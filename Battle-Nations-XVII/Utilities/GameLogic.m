@@ -28,6 +28,7 @@
     return array;
 }
 
+//returns updated gameObj. Moves unit from one pos to another
 +(NSDictionary *) applyMove:(NSArray *) arrayOfActionsInMove toGame:(GameDictProcessor *) gameObj forLeftPlayer:(BOOL) leftPlayerTurn {
     NSMutableDictionary *dictGame = [NSMutableDictionary dictionaryWithDictionary:gameObj.dictOfGame];
     NSMutableArray *field = [NSMutableArray arrayWithArray:leftPlayerTurn ? [gameObj arrayLeftField] : [gameObj arrayRightField]];
@@ -53,4 +54,26 @@
     return [NSDictionary dictionaryWithDictionary:dictGame];
     
 }
+
++(BOOL) canMoveFrom:(NSArray *) initPosition to:(NSArray *) destPosition forPlayerID:(NSString *) playerID inGame:(GameDictProcessor *) gameObj {
+    NSDictionary *dictArmy = (NSDictionary *) [gameObj.dictOfGame objectForKey:playerID];
+    if (dictArmy) {
+        NSArray *field = (NSArray *) [dictArmy objectForKey:@"field"];
+        for (int i = 0; i < field.count; i++) {
+            NSDictionary *topUnit = (NSDictionary *) field[i];
+            NSDictionary *unit = [topUnit objectForKey:[topUnit allKeys][0]];
+            NSArray *position = (NSArray *) [unit objectForKey:@"position"];
+            if (position[0] == initPosition[0] && position[1] == initPosition[1]) {
+                NSInteger distance = abs([initPosition[0] integerValue] - [destPosition[0] integerValue]) + fabs( [initPosition[1] integerValue] - [destPosition[1] integerValue]);
+                NSInteger rangeMove = [[unit valueForKey:@"range_move"] integerValue];
+                return rangeMove >= distance;
+            }
+            else {
+                continue;
+            }
+        }
+    }
+    return NO;
+}
+
 @end

@@ -31,7 +31,7 @@
 }
 
 //checks if touched point contains friendly/enemy unit.
-//Returns array with three objects: first to are game coordinates, the third one is NSNumber with bool value. BOOL represents if friendly unit was selected
+//Returns array with three objects: first two are game coordinates, the third one is NSNumber with bool value. BOOL represents if friendly unit was selected
 -(NSArray *) unitPresentAtPosition:(CGPoint ) spritePoint winSize:(CGSize) winSize horizontalStep:(int) hStep verticalStep:(int) vStep currentPlayerID:(NSString *) playerID {
     NSArray *gameCoordinates = [GameLogic cocosToGameCoordinate:spritePoint hStep:hStep vStep:vStep];
     NSUInteger x = [gameCoordinates[0] integerValue]; //floor(spritePoint.x / hStep);
@@ -70,4 +70,6 @@
     BOOL leftPlayerTurn = [self.dictOfGame valueForKey:@"left_army_turn"]; //[[self.gameObj.dictOfGame valueForKey:@"left_army_turn"] isEqualToString:@"true"] ? YES: NO;
     return ([playerID isEqualToString:[self.dictOfGame valueForKey:@"player_left"]] && leftPlayerTurn);
 }
+
+
 @end

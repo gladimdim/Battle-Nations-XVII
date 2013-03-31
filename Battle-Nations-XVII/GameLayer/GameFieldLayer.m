@@ -128,6 +128,15 @@
     }
 
     NSArray *selectedPosition = [self.gameObj unitPresentAtPosition:touchPoint winSize:[[CCDirector sharedDirector] winSize] horizontalStep:self.horizontalStep verticalStep:self.verticalStep currentPlayerID:self.currentPlayerID];
+    
+    /**********Implement visual selection of sprite*************/
+    
+    //if there are 5 turns already - return
+    if (self.arrayOfMoves.count == 5) {
+        NSLog(@"There are already 5 moves");
+        return;
+    }
+    
     //attack or heal or deselect
     if (self.unitWasSelectedPosition && selectedPosition) {
         //friendly unit was selected on second touch
@@ -157,24 +166,33 @@
             NSLog(@"Checking node: %@", NSStringFromCGPoint(node.position));
             //calculate old CGPoint by using old game coordinates
             CGPoint oldPoint = CGPointMake([self.unitWasSelectedPosition[0] integerValue] * self.horizontalStep + self.horizontalStep/2, [self.unitWasSelectedPosition[1] integerValue] * self.verticalStep + self.verticalStep + self.verticalStep / 2);
+            //calculate new position in game coordinates
+            NSArray *newGameCoordinates = [GameLogic cocosToGameCoordinate:touchPoint hStep:self.horizontalStep vStep:self.verticalStep];
             if (CGRectContainsPoint(node.boundingBox, oldPoint)) {
                 NSLog(@"found sprite");
-                //calculate new position in game coordinates
-                NSArray *newGameCoordinates = [GameLogic cocosToGameCoordinate:touchPoint hStep:self.horizontalStep vStep:self.verticalStep];
-                CGPoint newPoint = [GameLogic gameToCocosCoordinate:newGameCoordinates hStep:self.horizontalStep vStep:self.verticalStep];
-               // CGPoint newPoint = CGPointMake(, [self.unitWasSelectedPosition[1] integerValue] * self.verticalStep + self.verticalStep);
-                node.position = newPoint;
-                //update gameObj dictionary with new position of unit
-                //add gameObj to arrayOfMoves
-                //this array contains initial position of unit and its target action;
-                NSArray *arrayOfPositionsInMove = [NSArray arrayWithObjects:self.unitWasSelectedPosition, newGameCoordinates, nil];
-                [self.arrayOfMoves addObject:arrayOfPositionsInMove];
-                [self.arrayOfStates addObject:self.gameObj.dictOfGame];
-                NSDictionary *newDictOfGame = [GameLogic applyMove:arrayOfPositionsInMove toGame:self.gameObj forLeftPlayer:self.bMyTurn];
-                self.gameObj = nil;
-                self.gameObj = [[GameDictProcessor alloc] initWithDictOfGame:newDictOfGame];
-                self.unitWasSelectedPosition = nil;
-                return;
+                if ([GameLogic canMoveFrom:self.unitWasSelectedPosition to:newGameCoordinates forPlayerID:self.currentPlayerID inGame:self.gameObj]) {
+                   
+                    CGPoint newPoint = [GameLogic gameToCocosCoordinate:newGameCoordinates hStep:self.horizontalStep vStep:self.verticalStep];
+                    // CGPoint newPoint = CGPointMake(, [self.unitWasSelectedPosition[1] integerValue] * self.verticalStep + self.verticalStep);
+                    node.position = newPoint;
+
+                    //update gameObj dictionary with new position of unit
+                    //add gameObj to arrayOfMoves
+                    //this array contains initial position of unit and its target action;
+                    NSArray *arrayOfPositionsInMove = [NSArray arrayWithObjects:self.unitWasSelectedPosition, newGameCoordinates, nil];
+                    [self.arrayOfMoves addObject:arrayOfPositionsInMove];
+                    [self.arrayOfStates addObject:self.gameObj.dictOfGame];
+                    NSDictionary *newDictOfGame = [GameLogic applyMove:arrayOfPositionsInMove toGame:self.gameObj forLeftPlayer:self.bMyTurn];
+                    self.gameObj = nil;
+                    self.gameObj = [[GameDictProcessor alloc] initWithDictOfGame:newDictOfGame];
+                    self.unitWasSelectedPosition = nil;
+                    return;
+                }
+                else {
+                    NSLog(@"Denied movement of unit");
+                    return;
+                }
+             
             }
            
             
