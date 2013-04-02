@@ -9,6 +9,7 @@
 #import "GameFieldLayer.h"
 #import "GameDictProcessor.h"
 #import "GameLogic.h"
+#import "DataPoster.h"
 
 @interface GameFieldLayer()
 
@@ -89,8 +90,15 @@
         CCMenuItemFont *back = [CCMenuItemFont itemWithString:@"Back" block:^(id sender) {
             [[CCDirector sharedDirector] popScene];
         }];
-        CCMenu *menu = [[CCMenu alloc] initWithArray:@[back]];
-        menu.position = ccp(size.width - 20, 10);
+        CCMenuItemFont *send = [CCMenuItemFont itemWithString:@"Send" block:^(id sender) {
+            DataPoster *poster = [[DataPoster alloc] init];
+            [poster sendMoves:self.arrayOfMoves forGame:self.gameObj withCallBack:^(BOOL success) {
+                NSLog(@"sent moves: %@", success ? @"YES" : @"NO");
+            }];
+        }];
+        CCMenu *menu = [[CCMenu alloc] initWithArray:@[back, send]];
+        menu.position = ccp(size.width - 50, 10);
+        [menu alignItemsHorizontally];
         [self addChild:menu];
          [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
     }
@@ -175,11 +183,13 @@
                     CGPoint newPoint = [GameLogic gameToCocosCoordinate:newGameCoordinates hStep:self.horizontalStep vStep:self.verticalStep];
                     // CGPoint newPoint = CGPointMake(, [self.unitWasSelectedPosition[1] integerValue] * self.verticalStep + self.verticalStep);
                     node.position = newPoint;
-
                     //update gameObj dictionary with new position of unit
                     //add gameObj to arrayOfMoves
                     //this array contains initial position of unit and its target action;
-                    NSArray *arrayOfPositionsInMove = [NSArray arrayWithObjects:self.unitWasSelectedPosition, newGameCoordinates, nil];
+                    //we need to add only coordinates to array of moves.
+                    NSArray *arrayWithoutBool = [[NSArray alloc] initWithObjects:self.unitWasSelectedPosition[0], self.unitWasSelectedPosition[1], nil];
+                    NSArray *arrayOfPositionsInMove = [NSArray arrayWithObjects:arrayWithoutBool, newGameCoordinates, nil];
+                    
                     [self.arrayOfMoves addObject:arrayOfPositionsInMove];
                     [self.arrayOfStates addObject:self.gameObj.dictOfGame];
                     NSDictionary *newDictOfGame = [GameLogic applyMove:arrayOfPositionsInMove toGame:self.gameObj forLeftPlayer:self.bMyTurn];
