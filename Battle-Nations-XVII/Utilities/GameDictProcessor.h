@@ -23,5 +23,5 @@
 @property (strong) NSArray *arrayRightField;
 -(NSArray *) unitPresentAtPosition:(CGPoint ) spritePoint winSize:(CGSize) winSize horizontalStep:(int) hStep verticalStep:(int) vStep currentPlayerID:(NSString *) playerID;
 -(BOOL) isMyTurn:(NSString *) playerID;
-
+-(NSString *) getGameID;
 @end

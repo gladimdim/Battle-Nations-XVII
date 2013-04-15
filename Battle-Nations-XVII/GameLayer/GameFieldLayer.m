@@ -140,7 +140,7 @@
     /**********Implement visual selection of sprite*************/
     
     //if there are 5 turns already - return
-    if (self.arrayOfMoves.count == 5) {
+    if (self.arrayOfMoves.count >= 5) {
         NSLog(@"There are already 5 moves");
         return;
     }

@@ -18,13 +18,16 @@
 -(void) sendMoves:(NSArray *) arrayOfMoves forGame:(GameDictProcessor*) gameObj withCallBack:(void (^) (BOOL)) callBackBlock {
     self.callBackBlock = callBackBlock;
     
-    NSURL *url = [NSURL URLWithString:@"http://localhost:8080/v1/make-moves"];
+    NSURL *url = [NSURL URLWithString:@"http://localhost:8080/send-game"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
     
-    NSDictionary *jsonDict = [NSDictionary dictionaryWithObject:arrayOfMoves forKey:@"request"];
+    NSMutableDictionary *jsonDict = [NSMutableDictionary dictionaryWithObject:arrayOfMoves forKey:@"moves"];
+    [jsonDict setObject:[gameObj getGameID] forKey:@"game-id"];
+    [jsonDict setObject:gameObj.dictOfGame forKey:@"final-table"];
+    [jsonDict setObject:@"123"  forKey:@"player-id"];
     NSError *err;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arrayOfMoves options:NSJSONReadingAllowFragments error:&err];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:NSJSONReadingAllowFragments error:&err];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:[NSString stringWithFormat:@"%d", [jsonData length]] forHTTPHeaderField:@"Content-Length"];

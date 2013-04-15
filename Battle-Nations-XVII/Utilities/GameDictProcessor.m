@@ -71,5 +71,8 @@
     return ([playerID isEqualToString:[self.dictOfGame valueForKey:@"player_left"]] && leftPlayerTurn);
 }
 
+-(NSString *) getGameID {
+    return [self.dictOfGame valueForKey:@"game_id"];
+}
 
 @end
