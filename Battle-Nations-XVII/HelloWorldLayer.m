@@ -10,6 +10,7 @@
 // Import the interfaces
 #import "HelloWorldLayer.h"
 #import "ListOfGamesLayer.h"
+#import "UserRegister.h"
 
 // Needed to obtain the Navigation Controller
 #import "AppDelegate.h"
@@ -71,6 +72,14 @@
             [[CCDirector sharedDirector] pushScene:[CCTransitionFadeDown transitionWithDuration:1.0 scene:[ListOfGamesLayer scene]]];
 			//[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[ListOfGamesLayer scene] ]];
 		}];
+        
+
+        CCMenuItem *itemRegister = [CCMenuItemFont itemWithString:@"Register" block:^(id sender) {
+            UserRegister *reg = [[UserRegister alloc] init];
+            [reg registerUser:@"gladimdim" withEmail:@"gladimdim@gmail.com" callBack:^(BOOL success) {
+                NSLog(@"succesfully registered: %@", success ? @"YES" : @"NO");
+            }];
+        }];
 		
 		
 		CCMenu *menu = [CCMenu menuWithItems:itemAchievement, nil];
@@ -80,6 +89,11 @@
 		
 		// Add the menu to the layer
 		[self addChild:menu];
+        
+        //set default server and port
+        [[NSUserDefaults standardUserDefaults] setObject:@"https://10.0.1.6" forKey:@"server"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"8444" forKey:@"port"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"savetko" forKey:@"playerID"];
 
 	}
 	return self;

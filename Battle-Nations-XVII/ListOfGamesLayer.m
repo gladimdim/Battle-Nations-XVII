@@ -46,7 +46,7 @@
         // to avoid a retain-cycle with the menuitem and blocks
         __block id copy_self = self;
         self.getter = [[ListOfGamesGetter alloc] init];
-        self.playerID = @"123";
+        self.playerID = [[NSUserDefaults standardUserDefaults] stringForKey:@"playerID"];
         self.menu = [[CCMenu alloc] init];
         [self getListOfGames];
         
@@ -112,8 +112,8 @@
                     [[CCDirector sharedDirector] pushScene:[CCTransitionFadeDown transitionWithDuration:1.0 scene:[GameFieldLayer sceneWithDictOfGame:game]]];
                 }];
                 //determine if it is player's turn
-                BOOL leftArmyTurn = [game objectForKey:@"left_army_turn"];
-                [item setIsEnabled:(leftArmyTurn && [playerLeft isEqualToString:self.playerID])];
+                //BOOL leftArmyTurn = [game objectForKey:@"left_army_turn"];
+               // [item setIsEnabled:(leftArmyTurn && [playerLeft isEqualToString:self.playerID])];
                 [item addChild:itemImageLeft];
                 [item addChild:itemImageRight];
                 [self.menu addChild:item];

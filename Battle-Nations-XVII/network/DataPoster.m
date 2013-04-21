@@ -17,15 +17,16 @@
 
 -(void) sendMoves:(NSArray *) arrayOfMoves forGame:(GameDictProcessor*) gameObj withCallBack:(void (^) (BOOL)) callBackBlock {
     self.callBackBlock = callBackBlock;
-    
-    NSURL *url = [NSURL URLWithString:@"http://localhost:8080/send-game"];
+    NSString *server = [[NSUserDefaults standardUserDefaults] stringForKey:@"server"];
+    NSString *port = [[NSUserDefaults standardUserDefaults] stringForKey:@"port"];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@:%@/send-game", server, port]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
     
     NSMutableDictionary *jsonDict = [NSMutableDictionary dictionaryWithObject:arrayOfMoves forKey:@"moves"];
     [jsonDict setObject:[gameObj getGameID] forKey:@"game-id"];
     [jsonDict setObject:gameObj.dictOfGame forKey:@"final-table"];
-    [jsonDict setObject:@"123"  forKey:@"player-id"];
+    [jsonDict setObject:[[NSUserDefaults standardUserDefaults] stringForKey:@"playerID"]  forKey:@"player-id"];
     NSError *err;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:NSJSONReadingAllowFragments error:&err];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -44,6 +45,15 @@
     else {
         self.receivedData = nil;
     }
+}
+
+-(BOOL) connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
+    return [protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust];
+}
+
+-(void) connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+    [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];
+    [challenge.sender continueWithoutCredentialForAuthenticationChallenge:challenge];
 }
 
 -(void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {

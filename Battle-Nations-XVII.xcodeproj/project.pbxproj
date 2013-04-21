@@ -151,7 +151,10 @@
 		F285E7CB16F4EDCB0057C247 /* flag_poland.png in Resources */ = {isa = PBXBuildFile; fileRef = F285E7CA16F4EDCB0057C247 /* flag_poland.png */; };
 		F29802DE16F6585000559974 /* ukraine_steppe.png in Resources */ = {isa = PBXBuildFile; fileRef = F29802DD16F6585000559974 /* ukraine_steppe.png */; };
 		F2A6ECFE16F5E61C000AF8FD /* CCScrollLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2A6ECFD16F5E61C000AF8FD /* CCScrollLayer.m */; };
+		F2A786AE1724789600E35834 /* ukraine_infantry.png in Resources */ = {isa = PBXBuildFile; fileRef = F2A786AD1724789600E35834 /* ukraine_infantry.png */; };
+		F2A786B0172478AA00E35834 /* poland_infantry.png in Resources */ = {isa = PBXBuildFile; fileRef = F2A786AF172478AA00E35834 /* poland_infantry.png */; };
 		F2AE9D8A16F49DE0005F98AF /* ListOfGamesLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2AE9D8916F49DE0005F98AF /* ListOfGamesLayer.m */; };
+		F2D90828171DD6DD00584065 /* UserRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = F2D90827171DD6DD00584065 /* UserRegister.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -451,8 +454,12 @@
 		F29802DD16F6585000559974 /* ukraine_steppe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ukraine_steppe.png; path = Resources/backgrounds/ukraine_steppe.png; sourceTree = "<group>"; };
 		F2A6ECFC16F5E61C000AF8FD /* CCScrollLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCScrollLayer.h; sourceTree = "<group>"; };
 		F2A6ECFD16F5E61C000AF8FD /* CCScrollLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCScrollLayer.m; sourceTree = "<group>"; };
+		F2A786AD1724789600E35834 /* ukraine_infantry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ukraine_infantry.png; path = Resources/units/ukraine/ukraine_infantry.png; sourceTree = "<group>"; };
+		F2A786AF172478AA00E35834 /* poland_infantry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = poland_infantry.png; path = Resources/units/poland/poland_infantry.png; sourceTree = "<group>"; };
 		F2AE9D8816F49DE0005F98AF /* ListOfGamesLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListOfGamesLayer.h; sourceTree = "<group>"; };
 		F2AE9D8916F49DE0005F98AF /* ListOfGamesLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListOfGamesLayer.m; sourceTree = "<group>"; };
+		F2D90826171DD6DD00584065 /* UserRegister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserRegister.h; path = network/UserRegister.h; sourceTree = "<group>"; };
+		F2D90827171DD6DD00584065 /* UserRegister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserRegister.m; path = network/UserRegister.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -507,6 +514,7 @@
 		F211FF5B16F5337E009CF4A0 /* ukraine */ = {
 			isa = PBXGroup;
 			children = (
+				F2A786AD1724789600E35834 /* ukraine_infantry.png */,
 				F215CC1716FE2C6D0016D868 /* ukraine_infantry-hd.png */,
 				F211FF5C16F53394009CF4A0 /* cossack.png */,
 			);
@@ -516,6 +524,7 @@
 		F215CC1616FE2C5A0016D868 /* poland */ = {
 			isa = PBXGroup;
 			children = (
+				F2A786AF172478AA00E35834 /* poland_infantry.png */,
 				F215CC1916FE2C7E0016D868 /* poland_infantry-hd.png */,
 			);
 			name = poland;
@@ -966,6 +975,8 @@
 				F285E7C416F4B8740057C247 /* ListOfGamesGetter.m */,
 				F24F5C251708BE3200ADB2CC /* DataPoster.h */,
 				F24F5C261708BE3200ADB2CC /* DataPoster.m */,
+				F2D90826171DD6DD00584065 /* UserRegister.h */,
+				F2D90827171DD6DD00584065 /* UserRegister.m */,
 			);
 			name = network;
 			sourceTree = "<group>";
@@ -1056,6 +1067,8 @@
 				F29802DE16F6585000559974 /* ukraine_steppe.png in Resources */,
 				F215CC1816FE2C6D0016D868 /* ukraine_infantry-hd.png in Resources */,
 				F215CC1A16FE2C7E0016D868 /* poland_infantry-hd.png in Resources */,
+				F2A786AE1724789600E35834 /* ukraine_infantry.png in Resources */,
+				F2A786B0172478AA00E35834 /* poland_infantry.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1184,6 +1197,7 @@
 				F20085CE16F7B8D900A5CC4E /* GameDictProcessor.m in Sources */,
 				F215CC1D16FE47BA0016D868 /* GameLogic.m in Sources */,
 				F24F5C271708BE3200ADB2CC /* DataPoster.m in Sources */,
+				F2D90828171DD6DD00584065 /* UserRegister.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

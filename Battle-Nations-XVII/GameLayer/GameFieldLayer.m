@@ -56,7 +56,7 @@
     for (int i = 0; i < self.gameObj.arrayRightField.count; i++) {
         [self placeUnit:self.gameObj.arrayRightField[i] forLeftArmy:NO nationName:[self.gameObj.rightArmy valueForKey:@"nation"]];
     }
-    self.currentPlayerID = @"123";
+    self.currentPlayerID = [[NSUserDefaults standardUserDefaults] stringForKey:@"playerID"];
     self.bMyTurn = [self.gameObj isMyTurn:self.currentPlayerID];
 }
 
@@ -92,6 +92,7 @@
         }];
         CCMenuItemFont *send = [CCMenuItemFont itemWithString:@"Send" block:^(id sender) {
             DataPoster *poster = [[DataPoster alloc] init];
+            [self.gameObj changeTurnToOtherPlayer];
             [poster sendMoves:self.arrayOfMoves forGame:self.gameObj withCallBack:^(BOOL success) {
                 NSLog(@"sent moves: %@", success ? @"YES" : @"NO");
             }];

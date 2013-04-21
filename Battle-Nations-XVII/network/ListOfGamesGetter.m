@@ -16,8 +16,9 @@
 @implementation ListOfGamesGetter
 -(void) getListOfGamesFor:(NSString *) playerID withCallBack:(void (^) (NSDictionary *)) callBackBlock {
     self.callBackBlock = callBackBlock;
-    
-    NSURL *url = [NSURL URLWithString:@"http://localhost:8080/get-game"];
+    NSString *server = [[NSUserDefaults standardUserDefaults] stringForKey:@"server"];
+    NSString *port = [[NSUserDefaults standardUserDefaults] stringForKey:@"port"];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@:%@/get-game", server, port]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
     
@@ -42,6 +43,14 @@
     }
 }
 
+-(BOOL) connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
+    return [protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust];
+}
+
+-(void) connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+    [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];
+    [challenge.sender continueWithoutCredentialForAuthenticationChallenge:challenge];
+}
 
 -(void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     [self.receivedData appendData:data];
