@@ -103,6 +103,8 @@
     return [playerDict objectForKey:@"bank"];
 }
 
-
+-(NSString *) leftPlayerID {
+    return [self.dictOfGame valueForKey:@"player_left"];
+}
 
 @end

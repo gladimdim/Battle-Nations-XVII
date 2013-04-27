@@ -10,6 +10,7 @@
 #import "GameDictProcessor.h"
 #import "GameLogic.h"
 #import "DataPoster.h"
+#import "UkraineInfo.h"
 
 @interface GameFieldLayer()
 
@@ -23,6 +24,8 @@
 @property NSMutableArray *arrayOfStates;
 @property BOOL bMyTurn;
 @property NSString *currentPlayerID;
+@property BOOL bankSelected;
+@property NSString *unitNameSelectedInBank;
 @end
 
 @implementation GameFieldLayer
@@ -62,7 +65,25 @@
     NSArray *arrayBank = [self.gameObj getArrayOfUnitNamesInBankForPlayerID:self.currentPlayerID];
     for (int i = 0; i < arrayBank.count; i++) {
         CCSprite *sprite = [CCSprite spriteWithFile:@"ukraine_infantry.png"];
-        NSArray *positionCoords = [NSArray arrayWithObjects:@(i), @(-1), nil];
+        int xPos = 0;
+        NSString *unitName = (NSString *) arrayBank[i];
+        if ([unitName isEqualToString:@"infantry"]) {
+            xPos = 0;
+        }
+        else if ([unitName isEqualToString:@"light_cavalry"]) {
+            xPos = 1;
+        }
+        else if ([unitName isEqualToString:@"heavy_cavalry"]) {
+            xPos = 2;
+        }
+        else if ([unitName isEqualToString:@"veteran"]) {
+            xPos = 3;
+        }
+        else if ([unitName isEqualToString:@"super_unit"]) {
+            xPos = 4;
+        }
+        
+        NSArray *positionCoords = [NSArray arrayWithObjects:@(xPos), @(-1), nil];
         CGPoint position = [GameLogic gameToCocosCoordinate:positionCoords hStep:self.horizontalStep vStep:self.verticalStep];
         sprite.position = position;
         [self addChild:sprite];
@@ -73,6 +94,9 @@
     NSString *unitName = [unit allKeys][0];
     NSDictionary *unitDetails = [unit objectForKey:unitName];
     NSArray *position = [unitDetails objectForKey:@"position"];
+    if (!position) {
+        position = [NSArray arrayWithObjects:@(0), @(2), nil];
+    }
     CCSprite *sprite = [CCSprite spriteWithFile:[NSString stringWithFormat:@"%@_infantry.png", nationName]];
     if (!leftArmy) {
         [sprite setScaleX:-1.0];
@@ -146,8 +170,37 @@
 //like select sprite at i and j coordinates, if question selected - mark all sprites of the answer.
 -(void) selectSpriteSquareAt:(CGPoint) touchPoint {
     NSLog(@"Entered select spriteSquare At point: %@", NSStringFromCGPoint(touchPoint));
+    
+    //handle selection in bank
     if (touchPoint.y  < self.verticalStep) {
-        NSLog(@"touch beyond field");
+        NSLog(@"Handling selection in bank section");
+        NSArray *pos = [GameLogic cocosToGameCoordinate:touchPoint hStep:self.horizontalStep vStep:self.verticalStep];
+        int x = [pos[0] intValue];
+        switch (x) {
+            case 0:
+                self.unitNameSelectedInBank = @"infantry";
+                self.bankSelected = YES;
+                break;
+            case 1:
+                self.unitNameSelectedInBank = @"light_cavalry";
+                self.bankSelected = YES;
+                break;
+            case 2:
+                self.unitNameSelectedInBank = @"heavy_cavalry";
+                self.bankSelected = YES;
+                break;
+            case 3:
+                self.unitNameSelectedInBank = @"veteran";
+                self.bankSelected = YES;
+                break;
+            case 4:
+                self.unitNameSelectedInBank = @"super_unit";
+                self.bankSelected = YES;
+                break;
+            default:
+                break;
+        }
+        NSLog(@"Bank selection: %@", self.unitNameSelectedInBank);
         return;
     }
     
@@ -235,6 +288,13 @@
         BOOL friendlyUnit = [nFriendlyUnit boolValue];
         if (friendlyUnit)
             self.unitWasSelectedPosition = selectedPosition;
+    }
+    //placing new unit on board
+    else if (self.bankSelected && !selectedPosition) {
+        NSLog(@"Placing new unit");
+        self.bankSelected = NO;
+        [self placeUnit:[UkraineInfo infantry] forLeftArmy:[[self.gameObj leftPlayerID] isEqualToString:self.currentPlayerID]  nationName:@"ukraine"];
+        self.unitNameSelectedInBank = nil;
     }
 }
 #pragma mark - Build bank sprites
