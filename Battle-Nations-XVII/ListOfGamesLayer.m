@@ -63,15 +63,6 @@
         
         // Add the menu to the layer
         [self addChild:self.menu];
-        
-        //create new layer for background image and add it
-        CCLayer *backGroundLayer = [[CCLayer alloc] init];
-       /* CCSprite *backSprite = [CCSprite spriteWithFile:@"ukraine_steppe.png"];
-        backSprite.zOrder = -1;
-        backSprite.position = ccp(0, 0);
-        backSprite.anchorPoint = ccp (0, 0);
-        [self addChild:backSprite];*/
-
 	}
 	return self;
 }
@@ -122,7 +113,7 @@
             
         }
         else {
-            CCMenuItemFont *errorItem = [CCMenuItemFont itemWithString:@"Retry"];
+            //CCMenuItemFont *errorItem = [CCMenuItemFont itemWithString:@"Retry"];
             [self.menu removeAllChildren];
         }
         [self addRefreshAndBackItems];

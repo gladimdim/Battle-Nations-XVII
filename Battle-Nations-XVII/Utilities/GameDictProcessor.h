@@ -21,8 +21,13 @@
 @property (strong) NSDictionary *rightArmy;
 @property (strong) NSArray *arrayLeftField;
 @property (strong) NSArray *arrayRightField;
+@property (strong) NSArray *leftBank;
+@property (strong) NSArray *rightBank;
+
 -(NSArray *) unitPresentAtPosition:(CGPoint ) spritePoint winSize:(CGSize) winSize horizontalStep:(int) hStep verticalStep:(int) vStep currentPlayerID:(NSString *) playerID;
 -(BOOL) isMyTurn:(NSString *) playerID;
 -(NSString *) getGameID;
 -(void) changeTurnToOtherPlayer;
+-(NSArray *) getArrayOfUnitNamesInBankForPlayerID:(NSString *) playerID;
+-(NSDictionary *) getBankForPlayerID:(NSString *) playerID;
 @end

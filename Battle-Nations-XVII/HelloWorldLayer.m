@@ -91,9 +91,9 @@
 		[self addChild:menu];
         
         //set default server and port
-        [[NSUserDefaults standardUserDefaults] setObject:@"https://10.0.1.6" forKey:@"server"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"https://10.0.1.2" forKey:@"server"];
         [[NSUserDefaults standardUserDefaults] setObject:@"8444" forKey:@"port"];
-        [[NSUserDefaults standardUserDefaults] setObject:@"savetko" forKey:@"playerID"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"gladimdim" forKey:@"playerID"];
 
 	}
 	return self;

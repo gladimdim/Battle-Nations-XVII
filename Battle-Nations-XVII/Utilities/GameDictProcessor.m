@@ -67,7 +67,6 @@
 }
 
 -(BOOL) isMyTurn:(NSString *) playerID {
-    NSLog(@"left army turn: %@", [self.dictOfGame valueForKey:@"left_army_turn"]);
     BOOL leftPlayerTurn = [[NSNumber numberWithInt:[[self.dictOfGame valueForKey:@"left_army_turn"] integerValue]] boolValue]; //[[self.gameObj.dictOfGame valueForKey:@"left_army_turn"] isEqualToString:@"true"] ? YES: NO;
     if ([playerID isEqualToString:[self.dictOfGame valueForKey:@"player_left"]] && leftPlayerTurn) {
         return YES;
@@ -92,5 +91,18 @@
         self.dictOfGame = [NSDictionary dictionaryWithDictionary:dict];
     }
 }
+
+-(NSArray *) getArrayOfUnitNamesInBankForPlayerID:(NSString *) playerID {
+    NSDictionary *playerDict = [self.dictOfGame objectForKey:playerID];
+    NSDictionary *dictOfBankUnits = [playerDict objectForKey:@"bank"];
+    return [dictOfBankUnits allKeys];
+}
+
+-(NSDictionary *) getBankForPlayerID:(NSString *) playerID {
+    NSDictionary *playerDict = [self.dictOfGame objectForKey:playerID];
+    return [playerDict objectForKey:@"bank"];
+}
+
+
 
 @end

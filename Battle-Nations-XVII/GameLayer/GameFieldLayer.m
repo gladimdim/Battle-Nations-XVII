@@ -58,6 +58,15 @@
     }
     self.currentPlayerID = [[NSUserDefaults standardUserDefaults] stringForKey:@"playerID"];
     self.bMyTurn = [self.gameObj isMyTurn:self.currentPlayerID];
+    
+    NSArray *arrayBank = [self.gameObj getArrayOfUnitNamesInBankForPlayerID:self.currentPlayerID];
+    for (int i = 0; i < arrayBank.count; i++) {
+        CCSprite *sprite = [CCSprite spriteWithFile:@"ukraine_infantry.png"];
+        NSArray *positionCoords = [NSArray arrayWithObjects:@(i), @(-1), nil];
+        CGPoint position = [GameLogic gameToCocosCoordinate:positionCoords hStep:self.horizontalStep vStep:self.verticalStep];
+        sprite.position = position;
+        [self addChild:sprite];
+    }
 }
 
 -(void) placeUnit:(NSDictionary *) unit forLeftArmy:(BOOL) leftArmy nationName:(NSString *) nationName {
@@ -91,11 +100,16 @@
             [[CCDirector sharedDirector] popScene];
         }];
         CCMenuItemFont *send = [CCMenuItemFont itemWithString:@"Send" block:^(id sender) {
-            DataPoster *poster = [[DataPoster alloc] init];
-            [self.gameObj changeTurnToOtherPlayer];
-            [poster sendMoves:self.arrayOfMoves forGame:self.gameObj withCallBack:^(BOOL success) {
-                NSLog(@"sent moves: %@", success ? @"YES" : @"NO");
-            }];
+            if ([self.gameObj isMyTurn:self.currentPlayerID]) {
+                DataPoster *poster = [[DataPoster alloc] init];
+                [self.gameObj changeTurnToOtherPlayer];
+                [poster sendMoves:self.arrayOfMoves forGame:self.gameObj withCallBack:^(BOOL success) {
+                    NSLog(@"sent moves: %@", success ? @"YES" : @"NO");
+                }];
+            }
+            else {
+                NSLog(@"Sending denied: it is not your turn");
+            }
         }];
         CCMenu *menu = [[CCMenu alloc] initWithArray:@[back, send]];
         menu.position = ccp(size.width - 50, 10);
@@ -106,7 +120,7 @@
 	return self;
 }
 
-#pragma Deal with touch callbacks
+#pragma mark - Deal with touch callbacks
 //set the last touched point so we can know were to put
 -(void) setTouchedPoint:(CGPoint) point {
     self.lastTouchedPoint = point;
@@ -125,7 +139,8 @@
     }
     self.moving = NO;
 }
-#pragma End of touch callbacks
+
+#pragma mark - Logic for selecting sprites
 //method used just to get i and j coordinates of the selected sprite
 //then selectSpriteSquareAt:i j is called to actually select the sprite and do all actions
 //like select sprite at i and j coordinates, if question selected - mark all sprites of the answer.
@@ -135,14 +150,19 @@
         NSLog(@"touch beyond field");
         return;
     }
-
+    
     NSArray *selectedPosition = [self.gameObj unitPresentAtPosition:touchPoint winSize:[[CCDirector sharedDirector] winSize] horizontalStep:self.horizontalStep verticalStep:self.verticalStep currentPlayerID:self.currentPlayerID];
     
     /**********Implement visual selection of sprite*************/
-    
+    /***********************************************************/
     //if there are 5 turns already - return
     if (self.arrayOfMoves.count >= 5) {
-        NSLog(@"There are already 5 moves");
+        NSLog(@"Movement denied: There are already 5 moves");
+        return;
+    }
+    //if it is not our turn - return
+    if (![self.gameObj isMyTurn:self.currentPlayerID]) {
+        NSLog(@"Movement denied: it is not your turn");
         return;
     }
     
@@ -205,9 +225,6 @@
                 }
              
             }
-           
-            
-
         }
         self.unitWasSelectedPosition = nil;
     }
@@ -219,6 +236,10 @@
         if (friendlyUnit)
             self.unitWasSelectedPosition = selectedPosition;
     }
+}
+#pragma mark - Build bank sprites
+-(void) buildBankMenu {
+    NSArray *arrayOfUnitsInBank = [self.gameObj getArrayOfUnitNamesInBankForPlayerID:self.currentPlayerID];
 }
 
 @end

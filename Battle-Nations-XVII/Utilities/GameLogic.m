@@ -76,4 +76,11 @@
     return NO;
 }
 
++(NSDictionary *) placeNewUnit:(NSString *) unitName forGame:(GameDictProcessor *) gameObj forPlayerID:(NSString *) playerID atPosition:(NSArray *) coords {
+    NSMutableDictionary *dictBank = [NSMutableDictionary dictionaryWithDictionary:[gameObj getBankForPlayerID:playerID]];
+    NSNumber *amountOfUnits = [dictBank objectForKey:unitName];
+    NSLog(@"placing new unit");
+}
+
+
 @end
