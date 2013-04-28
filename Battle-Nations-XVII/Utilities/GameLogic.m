@@ -29,9 +29,9 @@
 }
 
 //returns updated gameObj. Moves unit from one pos to another
-+(NSDictionary *) applyMove:(NSArray *) arrayOfActionsInMove toGame:(GameDictProcessor *) gameObj forLeftPlayer:(BOOL) leftPlayerTurn {
++(NSDictionary *) applyMove:(NSArray *) arrayOfActionsInMove toGame:(GameDictProcessor *) gameObj forPlayerID:(NSString *) playerID {
     NSMutableDictionary *dictGame = [NSMutableDictionary dictionaryWithDictionary:gameObj.dictOfGame];
-    NSMutableArray *field = [NSMutableArray arrayWithArray:leftPlayerTurn ? [gameObj arrayLeftField] : [gameObj arrayRightField]];
+    NSMutableArray *field = [NSMutableArray arrayWithArray:[gameObj getFieldForPlayerID:playerID]];
     NSArray *initPosition = arrayOfActionsInMove[0];
     NSArray *targetPosition = arrayOfActionsInMove[1];
     for (int i = 0; i < field.count; i++) {
@@ -44,10 +44,9 @@
             [unitDict setObject:unitDetails forKey:unitName];
             [field setObject:unitDict atIndexedSubscript:i];
 //            leftField[i] = unitDict;
-            NSString *armyPlayerID = [dictGame valueForKey:leftPlayerTurn ? @"player_left" : @"player_right"];
-            NSMutableDictionary *armyDict = [NSMutableDictionary dictionaryWithDictionary:[dictGame objectForKey:armyPlayerID]];
+            NSMutableDictionary *armyDict = [NSMutableDictionary dictionaryWithDictionary:[dictGame objectForKey:playerID]];
             [armyDict setObject:field forKey:@"field"];
-            [dictGame setObject:armyDict forKey:armyPlayerID];
+            [dictGame setObject:armyDict forKey:playerID];
             return dictGame;
         }
     }

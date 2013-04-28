@@ -31,4 +31,5 @@
 -(void) changeTurnToOtherPlayer;
 -(NSArray *) getArrayOfUnitNamesInBankForPlayerID:(NSString *) playerID;
 -(NSDictionary *) getBankForPlayerID:(NSString *) playerID;
+-(NSArray *) getFieldForPlayerID:(NSString *) playerID;
 @end

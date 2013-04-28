@@ -53,6 +53,30 @@
 
 -(void) initObject {
 
+    CGSize size = [[CCDirector sharedDirector] winSize];
+    self.horizontalStep = floor(size.width / 9);
+    self.verticalStep = floor(size.height / 6);
+    NSLog(@"horizontal step: %i, vertical: %i", self.horizontalStep, self.verticalStep);
+    CCMenuItemFont *back = [CCMenuItemFont itemWithString:@"Back" block:^(id sender) {
+        [[CCDirector sharedDirector] popScene];
+    }];
+    CCMenuItemFont *send = [CCMenuItemFont itemWithString:@"Send" block:^(id sender) {
+        if ([self.gameObj isMyTurn:self.currentPlayerID]) {
+            DataPoster *poster = [[DataPoster alloc] init];
+            [self.gameObj changeTurnToOtherPlayer];
+            [poster sendMoves:self.arrayOfMoves forGame:self.gameObj withCallBack:^(BOOL success) {
+                NSLog(@"sent moves: %@", success ? @"YES" : @"NO");
+            }];
+        }
+        else {
+            NSLog(@"Sending denied: it is not your turn");
+        }
+    }];
+    CCMenu *menu = [[CCMenu alloc] initWithArray:@[back, send]];
+    menu.position = ccp(size.width - 50, 10);
+    [menu alignItemsHorizontally];
+    [self addChild:menu];
+    
     for (int i = 0; i < self.gameObj.arrayLeftField.count; i++) {
         [self placeUnit:self.gameObj.arrayLeftField[i] forLeftArmy:YES nationName:[self.gameObj.leftArmy valueForKey:@"nation" ]];
     }
@@ -116,29 +140,7 @@
         // to avoid a retain-cycle with the menuitem and blocks
         __block id copy_self = self;
 
-        CGSize size = [[CCDirector sharedDirector] winSize];
-        self.horizontalStep = floor(size.width / 9);
-        self.verticalStep = floor(size.height / 6);
-        NSLog(@"horizontal step: %i, vertical: %i", self.horizontalStep, self.verticalStep);
-        CCMenuItemFont *back = [CCMenuItemFont itemWithString:@"Back" block:^(id sender) {
-            [[CCDirector sharedDirector] popScene];
-        }];
-        CCMenuItemFont *send = [CCMenuItemFont itemWithString:@"Send" block:^(id sender) {
-            if ([self.gameObj isMyTurn:self.currentPlayerID]) {
-                DataPoster *poster = [[DataPoster alloc] init];
-                [self.gameObj changeTurnToOtherPlayer];
-                [poster sendMoves:self.arrayOfMoves forGame:self.gameObj withCallBack:^(BOOL success) {
-                    NSLog(@"sent moves: %@", success ? @"YES" : @"NO");
-                }];
-            }
-            else {
-                NSLog(@"Sending denied: it is not your turn");
-            }
-        }];
-        CCMenu *menu = [[CCMenu alloc] initWithArray:@[back, send]];
-        menu.position = ccp(size.width - 50, 10);
-        [menu alignItemsHorizontally];
-        [self addChild:menu];
+        
          [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
     }
 	return self;
@@ -256,7 +258,7 @@
                    
                     CGPoint newPoint = [GameLogic gameToCocosCoordinate:newGameCoordinates hStep:self.horizontalStep vStep:self.verticalStep];
                     // CGPoint newPoint = CGPointMake(, [self.unitWasSelectedPosition[1] integerValue] * self.verticalStep + self.verticalStep);
-                    node.position = newPoint;
+                   ////// node.position = newPoint;
                     //update gameObj dictionary with new position of unit
                     //add gameObj to arrayOfMoves
                     //this array contains initial position of unit and its target action;
@@ -266,9 +268,11 @@
                     
                     [self.arrayOfMoves addObject:arrayOfPositionsInMove];
                     [self.arrayOfStates addObject:self.gameObj.dictOfGame];
-                    NSDictionary *newDictOfGame = [GameLogic applyMove:arrayOfPositionsInMove toGame:self.gameObj forLeftPlayer:self.bMyTurn];
+                    NSDictionary *newDictOfGame = [GameLogic applyMove:arrayOfPositionsInMove toGame:self.gameObj forPlayerID:self.currentPlayerID];
                     self.gameObj = nil;
                     self.gameObj = [[GameDictProcessor alloc] initWithDictOfGame:newDictOfGame];
+                    [self removeAllChildren];
+                    [self initObject];
                     self.unitWasSelectedPosition = nil;
                     return;
                 }
