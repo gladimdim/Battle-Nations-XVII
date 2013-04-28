@@ -32,4 +32,5 @@
 -(NSArray *) getArrayOfUnitNamesInBankForPlayerID:(NSString *) playerID;
 -(NSDictionary *) getBankForPlayerID:(NSString *) playerID;
 -(NSArray *) getFieldForPlayerID:(NSString *) playerID;
+-(BOOL) checkBankQtyForPlayerID:(NSString *) playerID unit:(NSString *) unit;
 @end

@@ -295,10 +295,22 @@
     }
     //placing new unit on board
     else if (self.bankSelected && !selectedPosition) {
-        NSLog(@"Placing new unit");
-        self.bankSelected = NO;
-        [self placeUnit:[UkraineInfo infantry] forLeftArmy:[[self.gameObj leftPlayerID] isEqualToString:self.currentPlayerID]  nationName:@"ukraine"];
-        self.unitNameSelectedInBank = nil;
+        if ([self.gameObj checkBankQtyForPlayerID:self.currentPlayerID unit:self.unitNameSelectedInBank]) {
+            NSLog(@"Placing new unit");
+            NSDictionary *newDictOfGame = [GameLogic placeNewUnit:self.unitNameSelectedInBank forGame:self.gameObj forPlayerID:self.currentPlayerID atPosition:@[@(7), @(2)]];
+            self.gameObj = [[GameDictProcessor alloc] initWithDictOfGame:newDictOfGame];
+            self.bankSelected = NO;
+            //[self placeUnit:[UkraineInfo infantry] forLeftArmy:[[self.gameObj leftPlayerID] isEqualToString:self.currentPlayerID]  nationName:@"ukraine"];
+            self.unitNameSelectedInBank = nil;
+            [self removeAllChildren];
+            [self initObject];
+        }
+        else {
+            NSLog(@"Not enough qty for unit %@", self.unitNameSelectedInBank);
+            self.unitNameSelectedInBank = nil;
+            self.unitWasSelectedPosition = NO;
+        }
+       
     }
 }
 #pragma mark - Build bank sprites

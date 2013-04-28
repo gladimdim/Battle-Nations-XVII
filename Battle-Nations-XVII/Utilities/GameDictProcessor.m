@@ -113,4 +113,10 @@
     return array;
 }
 
+-(BOOL) checkBankQtyForPlayerID:(NSString *) playerID unit:(NSString *) unit {
+    NSDictionary *bank = [self getBankForPlayerID:playerID];
+    int amount = [[bank objectForKey:unit] intValue];
+    return amount > 0;
+}
+
 @end

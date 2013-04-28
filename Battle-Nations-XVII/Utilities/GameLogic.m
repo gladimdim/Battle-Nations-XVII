@@ -9,6 +9,7 @@
 #import "GameLogic.h"
 #import "GameDictProcessor.h"
 #import "cocos2d.h"
+#import "UkraineInfo.h"
 
 @implementation GameLogic
 
@@ -78,7 +79,26 @@
 +(NSDictionary *) placeNewUnit:(NSString *) unitName forGame:(GameDictProcessor *) gameObj forPlayerID:(NSString *) playerID atPosition:(NSArray *) coords {
     NSMutableDictionary *dictBank = [NSMutableDictionary dictionaryWithDictionary:[gameObj getBankForPlayerID:playerID]];
     NSNumber *amountOfUnits = [dictBank objectForKey:unitName];
+    amountOfUnits = [NSNumber numberWithInt:[amountOfUnits intValue] - 1];
+    [dictBank setObject:amountOfUnits forKey:unitName];
+    NSMutableDictionary *dictOfGame = [NSMutableDictionary dictionaryWithDictionary:gameObj.dictOfGame];
+    NSMutableDictionary *dictPlayer = [NSMutableDictionary dictionaryWithDictionary:[dictOfGame objectForKey:playerID]];
+    [dictPlayer setObject:dictBank forKey:@"bank"];
+    NSMutableArray *fieldArray = [NSMutableArray arrayWithArray:[gameObj getFieldForPlayerID:playerID]];
+    NSMutableDictionary *dictNewUnit = [NSMutableDictionary dictionaryWithDictionary:[UkraineInfo infantry]];
+    NSMutableDictionary *dictNaked = [NSMutableDictionary dictionaryWithDictionary:[dictNewUnit objectForKey:unitName]];
+    [dictNaked setObject:coords forKey:@"position"];
+    //pack coordinates into new unit
+    [dictNewUnit setObject:dictNaked forKey:unitName];
+    
+    //pack new unit into field
+    [fieldArray addObject:dictNewUnit];
+    //pack new field into player's dict
+    [dictPlayer setObject:fieldArray forKey:@"field"];
+    //pack new player dict into final dict
+    [dictOfGame setObject:dictPlayer forKey:playerID];
     NSLog(@"placing new unit");
+    return dictOfGame;
 }
 
 
