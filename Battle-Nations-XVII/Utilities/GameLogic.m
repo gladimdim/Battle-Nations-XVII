@@ -9,7 +9,7 @@
 #import "GameLogic.h"
 #import "GameDictProcessor.h"
 #import "cocos2d.h"
-#import "UkraineInfo.h"
+#import "ArmyBuilder.h"
 
 @implementation GameLogic
 
@@ -85,7 +85,8 @@
     [dictPlayer setObject:dictBank forKey:@"bank"];
     NSMutableArray *fieldArray = [NSMutableArray arrayWithArray:[gameObj getFieldForPlayerID:playerID]];
     SEL s = NSSelectorFromString(unitName);
-    NSMutableDictionary *dictNewUnit = [NSMutableDictionary dictionaryWithDictionary:[[[UkraineInfo alloc] init] performSelector:s]];
+    ArmyBuilder *army = [[ArmyBuilder alloc] initWithNationsName:@"ukraine"];
+    NSMutableDictionary *dictNewUnit = [NSMutableDictionary dictionaryWithDictionary:[army performSelector:s]];
     NSMutableDictionary *dictNaked = [NSMutableDictionary dictionaryWithDictionary:[dictNewUnit objectForKey:unitName]];
     [dictNaked setObject:coords forKey:@"position"];
     //pack coordinates into new unit

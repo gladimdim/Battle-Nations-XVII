@@ -174,6 +174,7 @@
 -(void) selectSpriteSquareAt:(CGPoint) touchPoint {
     NSLog(@"Entered select spriteSquare At point: %@", NSStringFromCGPoint(touchPoint));
     
+
     //handle selection in bank
     if (touchPoint.y  < self.verticalStep) {
         NSLog(@"Handling selection in bank section");

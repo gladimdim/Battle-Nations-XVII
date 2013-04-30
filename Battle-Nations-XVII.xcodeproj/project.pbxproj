@@ -150,6 +150,8 @@
 		F285E7C916F4ED8C0057C247 /* flag_ukraine.png in Resources */ = {isa = PBXBuildFile; fileRef = F285E7C816F4ED8C0057C247 /* flag_ukraine.png */; };
 		F285E7CB16F4EDCB0057C247 /* flag_poland.png in Resources */ = {isa = PBXBuildFile; fileRef = F285E7CA16F4EDCB0057C247 /* flag_poland.png */; };
 		F295D54A172C64C100E6CCD0 /* UkraineInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F295D549172C64C100E6CCD0 /* UkraineInfo.m */; };
+		F295D54D1730095600E6CCD0 /* Poland.m in Sources */ = {isa = PBXBuildFile; fileRef = F295D54C1730095600E6CCD0 /* Poland.m */; };
+		F295D550173009E100E6CCD0 /* ArmyBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F295D54F173009E100E6CCD0 /* ArmyBuilder.m */; };
 		F29802DE16F6585000559974 /* ukraine_steppe.png in Resources */ = {isa = PBXBuildFile; fileRef = F29802DD16F6585000559974 /* ukraine_steppe.png */; };
 		F2A6ECFE16F5E61C000AF8FD /* CCScrollLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2A6ECFD16F5E61C000AF8FD /* CCScrollLayer.m */; };
 		F2A786AE1724789600E35834 /* ukraine_infantry.png in Resources */ = {isa = PBXBuildFile; fileRef = F2A786AD1724789600E35834 /* ukraine_infantry.png */; };
@@ -454,6 +456,10 @@
 		F285E7CA16F4EDCB0057C247 /* flag_poland.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flag_poland.png; path = Resources/flags/flag_poland.png; sourceTree = "<group>"; };
 		F295D548172C64C100E6CCD0 /* UkraineInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UkraineInfo.h; path = GameData/UkraineInfo.h; sourceTree = "<group>"; };
 		F295D549172C64C100E6CCD0 /* UkraineInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UkraineInfo.m; path = GameData/UkraineInfo.m; sourceTree = "<group>"; };
+		F295D54B1730095600E6CCD0 /* Poland.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Poland.h; path = GameData/Poland.h; sourceTree = "<group>"; };
+		F295D54C1730095600E6CCD0 /* Poland.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Poland.m; path = GameData/Poland.m; sourceTree = "<group>"; };
+		F295D54E173009E100E6CCD0 /* ArmyBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArmyBuilder.h; path = GameData/ArmyBuilder.h; sourceTree = "<group>"; };
+		F295D54F173009E100E6CCD0 /* ArmyBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ArmyBuilder.m; path = GameData/ArmyBuilder.m; sourceTree = "<group>"; };
 		F29802DD16F6585000559974 /* ukraine_steppe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ukraine_steppe.png; path = Resources/backgrounds/ukraine_steppe.png; sourceTree = "<group>"; };
 		F2A6ECFC16F5E61C000AF8FD /* CCScrollLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCScrollLayer.h; sourceTree = "<group>"; };
 		F2A6ECFD16F5E61C000AF8FD /* CCScrollLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCScrollLayer.m; sourceTree = "<group>"; };
@@ -999,6 +1005,10 @@
 			children = (
 				F295D548172C64C100E6CCD0 /* UkraineInfo.h */,
 				F295D549172C64C100E6CCD0 /* UkraineInfo.m */,
+				F295D54B1730095600E6CCD0 /* Poland.h */,
+				F295D54C1730095600E6CCD0 /* Poland.m */,
+				F295D54E173009E100E6CCD0 /* ArmyBuilder.h */,
+				F295D54F173009E100E6CCD0 /* ArmyBuilder.m */,
 			);
 			name = GameData;
 			sourceTree = "<group>";
@@ -1212,6 +1222,8 @@
 				F24F5C271708BE3200ADB2CC /* DataPoster.m in Sources */,
 				F2D90828171DD6DD00584065 /* UserRegister.m in Sources */,
 				F295D54A172C64C100E6CCD0 /* UkraineInfo.m in Sources */,
+				F295D54D1730095600E6CCD0 /* Poland.m in Sources */,
+				F295D550173009E100E6CCD0 /* ArmyBuilder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
