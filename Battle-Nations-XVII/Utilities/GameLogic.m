@@ -18,7 +18,6 @@
     int y = [position[1] intValue] * vStep + vStep;
     x = x + hStep /2;
     y = y + vStep / 2;
-    NSLog(@"placing sprite at %i %i", x, y);
     return ccp(x, y);
 }
 
@@ -85,7 +84,8 @@
     NSMutableDictionary *dictPlayer = [NSMutableDictionary dictionaryWithDictionary:[dictOfGame objectForKey:playerID]];
     [dictPlayer setObject:dictBank forKey:@"bank"];
     NSMutableArray *fieldArray = [NSMutableArray arrayWithArray:[gameObj getFieldForPlayerID:playerID]];
-    NSMutableDictionary *dictNewUnit = [NSMutableDictionary dictionaryWithDictionary:[UkraineInfo infantry]];
+    SEL s = NSSelectorFromString(unitName);
+    NSMutableDictionary *dictNewUnit = [NSMutableDictionary dictionaryWithDictionary:[[[UkraineInfo alloc] init] performSelector:s]];
     NSMutableDictionary *dictNaked = [NSMutableDictionary dictionaryWithDictionary:[dictNewUnit objectForKey:unitName]];
     [dictNaked setObject:coords forKey:@"position"];
     //pack coordinates into new unit
@@ -101,5 +101,15 @@
     return dictOfGame;
 }
 
++(NSSet *) getCoordinatesForNewUnitForGame:(GameDictProcessor *) gameObj forPlayerID:(NSString *) playerID {
+    NSDictionary *dictOfGame = gameObj.dictOfGame;
+    NSString *leftPlayer = [dictOfGame valueForKey:@"player_left"];
+    if ([playerID isEqualToString:leftPlayer]) {
+        return [NSSet setWithObjects:@[@(0), @(1)], @[@(0), @(3)], nil];
+    }
+    else {
+        return [NSSet setWithObjects:@[@(8), @(1)], @[@(8), @(3)], nil];
+    }
+}
 
 @end

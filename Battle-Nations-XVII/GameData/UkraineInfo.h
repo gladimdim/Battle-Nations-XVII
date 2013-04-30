@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface UkraineInfo : NSObject
-+(NSDictionary *) infantry;
-+(NSDictionary *) light_cavalry;
-+(NSDictionary *) veteran;
-+(NSDictionary *) super_unit;
+-(NSDictionary *) infantry;
+-(NSDictionary *) light_cavalry;
+-(NSDictionary *) veteran;
+-(NSDictionary *) super_unit;
 
 @end
