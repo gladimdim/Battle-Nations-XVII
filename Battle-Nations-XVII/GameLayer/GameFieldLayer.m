@@ -65,7 +65,7 @@
             DataPoster *poster = [[DataPoster alloc] init];
             [self.gameObj changeTurnToOtherPlayer];
             [poster sendMoves:self.arrayOfMoves forGame:self.gameObj withCallBack:^(BOOL success) {
-                NSLog(@"sent moves: %@", success ? @"YES" : @"NO");
+                NSLog(@"Sent moves: %@", success ? @"YES" : @"NO");
             }];
         }
         else {
@@ -89,7 +89,7 @@
     //show bank units
     NSArray *arrayBank = [self.gameObj getArrayOfUnitNamesInBankForPlayerID:self.currentPlayerID];
     for (int i = 0; i < arrayBank.count; i++) {
-        CCSprite *sprite = [CCSprite spriteWithFile:@"ukraine_infantry.png"];
+        CCSprite *sprite = [CCSprite spriteWithFile:[NSString stringWithFormat:@"%@_infantry.png", [self.gameObj nationForPlayerID:self.currentPlayerID]]];
         int xPos = 0;
         NSString *unitName = (NSString *) arrayBank[i];
         if ([unitName isEqualToString:@"infantry"]) {
@@ -305,6 +305,10 @@
             if ([allowedCoordinates containsObject:proposedPosition]) {
                 NSLog(@"Placing unit. Specified valid final coordinate.");
                 NSDictionary *newDictOfGame = [GameLogic placeNewUnit:self.unitNameSelectedInBank forGame:self.gameObj forPlayerID:self.currentPlayerID atPosition:proposedPosition];
+                [self.arrayOfStates addObject:self.gameObj.dictOfGame];
+                //pay attention that we add array with only one object - array of final destination
+                //in future we will have to check if there is only one member in arrayOfMoves - it means we are placing new unit on board
+                [self.arrayOfMoves addObject:proposedPosition];
                 self.gameObj = [[GameDictProcessor alloc] initWithDictOfGame:newDictOfGame];
                 self.bankSelected = NO;
                 //[self placeUnit:[UkraineInfo infantry] forLeftArmy:[[self.gameObj leftPlayerID] isEqualToString:self.currentPlayerID]  nationName:@"ukraine"];

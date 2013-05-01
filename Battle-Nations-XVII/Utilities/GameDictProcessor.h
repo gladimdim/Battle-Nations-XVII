@@ -33,4 +33,6 @@
 -(NSDictionary *) getBankForPlayerID:(NSString *) playerID;
 -(NSArray *) getFieldForPlayerID:(NSString *) playerID;
 -(BOOL) checkBankQtyForPlayerID:(NSString *) playerID unit:(NSString *) unit;
+-(NSString *) nationForPlayerID:(NSString *) playerID;
+
 @end

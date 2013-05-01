@@ -119,4 +119,9 @@
     return amount > 0;
 }
 
+-(NSString *) nationForPlayerID:(NSString *) playerID {
+    NSDictionary *dictPlayer = [self.dictOfGame objectForKey:playerID];
+    return [dictPlayer valueForKey:@"nation"];
+}
+
 @end
