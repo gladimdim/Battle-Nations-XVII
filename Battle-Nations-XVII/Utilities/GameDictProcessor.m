@@ -107,6 +107,10 @@
     return [self.dictOfGame valueForKey:@"player_left"];
 }
 
+-(NSString *) rightPlayerID {
+    return [self.dictOfGame valueForKey:@"player_right"];
+}
+
 -(NSArray *) getFieldForPlayerID:(NSString *) playerID {
     NSDictionary *dict = [self.dictOfGame objectForKey:playerID];
     NSArray *array = [dict objectForKey:@"field"];

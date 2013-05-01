@@ -75,6 +75,34 @@
     return NO;
 }
 
++(BOOL) canAttackFrom:(NSArray *) initPosition to:(NSArray *) destPosition forPlayerID:(NSString *) playerID inGame:(GameDictProcessor *) gameObj {
+    NSDictionary *dictArmy = (NSDictionary *) [gameObj.dictOfGame objectForKey:playerID];
+    if (dictArmy) {
+        NSArray *field = (NSArray *) [dictArmy objectForKey:@"field"];
+        for (int i = 0; i < field.count; i++) {
+            NSDictionary *topUnit = (NSDictionary *) field[i];
+            NSDictionary *unit = [topUnit objectForKey:[topUnit allKeys][0]];
+            NSArray *position = (NSArray *) [unit objectForKey:@"position"];
+            if (position[0] == initPosition[0] && position[1] == initPosition[1]) {
+                NSInteger distance = abs([initPosition[0] integerValue] - [destPosition[0] integerValue]) + fabs( [initPosition[1] integerValue] - [destPosition[1] integerValue]);
+                NSInteger meleeAttack = 1;
+                //if it is possible to hit with melee attack - hit. If not - check for ranged attack.
+                if (distance > meleeAttack) {
+                    NSInteger rangeAttack = [[unit valueForKey:@"range_attack_length"] integerValue];
+                    return rangeAttack > distance;
+                }
+                else {
+                    return YES;
+                }
+            }
+            else {
+                continue;
+            }
+        }
+    }
+    return NO;
+}
+
 +(NSDictionary *) placeNewUnit:(NSString *) unitName forGame:(GameDictProcessor *) gameObj forPlayerID:(NSString *) playerID atPosition:(NSArray *) coords {
     NSMutableDictionary *dictBank = [NSMutableDictionary dictionaryWithDictionary:[gameObj getBankForPlayerID:playerID]];
     NSNumber *amountOfUnits = [dictBank objectForKey:unitName];
@@ -111,6 +139,86 @@
     else {
         return [NSSet setWithObjects:@[@(8), @(1)], @[@(8), @(3)], nil];
     }
+}
+
++(NSDictionary *) attackUnitFrom:(NSArray *) attackerCoords fromPlayerID:(NSString *) playerID toUnit:(NSArray *) targetCoords forGame:(GameDictProcessor *) gameObj {
+    NSDictionary *dictOfAttacker = [NSDictionary dictionaryWithDictionary:[gameObj.dictOfGame objectForKey:playerID]];
+    if (dictOfAttacker) {
+        NSArray *field = (NSArray *) [dictOfAttacker objectForKey:@"field"];
+        for (int i = 0; i < field.count; i++) {
+            NSDictionary *topUnit = (NSDictionary *) field[i];
+            NSDictionary *unit = [topUnit objectForKey:[topUnit allKeys][0]];
+            NSArray *position = (NSArray *) [unit objectForKey:@"position"];
+            if (position[0] == attackerCoords[0] && position[1] == attackerCoords[1]) {
+                NSInteger damageValue = 0;
+                NSInteger distance = abs([attackerCoords[0] integerValue] - [targetCoords[0] integerValue]) + fabs( [attackerCoords[1] integerValue] - [targetCoords[1] integerValue]);
+                NSInteger meleeAttack = 1;
+                //find the value of attacker's damage strength
+                //melee attack
+                if (distance == 1) {
+                    damageValue = [[unit valueForKey:@"melee_attack_strength"] integerValue];
+                }
+                //ranged attack
+                else {
+                    damageValue = [[unit valueForKey:@"range_attack_strength"] integerValue];
+                }
+                //after damage value is found let's find target's unit and its health.
+                //Then apply damage and pack dictionary back into dictOfGame and return it.
+                
+                //get target's playerID
+                NSString *targetPlayerID = [[gameObj leftPlayerID] isEqualToString:playerID] ? [gameObj rightPlayerID] : [gameObj leftPlayerID];
+                NSMutableDictionary *dictOfGame = [NSMutableDictionary dictionaryWithDictionary:gameObj.dictOfGame];
+                NSMutableDictionary *dictPlayer = [NSMutableDictionary dictionaryWithDictionary:[dictOfGame objectForKey:targetPlayerID]];
+                NSMutableArray *fieldArray = [NSMutableArray arrayWithArray:[gameObj getFieldForPlayerID:targetPlayerID]];
+                
+                for (int j = 0; j < fieldArray.count; j++) {
+                    NSMutableDictionary *topUnit2 = [NSMutableDictionary dictionaryWithDictionary:fieldArray[j]];
+                    NSMutableDictionary *unit2 = [NSMutableDictionary dictionaryWithDictionary:[topUnit2 objectForKey:[topUnit2 allKeys][0]]];
+                    NSArray *position2 = (NSArray *) [unit2 objectForKey:@"position"];
+                    if (position2[0] == targetCoords[0] && position2[1] == targetCoords[1]) {
+                        NSInteger initHealth = [[unit2 valueForKey:@"level_life"] integerValue];
+                        NSInteger finalHeath = initHealth - damageValue;
+                        //the unit is killed. we need to delete it from fieldArray;
+                        if (finalHeath <= 0) {
+                            [fieldArray removeObjectAtIndex:j];
+                            [dictPlayer setObject:fieldArray forKey:@"field"];
+                            //pack new field into player's dict
+                            [dictPlayer setObject:fieldArray forKey:@"field"];
+                            //pack new player dict into final dict
+                            [dictOfGame setObject:dictPlayer forKey:targetPlayerID];
+                            NSLog(@"placing new unit");
+                            return dictOfGame;
+
+                        }
+                        //the unit is wounded. we need to modify it's level_life and pack it back.
+                        else {
+                            [unit2 setObject:@(finalHeath) forKey:@"level_life"];
+                            [topUnit2 setObject:unit2 forKey:[topUnit2 allKeys][0]];
+                            [fieldArray removeObjectAtIndex:j];
+                            [fieldArray addObject:topUnit2];
+                            [dictPlayer setObject:fieldArray forKey:@"field"];
+                            [dictOfGame setObject:dictPlayer forKey:targetPlayerID];
+                            return dictOfGame;
+                        }
+/*
+                        //pack new unit into field
+                        [fieldArray addObject:dictNewUnit];
+                        //pack new field into player's dict
+                        [dictPlayer setObject:fieldArray forKey:@"field"];
+                        //pack new player dict into final dict
+                        [dictOfGame setObject:dictPlayer forKey:targetPlayerID];
+                        NSLog(@"placing new unit");*/
+                        
+                    }
+                }
+                
+                
+                
+            }
+        }
+    }
+    return nil;
+
 }
 
 @end

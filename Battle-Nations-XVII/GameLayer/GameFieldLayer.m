@@ -37,7 +37,7 @@
 	
 	// 'layer' is an autorelease object.
 	GameFieldLayer *layer = [GameFieldLayer node];
-	layer.dictOfGame = dictOfGame;
+	//layer.dictOfGame = dictOfGame;
     layer.gameObj = [[GameDictProcessor alloc] initWithDictOfGame:dictOfGame];
     layer.arrayOfStates = [[NSMutableArray alloc] init];
     [layer.arrayOfStates addObject:dictOfGame];
@@ -212,8 +212,8 @@
     
     /**********Implement visual selection of sprite*************/
     /***********************************************************/
-    //if there are 5 turns already - return
-    if (self.arrayOfMoves.count >= 5) {
+    //if there are 6 states (5 + 1 because the initial position counts as state) already - return
+    if (self.arrayOfStates.count >= 6) {
         NSLog(@"Movement denied: There are already 5 moves");
         return;
     }
@@ -235,7 +235,25 @@
         //unfriendly unit was selected
         //attack
         else {
-            NSLog(@"Attack is to be implemented");
+            BOOL canAttack = [GameLogic canAttackFrom:self.unitWasSelectedPosition to:positionOfSelectedUnit forPlayerID:self.currentPlayerID inGame:self.gameObj];
+            if (canAttack) {
+                NSDictionary *newDictOfGame = [GameLogic attackUnitFrom:self.unitWasSelectedPosition fromPlayerID:self.currentPlayerID toUnit:positionOfSelectedUnit forGame:self.gameObj];
+                if (newDictOfGame) {
+                    GameDictProcessor *newGameObj = [[GameDictProcessor alloc] initWithDictOfGame:newDictOfGame];
+                    [self.arrayOfStates addObject:self.gameObj.dictOfGame];
+                    NSArray *arrayWithoutBool = @[self.unitWasSelectedPosition[0], self.unitWasSelectedPosition[1]];
+                    [self.arrayOfMoves addObject:@[arrayWithoutBool, positionOfSelectedUnit]];
+                    self.gameObj = newGameObj;
+                    [self removeAllChildren];
+                    [self initObject];
+                    self.unitNameSelectedInBank = nil;
+                    self.unitWasSelectedPosition = nil;
+                }
+            }
+            else {
+                NSLog(@"Cannot attack.");
+            }
+
         }
         //deselect if selected the same unit
         if ([self.unitWasSelectedPosition[0] integerValue] == [positionOfSelectedUnit[0] integerValue] && [self.unitWasSelectedPosition[1] integerValue] == [positionOfSelectedUnit[1] integerValue]) {
@@ -265,8 +283,8 @@
                     //add gameObj to arrayOfMoves
                     //this array contains initial position of unit and its target action;
                     //we need to add only coordinates to array of moves.
-                    NSArray *arrayWithoutBool = [[NSArray alloc] initWithObjects:self.unitWasSelectedPosition[0], self.unitWasSelectedPosition[1], nil];
-                    NSArray *arrayOfPositionsInMove = [NSArray arrayWithObjects:arrayWithoutBool, newGameCoordinates, nil];
+                    NSArray *arrayWithoutBool = @[self.unitWasSelectedPosition[0], self.unitWasSelectedPosition[1]];
+                    NSArray *arrayOfPositionsInMove = @[arrayWithoutBool, newGameCoordinates];
                     
                     [self.arrayOfMoves addObject:arrayOfPositionsInMove];
                     [self.arrayOfStates addObject:self.gameObj.dictOfGame];
