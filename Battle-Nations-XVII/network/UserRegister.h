@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface UserRegister : NSObject <NSURLConnectionDelegate>
--(void) registerUser:(NSString *) username withEmail:(NSString *) email callBack:(void (^) (BOOL)) callBackBlock;
+-(void) registerUser:(NSString *) username withEmail:(NSString *) email callBack:(void (^) (NSDictionary *)) callBackBlock;
 @end

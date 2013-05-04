@@ -11,6 +11,7 @@
 #import "HelloWorldLayer.h"
 #import "ListOfGamesLayer.h"
 #import "UserRegister.h"
+#import "RegisterLayer.h"
 
 // Needed to obtain the Navigation Controller
 #import "AppDelegate.h"
@@ -68,21 +69,22 @@
 		__block id copy_self = self;
 		
 		// Achievement Menu Item using blocks
-		CCMenuItem *itemAchievement = [CCMenuItemFont itemWithString:@"Show games" block:^(id sender) {
+		CCMenuItem *itemGames = [CCMenuItemFont itemWithString:@"Show games" block:^(id sender) {
             [[CCDirector sharedDirector] pushScene:[CCTransitionFadeDown transitionWithDuration:1.0 scene:[ListOfGamesLayer scene]]];
 			//[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[ListOfGamesLayer scene] ]];
 		}];
         
 
         CCMenuItem *itemRegister = [CCMenuItemFont itemWithString:@"Register" block:^(id sender) {
-            UserRegister *reg = [[UserRegister alloc] init];
+            [[CCDirector sharedDirector] pushScene:[CCTransitionFade transitionWithDuration:1.0 scene:[RegisterLayer scene]]];
+            /*UserRegister *reg = [[UserRegister alloc] init];
             [reg registerUser:@"gladimdim" withEmail:@"gladimdim@gmail.com" callBack:^(BOOL success) {
                 NSLog(@"succesfully registered: %@", success ? @"YES" : @"NO");
-            }];
+            }];*/
         }];
 		
 		
-		CCMenu *menu = [CCMenu menuWithItems:itemAchievement, nil];
+		CCMenu *menu = [CCMenu menuWithItems:itemGames, itemRegister, nil];
 		
 		[menu alignItemsHorizontallyWithPadding:20];
 		[menu setPosition:ccp( size.width/2, size.height/2 - 50)];
@@ -93,7 +95,7 @@
         //set default server and port
         [[NSUserDefaults standardUserDefaults] setObject:@"https://10.0.1.2" forKey:@"server"];
         [[NSUserDefaults standardUserDefaults] setObject:@"8444" forKey:@"port"];
-        [[NSUserDefaults standardUserDefaults] setObject:@"gladimdim" forKey:@"playerID"];
+        //[[NSUserDefaults standardUserDefaults] setObject:@"gladimdim" forKey:@"playerID"];
 
 	}
 	return self;

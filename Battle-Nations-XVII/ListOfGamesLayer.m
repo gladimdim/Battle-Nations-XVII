@@ -82,7 +82,13 @@
 -(void) getListOfGames {
     [self.getter getListOfGamesFor:self.playerID withCallBack:^(NSDictionary *dict) {
         NSLog(@"dict: %@", dict);
-        if (dict) {
+        SEL selectorAllKeys = NSSelectorFromString(@"allKeys");
+        if ([dict respondsToSelector:selectorAllKeys] && [dict allKeys].count == 1) {
+            //CCMenuItemFont *errorItem = [CCMenuItemFont itemWithString:@"Retry"];
+            [self.menu removeAllChildren];
+            
+        }
+        else {
             NSArray *array = (NSArray *) dict;
             NSLog(@"array count: %i", array.count);
             [self.menu removeAllChildren];
@@ -102,19 +108,18 @@
                     NSLog(@"pressed %@", [game valueForKey:@"game_id"]);
                     [[CCDirector sharedDirector] pushScene:[CCTransitionFadeDown transitionWithDuration:1.0 scene:[GameFieldLayer sceneWithDictOfGame:game]]];
                 }];
+                
+                CCMenuItem *itemWantToPlay = [CCMenuItemFont itemWithString:@"Put me into queue" block:^(id sender) {
+                        
+                }];
+                                              
                 //determine if it is player's turn
                 //BOOL leftArmyTurn = [game objectForKey:@"left_army_turn"];
-               // [item setIsEnabled:(leftArmyTurn && [playerLeft isEqualToString:self.playerID])];
+                // [item setIsEnabled:(leftArmyTurn && [playerLeft isEqualToString:self.playerID])];
                 [item addChild:itemImageLeft];
                 [item addChild:itemImageRight];
                 [self.menu addChild:item];
-                
             }
-            
-        }
-        else {
-            //CCMenuItemFont *errorItem = [CCMenuItemFont itemWithString:@"Retry"];
-            [self.menu removeAllChildren];
         }
         [self addRefreshAndBackItems];
         [self.menu alignItemsVertically];

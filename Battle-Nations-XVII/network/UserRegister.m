@@ -9,20 +9,20 @@
 #import "UserRegister.h"
 
 @interface UserRegister()
-@property (copy, nonatomic) void (^callBackBlock) (BOOL);
+@property (copy, nonatomic) void (^callBackBlock) (NSDictionary *);
 @property NSMutableData * receivedData;
 @end
 
 @implementation UserRegister
--(void) registerUser:(NSString *) username withEmail:(NSString *) email callBack:(void (^) (BOOL)) callBackBlock {
+-(void) registerUser:(NSString *) username withEmail:(NSString *) email callBack:(void (^) (NSDictionary  *)) callBackBlock {
     self.callBackBlock = callBackBlock;
     NSString *server = [[NSUserDefaults standardUserDefaults] stringForKey:@"server"];
     NSString *port = [[NSUserDefaults standardUserDefaults] stringForKey:@"port"];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@:%@/v1/register", server, port]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [request setHTTPMethod:@"POST"];
+    [request setHTTPMethod:@"PUT"];
     
-    NSDictionary *jsonDict = [NSDictionary dictionaryWithObject:username forKey:@"player-id"];
+    NSDictionary *jsonDict = [NSDictionary dictionaryWithObjects:@[username, email] forKeys:@[@"player-id", @"email"]];
     NSError *err;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:NSJSONReadingAllowFragments error:&err];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -65,15 +65,16 @@
     NSString *string = [[NSString alloc] initWithData:self.receivedData encoding:NSWindowsCP1251StringEncoding];
     //  NSLog(@"response for rate: %@", string);
     if (string) {
-        //NSError *err;
-       // NSDictionary *returnDict = [NSJSONSerialization JSONObjectWithData:self.receivedData options:NSJSONReadingAllowFragments error:&err];
-        self.callBackBlock(YES);
+        NSError *err;
+        NSDictionary *returnDict = [NSJSONSerialization JSONObjectWithData:self.receivedData options:NSJSONReadingAllowFragments error:&err];
+        
+        self.callBackBlock(returnDict);
     }
 }
 
 -(void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     NSLog(@"Error during getting list of games: %@", [error localizedDescription]);
-    self.callBackBlock(NO);
+    self.callBackBlock(nil);
 }
 
 @end
