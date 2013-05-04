@@ -11,6 +11,7 @@
 #import "GameFieldLayer.h"
 #import "CCScrollLayer.h"
 #import "HelloWorldLayer.h"
+#import "NewGame.h"
 
 @interface ListOfGamesLayer()
 @property NSMutableData *receivedData;
@@ -55,7 +56,7 @@
         
         // Default font size will be 28 points.
         [CCMenuItemFont setFontSize:28];
-        [self addRefreshAndBackItems];
+        [self addStaticItems];
 
         self.menu.zOrder = 1;
         [self.menu alignItemsHorizontallyWithPadding:20];
@@ -67,7 +68,7 @@
 	return self;
 }
 
--(void) addRefreshAndBackItems {
+-(void) addStaticItems {
     CCMenuItemFont *refreshItem = [CCMenuItemFont itemWithString:NSLocalizedString(@"Refresh", nil) block:^(id sender) {
         [self getListOfGames];
     }];
@@ -75,6 +76,14 @@
     CCMenuItemFont *backItem = [CCMenuItemFont itemWithString:NSLocalizedString(@"Back", nil) block:^(id sender) {
         [[CCDirector sharedDirector] popScene];
     }];
+    
+    CCMenuItem *itemCreate = [CCMenuItemFont itemWithString:@"I want to play" block:^(id sender) {
+        NewGame *game = [[NewGame alloc] init];
+        [game askForNewGameForUser:[[NSUserDefaults standardUserDefaults] stringForKey:@"playerID"]  withEmail:@"kuku" forNation:@"poland" callBack:^(NSDictionary *returnDict) {
+            NSLog(@"created new game: %@", returnDict);
+        }];
+    }];
+    [self.menu addChild:itemCreate];
     [self.menu addChild:refreshItem];
     [self.menu addChild:backItem];
 }
@@ -96,10 +105,10 @@
                 NSDictionary *game = [array[i] objectForKey:@"game"];
                 NSString *playerLeft = [game valueForKey:@"player_left"];
                 NSString *nationLeft = [[game objectForKey:playerLeft] valueForKey:@"nation"];
-                NSString *leftFlag = [nationLeft isEqualToString:@"ukraine"] ? @"flag_ukraine.png" : @"flag_poland.png";
+                NSString *leftFlag = [NSString stringWithFormat:@"flag_%@.png", nationLeft];
                 NSString *playerRight = [game valueForKey:@"player_right"];
                 NSString *nationRight = [[game objectForKey:playerRight] valueForKey:@"nation"];
-                NSString *rightFlag = [nationRight isEqualToString:@"ukraine"] ? @"flag_ukraine.png" : @"flag_poland.png";
+                NSString *rightFlag = [NSString stringWithFormat:@"flag_%@.png", nationRight];
                 CCMenuItemImage *itemImageLeft = [CCMenuItemImage itemWithNormalImage:leftFlag selectedImage:leftFlag];
                 itemImageLeft.position = ccp(0, 15);
                 CCMenuItemImage *itemImageRight = [CCMenuItemImage itemWithNormalImage:rightFlag selectedImage:rightFlag];
@@ -109,10 +118,7 @@
                     [[CCDirector sharedDirector] pushScene:[CCTransitionFadeDown transitionWithDuration:1.0 scene:[GameFieldLayer sceneWithDictOfGame:game]]];
                 }];
                 
-                CCMenuItem *itemWantToPlay = [CCMenuItemFont itemWithString:@"Put me into queue" block:^(id sender) {
-                        
-                }];
-                                              
+                                          
                 //determine if it is player's turn
                 //BOOL leftArmyTurn = [game objectForKey:@"left_army_turn"];
                 // [item setIsEnabled:(leftArmyTurn && [playerLeft isEqualToString:self.playerID])];
@@ -121,7 +127,7 @@
                 [self.menu addChild:item];
             }
         }
-        [self addRefreshAndBackItems];
+        [self addStaticItems];
         [self.menu alignItemsVertically];
         [self.menu draw];
         

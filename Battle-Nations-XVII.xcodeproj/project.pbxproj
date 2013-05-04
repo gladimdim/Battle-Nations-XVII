@@ -159,6 +159,7 @@
 		F2AE9D8A16F49DE0005F98AF /* ListOfGamesLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2AE9D8916F49DE0005F98AF /* ListOfGamesLayer.m */; };
 		F2D90828171DD6DD00584065 /* UserRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = F2D90827171DD6DD00584065 /* UserRegister.m */; };
 		F2F86B68173544D100742391 /* RegisterLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F86B67173544D100742391 /* RegisterLayer.m */; };
+		F2F86B6B173577EC00742391 /* NewGame.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F86B6A173577EC00742391 /* NewGame.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -472,6 +473,8 @@
 		F2D90827171DD6DD00584065 /* UserRegister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserRegister.m; path = network/UserRegister.m; sourceTree = "<group>"; };
 		F2F86B66173544D100742391 /* RegisterLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterLayer.h; sourceTree = "<group>"; };
 		F2F86B67173544D100742391 /* RegisterLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterLayer.m; sourceTree = "<group>"; };
+		F2F86B69173577EB00742391 /* NewGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewGame.h; path = network/NewGame.h; sourceTree = "<group>"; };
+		F2F86B6A173577EC00742391 /* NewGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewGame.m; path = network/NewGame.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -992,6 +995,8 @@
 				F24F5C261708BE3200ADB2CC /* DataPoster.m */,
 				F2D90826171DD6DD00584065 /* UserRegister.h */,
 				F2D90827171DD6DD00584065 /* UserRegister.m */,
+				F2F86B69173577EB00742391 /* NewGame.h */,
+				F2F86B6A173577EC00742391 /* NewGame.m */,
 			);
 			name = network;
 			sourceTree = "<group>";
@@ -1230,6 +1235,7 @@
 				F295D54D1730095600E6CCD0 /* Poland.m in Sources */,
 				F295D550173009E100E6CCD0 /* ArmyBuilder.m in Sources */,
 				F2F86B68173544D100742391 /* RegisterLayer.m in Sources */,
+				F2F86B6B173577EC00742391 /* NewGame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
