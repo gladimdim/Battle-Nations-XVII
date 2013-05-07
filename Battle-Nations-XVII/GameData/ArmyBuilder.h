@@ -12,6 +12,7 @@
 @interface ArmyBuilder : NSObject
 -(NSDictionary *) infantry;
 -(NSDictionary *) light_cavalry;
+-(NSDictionary *) heavy_cavalry;
 -(NSDictionary *) veteran;
 -(NSDictionary *) super_unit;
 -(ArmyBuilder *) initWithNationsName:(NSString *) nationName;

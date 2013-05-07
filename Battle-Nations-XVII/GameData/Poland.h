@@ -12,6 +12,7 @@
 @interface Poland : ArmyBuilder
 -(NSDictionary *) infantry;
 -(NSDictionary *) light_cavalry;
+-(NSDictionary *) heavy_cavalry;
 -(NSDictionary *) veteran;
 -(NSDictionary *) super_unit;
 @end

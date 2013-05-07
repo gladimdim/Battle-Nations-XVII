@@ -157,6 +157,13 @@
 		F2A786AE1724789600E35834 /* ukraine_infantry.png in Resources */ = {isa = PBXBuildFile; fileRef = F2A786AD1724789600E35834 /* ukraine_infantry.png */; };
 		F2A786B0172478AA00E35834 /* poland_infantry.png in Resources */ = {isa = PBXBuildFile; fileRef = F2A786AF172478AA00E35834 /* poland_infantry.png */; };
 		F2AE9D8A16F49DE0005F98AF /* ListOfGamesLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2AE9D8916F49DE0005F98AF /* ListOfGamesLayer.m */; };
+		F2B2E26C173981A400ACFEA3 /* ukraine_heavy_cavalry-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B2E266173981A400ACFEA3 /* ukraine_heavy_cavalry-hd.png */; };
+		F2B2E26D173981A400ACFEA3 /* ukraine_light_cavalry-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B2E267173981A400ACFEA3 /* ukraine_light_cavalry-hd.png */; };
+		F2B2E26E173981A400ACFEA3 /* ukraine_light_cavalry.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B2E268173981A400ACFEA3 /* ukraine_light_cavalry.png */; };
+		F2B2E26F173981A400ACFEA3 /* ukraine_super_unit-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B2E269173981A400ACFEA3 /* ukraine_super_unit-hd.png */; };
+		F2B2E270173981A400ACFEA3 /* ukraine_super_unit.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B2E26A173981A400ACFEA3 /* ukraine_super_unit.png */; };
+		F2B2E271173981A400ACFEA3 /* ukraine_veteran-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B2E26B173981A400ACFEA3 /* ukraine_veteran-hd.png */; };
+		F2B2E273173981C800ACFEA3 /* ukraine_veteran.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B2E272173981C800ACFEA3 /* ukraine_veteran.png */; };
 		F2D90828171DD6DD00584065 /* UserRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = F2D90827171DD6DD00584065 /* UserRegister.m */; };
 		F2F86B68173544D100742391 /* RegisterLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F86B67173544D100742391 /* RegisterLayer.m */; };
 		F2F86B6B173577EC00742391 /* NewGame.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F86B6A173577EC00742391 /* NewGame.m */; };
@@ -469,6 +476,13 @@
 		F2A786AF172478AA00E35834 /* poland_infantry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = poland_infantry.png; path = Resources/units/poland/poland_infantry.png; sourceTree = "<group>"; };
 		F2AE9D8816F49DE0005F98AF /* ListOfGamesLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListOfGamesLayer.h; sourceTree = "<group>"; };
 		F2AE9D8916F49DE0005F98AF /* ListOfGamesLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListOfGamesLayer.m; sourceTree = "<group>"; };
+		F2B2E266173981A400ACFEA3 /* ukraine_heavy_cavalry-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ukraine_heavy_cavalry-hd.png"; path = "Resources/units/ukraine/ukraine_heavy_cavalry-hd.png"; sourceTree = "<group>"; };
+		F2B2E267173981A400ACFEA3 /* ukraine_light_cavalry-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ukraine_light_cavalry-hd.png"; path = "Resources/units/ukraine/ukraine_light_cavalry-hd.png"; sourceTree = "<group>"; };
+		F2B2E268173981A400ACFEA3 /* ukraine_light_cavalry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ukraine_light_cavalry.png; path = Resources/units/ukraine/ukraine_light_cavalry.png; sourceTree = "<group>"; };
+		F2B2E269173981A400ACFEA3 /* ukraine_super_unit-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ukraine_super_unit-hd.png"; path = "Resources/units/ukraine/ukraine_super_unit-hd.png"; sourceTree = "<group>"; };
+		F2B2E26A173981A400ACFEA3 /* ukraine_super_unit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ukraine_super_unit.png; path = Resources/units/ukraine/ukraine_super_unit.png; sourceTree = "<group>"; };
+		F2B2E26B173981A400ACFEA3 /* ukraine_veteran-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ukraine_veteran-hd.png"; path = "Resources/units/ukraine/ukraine_veteran-hd.png"; sourceTree = "<group>"; };
+		F2B2E272173981C800ACFEA3 /* ukraine_veteran.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ukraine_veteran.png; path = Resources/units/ukraine/ukraine_veteran.png; sourceTree = "<group>"; };
 		F2D90826171DD6DD00584065 /* UserRegister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserRegister.h; path = network/UserRegister.h; sourceTree = "<group>"; };
 		F2D90827171DD6DD00584065 /* UserRegister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserRegister.m; path = network/UserRegister.m; sourceTree = "<group>"; };
 		F2F86B66173544D100742391 /* RegisterLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterLayer.h; sourceTree = "<group>"; };
@@ -529,6 +543,13 @@
 		F211FF5B16F5337E009CF4A0 /* ukraine */ = {
 			isa = PBXGroup;
 			children = (
+				F2B2E272173981C800ACFEA3 /* ukraine_veteran.png */,
+				F2B2E26B173981A400ACFEA3 /* ukraine_veteran-hd.png */,
+				F2B2E266173981A400ACFEA3 /* ukraine_heavy_cavalry-hd.png */,
+				F2B2E267173981A400ACFEA3 /* ukraine_light_cavalry-hd.png */,
+				F2B2E268173981A400ACFEA3 /* ukraine_light_cavalry.png */,
+				F2B2E269173981A400ACFEA3 /* ukraine_super_unit-hd.png */,
+				F2B2E26A173981A400ACFEA3 /* ukraine_super_unit.png */,
 				F2A786AD1724789600E35834 /* ukraine_infantry.png */,
 				F215CC1716FE2C6D0016D868 /* ukraine_infantry-hd.png */,
 				F211FF5C16F53394009CF4A0 /* cossack.png */,
@@ -1102,6 +1123,13 @@
 				F215CC1A16FE2C7E0016D868 /* poland_infantry-hd.png in Resources */,
 				F2A786AE1724789600E35834 /* ukraine_infantry.png in Resources */,
 				F2A786B0172478AA00E35834 /* poland_infantry.png in Resources */,
+				F2B2E26C173981A400ACFEA3 /* ukraine_heavy_cavalry-hd.png in Resources */,
+				F2B2E26D173981A400ACFEA3 /* ukraine_light_cavalry-hd.png in Resources */,
+				F2B2E26E173981A400ACFEA3 /* ukraine_light_cavalry.png in Resources */,
+				F2B2E26F173981A400ACFEA3 /* ukraine_super_unit-hd.png in Resources */,
+				F2B2E270173981A400ACFEA3 /* ukraine_super_unit.png in Resources */,
+				F2B2E271173981A400ACFEA3 /* ukraine_veteran-hd.png in Resources */,
+				F2B2E273173981C800ACFEA3 /* ukraine_veteran.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

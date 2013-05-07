@@ -89,7 +89,7 @@
     //show bank units
     NSArray *arrayBank = [self.gameObj getArrayOfUnitNamesInBankForPlayerID:self.currentPlayerID];
     for (int i = 0; i < arrayBank.count; i++) {
-        CCSprite *sprite = [CCSprite spriteWithFile:[NSString stringWithFormat:@"%@_infantry.png", [self.gameObj nationForPlayerID:self.currentPlayerID]]];
+        CCSprite *sprite = [CCSprite spriteWithFile:[NSString stringWithFormat:@"%@_%@.png", [self.gameObj nationForPlayerID:self.currentPlayerID], arrayBank[i]]];
         int xPos = 0;
         NSString *unitName = (NSString *) arrayBank[i];
         if ([unitName isEqualToString:@"infantry"]) {
@@ -122,7 +122,7 @@
     if (!position) {
         position = [NSArray arrayWithObjects:@(0), @(2), nil];
     }
-    CCSprite *sprite = [CCSprite spriteWithFile:[NSString stringWithFormat:@"%@_infantry.png", nationName]];
+    CCSprite *sprite = [CCSprite spriteWithFile:[NSString stringWithFormat:@"%@_%@.png", nationName, unitName]];
     if (!leftArmy) {
         [sprite setScaleX:-1.0];
     }
