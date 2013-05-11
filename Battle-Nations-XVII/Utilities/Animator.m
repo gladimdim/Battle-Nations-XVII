@@ -34,7 +34,7 @@
         CCSprite *sprite = [CCSprite spriteWithSpriteFrameName:health > 50 ? @"health-bar-100.png" : @"health-bar-20.png"];
         NSArray *coords = [gameObj getCoordsForUnit:arrayOfAllFields[i]];
         CGPoint centerPosition = [GameLogic gameToCocosCoordinate:coords];
-        centerPosition.y = centerPosition.y + 20;
+        centerPosition.y = centerPosition.y + [GameLogic verticalStep] / 2;
         sprite.position = centerPosition;
         [arrayOfHealthSprites addObject:sprite];
     }

@@ -178,6 +178,7 @@
 		F2E71085173E992300F84E00 /* Health-Bar-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F2E71081173E992300F84E00 /* Health-Bar-hd.png */; };
 		F2E71086173E992300F84E00 /* Health-Bar.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2E71082173E992300F84E00 /* Health-Bar.plist */; };
 		F2E71087173E992300F84E00 /* Health-Bar.png in Resources */ = {isa = PBXBuildFile; fileRef = F2E71083173E992300F84E00 /* Health-Bar.png */; };
+		F2E71089173EBB9000F84E00 /* poland_heavy_cavalry.png in Resources */ = {isa = PBXBuildFile; fileRef = F2E71088173EBB8F00F84E00 /* poland_heavy_cavalry.png */; };
 		F2F86B68173544D100742391 /* RegisterLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F86B67173544D100742391 /* RegisterLayer.m */; };
 		F2F86B6B173577EC00742391 /* NewGame.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F86B6A173577EC00742391 /* NewGame.m */; };
 /* End PBXBuildFile section */
@@ -512,6 +513,7 @@
 		F2E71081173E992300F84E00 /* Health-Bar-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Health-Bar-hd.png"; path = "Resources/Accessory/Health-Bar/Health-Bar-hd.png"; sourceTree = "<group>"; };
 		F2E71082173E992300F84E00 /* Health-Bar.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Health-Bar.plist"; path = "Resources/Accessory/Health-Bar/Health-Bar.plist"; sourceTree = "<group>"; };
 		F2E71083173E992300F84E00 /* Health-Bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Health-Bar.png"; path = "Resources/Accessory/Health-Bar/Health-Bar.png"; sourceTree = "<group>"; };
+		F2E71088173EBB8F00F84E00 /* poland_heavy_cavalry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = poland_heavy_cavalry.png; path = Resources/units/poland/poland_heavy_cavalry.png; sourceTree = "<group>"; };
 		F2F86B66173544D100742391 /* RegisterLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterLayer.h; sourceTree = "<group>"; };
 		F2F86B67173544D100742391 /* RegisterLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterLayer.m; sourceTree = "<group>"; };
 		F2F86B69173577EB00742391 /* NewGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewGame.h; path = network/NewGame.h; sourceTree = "<group>"; };
@@ -588,6 +590,7 @@
 		F215CC1616FE2C5A0016D868 /* poland */ = {
 			isa = PBXGroup;
 			children = (
+				F2E71088173EBB8F00F84E00 /* poland_heavy_cavalry.png */,
 				F2B2E27417398C4100ACFEA3 /* poland_heavy_cavalry-hd.png */,
 				F2B2E27517398C4100ACFEA3 /* poland_light_cavalry-hd.png */,
 				F2B2E27617398C4100ACFEA3 /* poland_light_cavalry.png */,
@@ -1199,6 +1202,7 @@
 				F2E71085173E992300F84E00 /* Health-Bar-hd.png in Resources */,
 				F2E71086173E992300F84E00 /* Health-Bar.plist in Resources */,
 				F2E71087173E992300F84E00 /* Health-Bar.png in Resources */,
+				F2E71089173EBB9000F84E00 /* poland_heavy_cavalry.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

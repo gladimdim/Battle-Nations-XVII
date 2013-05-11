@@ -73,8 +73,20 @@
             NSLog(@"Sending denied: it is not your turn");
         }
     }];
-    CCMenu *menu = [[CCMenu alloc] initWithArray:@[back, send]];
-    menu.position = ccp(size.width - 50, 10);
+    
+    CCMenuItemFont *undoTurn = [CCMenuItemFont itemWithString:[NSString stringWithFormat:@"Turns: %i/5", self.arrayOfMoves.count] block:^(id sender) {
+        if (self.arrayOfMoves.count > 0) {
+            NSLog(@"moves: %i, states: %i", self.arrayOfMoves.count, self.arrayOfStates.count);
+            [self.arrayOfMoves removeLastObject];
+            [self.arrayOfStates removeLastObject];
+            self.gameObj = [[GameDictProcessor alloc] initWithDictOfGame:[self.arrayOfStates lastObject]];
+            [self removeAllChildren];
+            [self initObject];
+        }
+    }];
+    
+    CCMenu *menu = [[CCMenu alloc] initWithArray:@[undoTurn, back, send]];
+    menu.position = [GameLogic gameToCocosCoordinate:@[@(7), @(-1)]];// ccp(size.width - 100, 10);
     [menu alignItemsHorizontally];
     [self addChild:menu];
     
@@ -128,7 +140,7 @@
         [sprite setScaleX:-1.0];
     }
     CGPoint newPoint = [GameLogic gameToCocosCoordinate:position];
-    NSLog(@"placing sprite at %@ [%@]", NSStringFromCGPoint(newPoint), position);
+   // NSLog(@"placing sprite at %@ [%@]", NSStringFromCGPoint(newPoint), position);
     sprite.position = newPoint;
     [self addChild:sprite];
 }
@@ -240,7 +252,7 @@
             [Animator animateSpriteDeselection:self.selectedSprite];
             NSLog(@"healing is to be implemented");
         }
-        //unfriendly unit was selected
+        //enemy unit was selected
         //attack
         else {
             BOOL canAttack = [GameLogic canAttackFrom:self.unitWasSelectedPosition to:positionOfSelectedUnit forPlayerID:self.currentPlayerID inGame:self.gameObj];
@@ -248,10 +260,10 @@
                 NSDictionary *newDictOfGame = [GameLogic attackUnitFrom:self.unitWasSelectedPosition fromPlayerID:self.currentPlayerID toUnit:positionOfSelectedUnit forGame:self.gameObj];
                 if (newDictOfGame) {
                     GameDictProcessor *newGameObj = [[GameDictProcessor alloc] initWithDictOfGame:newDictOfGame];
-                    [self.arrayOfStates addObject:self.gameObj.dictOfGame];
                     NSArray *arrayWithoutBool = @[self.unitWasSelectedPosition[0], self.unitWasSelectedPosition[1]];
                     [self.arrayOfMoves addObject:@[arrayWithoutBool, positionOfSelectedUnit]];
                     self.gameObj = newGameObj;
+                    [self.arrayOfStates addObject:self.gameObj.dictOfGame];
                     [self removeAllChildren];
                     [self initObject];
                     self.unitNameSelectedInBank = nil;
@@ -291,11 +303,11 @@
                     NSArray *arrayWithoutBool = @[self.unitWasSelectedPosition[0], self.unitWasSelectedPosition[1]];
                     NSArray *arrayOfPositionsInMove = @[arrayWithoutBool, newGameCoordinates];
                     
+                    
+                    NSDictionary *newDictOfGame = [GameLogic applyMove:arrayOfPositionsInMove toGame:self.gameObj forPlayerID:self.currentPlayerID];
+                    self.gameObj = [[GameDictProcessor alloc] initWithDictOfGame:newDictOfGame];
                     [self.arrayOfMoves addObject:arrayOfPositionsInMove];
                     [self.arrayOfStates addObject:self.gameObj.dictOfGame];
-                    NSDictionary *newDictOfGame = [GameLogic applyMove:arrayOfPositionsInMove toGame:self.gameObj forPlayerID:self.currentPlayerID];
-                    self.gameObj = nil;
-                    self.gameObj = [[GameDictProcessor alloc] initWithDictOfGame:newDictOfGame];
                     [self removeAllChildren];
                     [self initObject];
                     self.unitWasSelectedPosition = nil;
@@ -334,7 +346,7 @@
             if ([allowedCoordinates containsObject:proposedPosition]) {
                 NSLog(@"Placing unit. Specified valid final coordinate.");
                 NSDictionary *newDictOfGame = [GameLogic placeNewUnit:self.unitNameSelectedInBank forGame:self.gameObj forPlayerID:self.currentPlayerID atPosition:proposedPosition];
-                [self.arrayOfStates addObject:self.gameObj.dictOfGame];
+                
                 //pay attention that we add array with only one object - array of final destination
                 //in future we will have to check if there is only one member in arrayOfMoves - it means we are placing new unit on board
                 [self.arrayOfMoves addObject:proposedPosition];
@@ -342,6 +354,7 @@
                 self.bankSelected = NO;
                 //[self placeUnit:[UkraineInfo infantry] forLeftArmy:[[self.gameObj leftPlayerID] isEqualToString:self.currentPlayerID]  nationName:@"ukraine"];
                 self.unitNameSelectedInBank = nil;
+                [self.arrayOfStates addObject:self.gameObj.dictOfGame];
                 [self removeAllChildren];
                 [self initObject];
             }
@@ -359,5 +372,6 @@
        
     }
 }
+
 
 @end
