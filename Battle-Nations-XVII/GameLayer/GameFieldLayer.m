@@ -213,6 +213,7 @@
             default:
                 break;
         }
+        self.unitWasSelectedPosition = nil;
         NSLog(@"Bank selection: %@", self.unitNameSelectedInBank);
         [Animator animateSpriteSelection:self.selectedSprite];
         return;
@@ -220,8 +221,6 @@
     
     NSArray *positionOfSelectedUnit = [self.gameObj unitPresentAtPosition:touchPoint winSize:[[CCDirector sharedDirector] winSize] horizontalStep:self.horizontalStep verticalStep:self.verticalStep currentPlayerID:self.currentPlayerID];
     
-    /**********Implement visual selection of sprite*************/
-    /***********************************************************/
     //if there are 6 states (5 + 1 because the initial position counts as state) already - return
     if (self.arrayOfStates.count >= 6) {
         NSLog(@"Movement denied: There are already 5 moves");
@@ -259,7 +258,6 @@
                     [self initObject];
                     self.unitNameSelectedInBank = nil;
                     self.unitWasSelectedPosition = nil;
-                    self.selectedSprite = nil;
                 }
             }
             else {
@@ -270,7 +268,6 @@
         //deselect if selected the same unit
         if ([self.unitWasSelectedPosition[0] integerValue] == [positionOfSelectedUnit[0] integerValue] && [self.unitWasSelectedPosition[1] integerValue] == [positionOfSelectedUnit[1] integerValue]) {
             self.unitWasSelectedPosition = nil;
-            self.selectedSprite = nil;
             [Animator animateSpriteDeselection:self.selectedSprite];
             return;
         }
@@ -359,7 +356,6 @@
         else {
             NSLog(@"Not enough qty for unit %@", self.unitNameSelectedInBank);
             self.unitNameSelectedInBank = nil;
-            self.selectedSprite = nil;
             self.unitWasSelectedPosition = NO;
         }
        
