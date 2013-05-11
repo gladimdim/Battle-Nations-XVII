@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		F20085CE16F7B8D900A5CC4E /* GameDictProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = F20085CD16F7B8D900A5CC4E /* GameDictProcessor.m */; };
 		F211FF5916F53136009CF4A0 /* GameFieldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F211FF5816F53136009CF4A0 /* GameFieldLayer.m */; };
-		F211FF5D16F53394009CF4A0 /* cossack.png in Resources */ = {isa = PBXBuildFile; fileRef = F211FF5C16F53394009CF4A0 /* cossack.png */; };
 		F215CC1816FE2C6D0016D868 /* ukraine_infantry-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F215CC1716FE2C6D0016D868 /* ukraine_infantry-hd.png */; };
 		F215CC1A16FE2C7E0016D868 /* poland_infantry-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F215CC1916FE2C7E0016D868 /* poland_infantry-hd.png */; };
 		F215CC1D16FE47BA0016D868 /* GameLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = F215CC1C16FE47BA0016D868 /* GameLogic.m */; };
@@ -164,7 +163,15 @@
 		F2B2E270173981A400ACFEA3 /* ukraine_super_unit.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B2E26A173981A400ACFEA3 /* ukraine_super_unit.png */; };
 		F2B2E271173981A400ACFEA3 /* ukraine_veteran-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B2E26B173981A400ACFEA3 /* ukraine_veteran-hd.png */; };
 		F2B2E273173981C800ACFEA3 /* ukraine_veteran.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B2E272173981C800ACFEA3 /* ukraine_veteran.png */; };
+		F2B2E27B17398C4200ACFEA3 /* poland_heavy_cavalry-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B2E27417398C4100ACFEA3 /* poland_heavy_cavalry-hd.png */; };
+		F2B2E27C17398C4200ACFEA3 /* poland_light_cavalry-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B2E27517398C4100ACFEA3 /* poland_light_cavalry-hd.png */; };
+		F2B2E27D17398C4200ACFEA3 /* poland_light_cavalry.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B2E27617398C4100ACFEA3 /* poland_light_cavalry.png */; };
+		F2B2E27E17398C4200ACFEA3 /* poland_super_unit-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B2E27717398C4100ACFEA3 /* poland_super_unit-hd.png */; };
+		F2B2E27F17398C4200ACFEA3 /* poland_super_unit.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B2E27817398C4100ACFEA3 /* poland_super_unit.png */; };
+		F2B2E28017398C4200ACFEA3 /* poland_veteran-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B2E27917398C4200ACFEA3 /* poland_veteran-hd.png */; };
+		F2B2E28117398C4200ACFEA3 /* poland_veteran.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B2E27A17398C4200ACFEA3 /* poland_veteran.png */; };
 		F2D90828171DD6DD00584065 /* UserRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = F2D90827171DD6DD00584065 /* UserRegister.m */; };
+		F2E71073173E656F00F84E00 /* Animator.m in Sources */ = {isa = PBXBuildFile; fileRef = F2E71072173E656F00F84E00 /* Animator.m */; };
 		F2F86B68173544D100742391 /* RegisterLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F86B67173544D100742391 /* RegisterLayer.m */; };
 		F2F86B6B173577EC00742391 /* NewGame.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F86B6A173577EC00742391 /* NewGame.m */; };
 /* End PBXBuildFile section */
@@ -174,7 +181,6 @@
 		F20085CD16F7B8D900A5CC4E /* GameDictProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameDictProcessor.m; path = Utilities/GameDictProcessor.m; sourceTree = "<group>"; };
 		F211FF5716F53136009CF4A0 /* GameFieldLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameFieldLayer.h; path = GameLayer/GameFieldLayer.h; sourceTree = "<group>"; };
 		F211FF5816F53136009CF4A0 /* GameFieldLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameFieldLayer.m; path = GameLayer/GameFieldLayer.m; sourceTree = "<group>"; };
-		F211FF5C16F53394009CF4A0 /* cossack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cossack.png; path = Resources/units/ukraine/cossack.png; sourceTree = "<group>"; };
 		F215CC1716FE2C6D0016D868 /* ukraine_infantry-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ukraine_infantry-hd.png"; path = "Resources/units/ukraine/ukraine_infantry-hd.png"; sourceTree = "<group>"; };
 		F215CC1916FE2C7E0016D868 /* poland_infantry-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "poland_infantry-hd.png"; path = "Resources/units/poland/poland_infantry-hd.png"; sourceTree = "<group>"; };
 		F215CC1B16FE47BA0016D868 /* GameLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameLogic.h; path = Utilities/GameLogic.h; sourceTree = "<group>"; };
@@ -483,8 +489,17 @@
 		F2B2E26A173981A400ACFEA3 /* ukraine_super_unit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ukraine_super_unit.png; path = Resources/units/ukraine/ukraine_super_unit.png; sourceTree = "<group>"; };
 		F2B2E26B173981A400ACFEA3 /* ukraine_veteran-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ukraine_veteran-hd.png"; path = "Resources/units/ukraine/ukraine_veteran-hd.png"; sourceTree = "<group>"; };
 		F2B2E272173981C800ACFEA3 /* ukraine_veteran.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ukraine_veteran.png; path = Resources/units/ukraine/ukraine_veteran.png; sourceTree = "<group>"; };
+		F2B2E27417398C4100ACFEA3 /* poland_heavy_cavalry-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "poland_heavy_cavalry-hd.png"; path = "Resources/units/poland/poland_heavy_cavalry-hd.png"; sourceTree = "<group>"; };
+		F2B2E27517398C4100ACFEA3 /* poland_light_cavalry-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "poland_light_cavalry-hd.png"; path = "Resources/units/poland/poland_light_cavalry-hd.png"; sourceTree = "<group>"; };
+		F2B2E27617398C4100ACFEA3 /* poland_light_cavalry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = poland_light_cavalry.png; path = Resources/units/poland/poland_light_cavalry.png; sourceTree = "<group>"; };
+		F2B2E27717398C4100ACFEA3 /* poland_super_unit-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "poland_super_unit-hd.png"; path = "Resources/units/poland/poland_super_unit-hd.png"; sourceTree = "<group>"; };
+		F2B2E27817398C4100ACFEA3 /* poland_super_unit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = poland_super_unit.png; path = Resources/units/poland/poland_super_unit.png; sourceTree = "<group>"; };
+		F2B2E27917398C4200ACFEA3 /* poland_veteran-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "poland_veteran-hd.png"; path = "Resources/units/poland/poland_veteran-hd.png"; sourceTree = "<group>"; };
+		F2B2E27A17398C4200ACFEA3 /* poland_veteran.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = poland_veteran.png; path = Resources/units/poland/poland_veteran.png; sourceTree = "<group>"; };
 		F2D90826171DD6DD00584065 /* UserRegister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserRegister.h; path = network/UserRegister.h; sourceTree = "<group>"; };
 		F2D90827171DD6DD00584065 /* UserRegister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserRegister.m; path = network/UserRegister.m; sourceTree = "<group>"; };
+		F2E71071173E656F00F84E00 /* Animator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Animator.h; path = Utilities/Animator.h; sourceTree = "<group>"; };
+		F2E71072173E656F00F84E00 /* Animator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Animator.m; path = Utilities/Animator.m; sourceTree = "<group>"; };
 		F2F86B66173544D100742391 /* RegisterLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterLayer.h; sourceTree = "<group>"; };
 		F2F86B67173544D100742391 /* RegisterLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterLayer.m; sourceTree = "<group>"; };
 		F2F86B69173577EB00742391 /* NewGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewGame.h; path = network/NewGame.h; sourceTree = "<group>"; };
@@ -518,6 +533,8 @@
 				F20085CD16F7B8D900A5CC4E /* GameDictProcessor.m */,
 				F215CC1B16FE47BA0016D868 /* GameLogic.h */,
 				F215CC1C16FE47BA0016D868 /* GameLogic.m */,
+				F2E71071173E656F00F84E00 /* Animator.h */,
+				F2E71072173E656F00F84E00 /* Animator.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -552,7 +569,6 @@
 				F2B2E26A173981A400ACFEA3 /* ukraine_super_unit.png */,
 				F2A786AD1724789600E35834 /* ukraine_infantry.png */,
 				F215CC1716FE2C6D0016D868 /* ukraine_infantry-hd.png */,
-				F211FF5C16F53394009CF4A0 /* cossack.png */,
 			);
 			name = ukraine;
 			sourceTree = "<group>";
@@ -560,6 +576,13 @@
 		F215CC1616FE2C5A0016D868 /* poland */ = {
 			isa = PBXGroup;
 			children = (
+				F2B2E27417398C4100ACFEA3 /* poland_heavy_cavalry-hd.png */,
+				F2B2E27517398C4100ACFEA3 /* poland_light_cavalry-hd.png */,
+				F2B2E27617398C4100ACFEA3 /* poland_light_cavalry.png */,
+				F2B2E27717398C4100ACFEA3 /* poland_super_unit-hd.png */,
+				F2B2E27817398C4100ACFEA3 /* poland_super_unit.png */,
+				F2B2E27917398C4200ACFEA3 /* poland_veteran-hd.png */,
+				F2B2E27A17398C4200ACFEA3 /* poland_veteran.png */,
 				F2A786AF172478AA00E35834 /* poland_infantry.png */,
 				F215CC1916FE2C7E0016D868 /* poland_infantry-hd.png */,
 			);
@@ -1117,7 +1140,6 @@
 				F276CF9316F49A30009D09E7 /* ChangeLog in Resources */,
 				F285E7C916F4ED8C0057C247 /* flag_ukraine.png in Resources */,
 				F285E7CB16F4EDCB0057C247 /* flag_poland.png in Resources */,
-				F211FF5D16F53394009CF4A0 /* cossack.png in Resources */,
 				F29802DE16F6585000559974 /* ukraine_steppe.png in Resources */,
 				F215CC1816FE2C6D0016D868 /* ukraine_infantry-hd.png in Resources */,
 				F215CC1A16FE2C7E0016D868 /* poland_infantry-hd.png in Resources */,
@@ -1130,6 +1152,13 @@
 				F2B2E270173981A400ACFEA3 /* ukraine_super_unit.png in Resources */,
 				F2B2E271173981A400ACFEA3 /* ukraine_veteran-hd.png in Resources */,
 				F2B2E273173981C800ACFEA3 /* ukraine_veteran.png in Resources */,
+				F2B2E27B17398C4200ACFEA3 /* poland_heavy_cavalry-hd.png in Resources */,
+				F2B2E27C17398C4200ACFEA3 /* poland_light_cavalry-hd.png in Resources */,
+				F2B2E27D17398C4200ACFEA3 /* poland_light_cavalry.png in Resources */,
+				F2B2E27E17398C4200ACFEA3 /* poland_super_unit-hd.png in Resources */,
+				F2B2E27F17398C4200ACFEA3 /* poland_super_unit.png in Resources */,
+				F2B2E28017398C4200ACFEA3 /* poland_veteran-hd.png in Resources */,
+				F2B2E28117398C4200ACFEA3 /* poland_veteran.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1264,6 +1293,7 @@
 				F295D550173009E100E6CCD0 /* ArmyBuilder.m in Sources */,
 				F2F86B68173544D100742391 /* RegisterLayer.m in Sources */,
 				F2F86B6B173577EC00742391 /* NewGame.m in Sources */,
+				F2E71073173E656F00F84E00 /* Animator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

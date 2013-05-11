@@ -11,6 +11,7 @@
 #import "GameLogic.h"
 #import "DataPoster.h"
 #import "UkraineInfo.h"
+#import "Animator.h"
 
 @interface GameFieldLayer()
 
@@ -26,6 +27,7 @@
 @property NSString *currentPlayerID;
 @property BOOL bankSelected;
 @property NSString *unitNameSelectedInBank;
+@property (strong) CCSprite *selectedSprite;
 @end
 
 @implementation GameFieldLayer
@@ -52,7 +54,6 @@
 }
 
 -(void) initObject {
-
     CGSize size = [[CCDirector sharedDirector] winSize];
     self.horizontalStep = floor(size.width / 9);
     self.verticalStep = floor(size.height / 6);
@@ -174,6 +175,14 @@
 -(void) selectSpriteSquareAt:(CGPoint) touchPoint {
     NSLog(@"Entered select spriteSquare At point: %@", NSStringFromCGPoint(touchPoint));
     
+    //find what sprite was touched
+    for (int i = 0; i < [self children].count; i++) {
+        CCSprite *sprite = (CCSprite *) [[self children] objectAtIndex:i];
+        if (CGRectContainsPoint([sprite boundingBox], touchPoint)) {
+            [Animator animateSpriteDeselection:self.selectedSprite];
+            self.selectedSprite = sprite;
+        }
+    }
 
     //handle selection in bank
     if (touchPoint.y  < self.verticalStep) {
@@ -205,6 +214,7 @@
                 break;
         }
         NSLog(@"Bank selection: %@", self.unitNameSelectedInBank);
+        [Animator animateSpriteSelection:self.selectedSprite];
         return;
     }
     
@@ -230,6 +240,7 @@
         NSNumber *nFriendlyUnit = (NSNumber *) positionOfSelectedUnit[2];
         BOOL friendlyUnit = [nFriendlyUnit boolValue];
         if (friendlyUnit) {
+            [Animator animateSpriteDeselection:self.selectedSprite];
             NSLog(@"healing is to be implemented");
         }
         //unfriendly unit was selected
@@ -248,6 +259,7 @@
                     [self initObject];
                     self.unitNameSelectedInBank = nil;
                     self.unitWasSelectedPosition = nil;
+                    self.selectedSprite = nil;
                 }
             }
             else {
@@ -258,6 +270,8 @@
         //deselect if selected the same unit
         if ([self.unitWasSelectedPosition[0] integerValue] == [positionOfSelectedUnit[0] integerValue] && [self.unitWasSelectedPosition[1] integerValue] == [positionOfSelectedUnit[1] integerValue]) {
             self.unitWasSelectedPosition = nil;
+            self.selectedSprite = nil;
+            [Animator animateSpriteDeselection:self.selectedSprite];
             return;
         }
         self.unitWasSelectedPosition = nil;
@@ -310,8 +324,10 @@
         //remember only if friendly unit was selected;
         NSNumber *nFriendlyUnit = (NSNumber *) positionOfSelectedUnit[2];
         BOOL friendlyUnit = [nFriendlyUnit boolValue];
-        if (friendlyUnit)
+        if (friendlyUnit) {
             self.unitWasSelectedPosition = positionOfSelectedUnit;
+            [Animator animateSpriteSelection:self.selectedSprite];
+        }
     }
     //placing new unit on board
     else if (self.bankSelected && !positionOfSelectedUnit) {
@@ -343,6 +359,7 @@
         else {
             NSLog(@"Not enough qty for unit %@", self.unitNameSelectedInBank);
             self.unitNameSelectedInBank = nil;
+            self.selectedSprite = nil;
             self.unitWasSelectedPosition = NO;
         }
        
