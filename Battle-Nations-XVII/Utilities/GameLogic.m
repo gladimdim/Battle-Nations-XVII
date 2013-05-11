@@ -13,20 +13,31 @@
 
 @implementation GameLogic
 
-+(CGPoint) gameToCocosCoordinate:(NSArray *) position hStep:(int) hStep vStep:(int) vStep{
-    int x = [position[0] intValue] * hStep;
-    int y = [position[1] intValue] * vStep + vStep;
-    x = x + hStep /2;
-    y = y + vStep / 2;
++(CGPoint) gameToCocosCoordinate:(NSArray *) position {
+    int x = [position[0] intValue] * [GameLogic horizontalStep];
+    int y = [position[1] intValue] * [GameLogic verticalStep] + [GameLogic verticalStep];
+    x = x + [GameLogic horizontalStep] /2;
+    y = y + [GameLogic verticalStep] / 2;
     return ccp(x, y);
 }
 
-+(NSArray *) cocosToGameCoordinate:(CGPoint) position hStep:(int) hStep vStep:(int) vStep{
-    NSUInteger x = floor(position.x / hStep);
-    NSUInteger y = floor(position.y / vStep) -1;
++(NSArray *) cocosToGameCoordinate:(CGPoint) position {
+    NSUInteger x = floor(position.x / [GameLogic horizontalStep]);
+    NSUInteger y = floor(position.y / [GameLogic verticalStep]) -1;
     NSArray *array = [[NSArray alloc] initWithObjects:[NSNumber numberWithInteger:x], [NSNumber numberWithInteger:y], nil];
     return array;
 }
+
++(int) horizontalStep {
+    CGSize size = [[CCDirector sharedDirector] winSize];
+    return floor(size.width / 9);
+}
+
++(int) verticalStep {
+    CGSize size = [[CCDirector sharedDirector] winSize];
+    return floor(size.height / 6);
+}
+
 
 //returns updated gameObj. Moves unit from one pos to another
 +(NSDictionary *) applyMove:(NSArray *) arrayOfActionsInMove toGame:(GameDictProcessor *) gameObj forPlayerID:(NSString *) playerID {

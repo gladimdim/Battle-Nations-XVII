@@ -110,7 +110,7 @@
         }
         
         NSArray *positionCoords = [NSArray arrayWithObjects:@(xPos), @(-1), nil];
-        CGPoint position = [GameLogic gameToCocosCoordinate:positionCoords hStep:self.horizontalStep vStep:self.verticalStep];
+        CGPoint position = [GameLogic gameToCocosCoordinate:positionCoords];
         sprite.position = position;
         [self addChild:sprite];
     }
@@ -127,7 +127,7 @@
     if (!leftArmy) {
         [sprite setScaleX:-1.0];
     }
-    CGPoint newPoint = [GameLogic gameToCocosCoordinate:position hStep:self.horizontalStep vStep:self.verticalStep];
+    CGPoint newPoint = [GameLogic gameToCocosCoordinate:position];
     NSLog(@"placing sprite at %@ [%@]", NSStringFromCGPoint(newPoint), position);
     sprite.position = newPoint;
     [self addChild:sprite];
@@ -141,8 +141,6 @@
 	if( (self=[super init]) ) {
         // to avoid a retain-cycle with the menuitem and blocks
         __block id copy_self = self;
-
-        
          [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
     }
 	return self;
@@ -187,7 +185,7 @@
     //handle selection in bank
     if (touchPoint.y  < self.verticalStep) {
         NSLog(@"Handling selection in bank section");
-        NSArray *pos = [GameLogic cocosToGameCoordinate:touchPoint hStep:self.horizontalStep vStep:self.verticalStep];
+        NSArray *pos = [GameLogic cocosToGameCoordinate:touchPoint];
         int x = [pos[0] intValue];
         switch (x) {
             case 0:
@@ -282,14 +280,10 @@
             //calculate old CGPoint by using old game coordinates
             CGPoint oldPoint = CGPointMake([self.unitWasSelectedPosition[0] integerValue] * self.horizontalStep + self.horizontalStep/2, [self.unitWasSelectedPosition[1] integerValue] * self.verticalStep + self.verticalStep + self.verticalStep / 2);
             //calculate new position in game coordinates
-            NSArray *newGameCoordinates = [GameLogic cocosToGameCoordinate:touchPoint hStep:self.horizontalStep vStep:self.verticalStep];
+            NSArray *newGameCoordinates = [GameLogic cocosToGameCoordinate:touchPoint];
             if (CGRectContainsPoint(node.boundingBox, oldPoint)) {
                 NSLog(@"found sprite");
                 if ([GameLogic canMoveFrom:self.unitWasSelectedPosition to:newGameCoordinates forPlayerID:self.currentPlayerID inGame:self.gameObj]) {
-                   
-                    //////CGPoint newPoint = [GameLogic gameToCocosCoordinate:newGameCoordinates hStep:self.horizontalStep vStep:self.verticalStep];
-                    // CGPoint newPoint = CGPointMake(, [self.unitWasSelectedPosition[1] integerValue] * self.verticalStep + self.verticalStep);
-                   ////// node.position = newPoint;
                     //update gameObj dictionary with new position of unit
                     //add gameObj to arrayOfMoves
                     //this array contains initial position of unit and its target action;
@@ -324,6 +318,10 @@
         if (friendlyUnit) {
             self.unitWasSelectedPosition = positionOfSelectedUnit;
             [Animator animateSpriteSelection:self.selectedSprite];
+            NSArray *arr = [Animator createHealthBarsForFieldInGame:self.gameObj];
+            for (int i = 0; i < arr.count; i++) {
+                [self addChild:arr[i]];
+            }
         }
     }
     //placing new unit on board
@@ -332,7 +330,7 @@
             NSLog(@"Placing new unit");
             //calculate if final destination is from two allowed positions for left/right player.
             NSSet *allowedCoordinates = [GameLogic getCoordinatesForNewUnitForGame:self.gameObj forPlayerID:self.currentPlayerID];
-            NSArray *proposedPosition = [GameLogic cocosToGameCoordinate:touchPoint hStep:self.horizontalStep vStep:self.verticalStep];
+            NSArray *proposedPosition = [GameLogic cocosToGameCoordinate:touchPoint];
             if ([allowedCoordinates containsObject:proposedPosition]) {
                 NSLog(@"Placing unit. Specified valid final coordinate.");
                 NSDictionary *newDictOfGame = [GameLogic placeNewUnit:self.unitNameSelectedInBank forGame:self.gameObj forPlayerID:self.currentPlayerID atPosition:proposedPosition];

@@ -35,5 +35,7 @@
 -(NSArray *) getFieldForPlayerID:(NSString *) playerID;
 -(BOOL) checkBankQtyForPlayerID:(NSString *) playerID unit:(NSString *) unit;
 -(NSString *) nationForPlayerID:(NSString *) playerID;
+-(NSInteger) getHealthLevelForUnit:(NSDictionary *) unitDict;
+-(NSArray *) getCoordsForUnit:(NSDictionary *) unitDict;
 
 @end

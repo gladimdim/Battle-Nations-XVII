@@ -33,7 +33,7 @@
 //checks if touched point contains friendly/enemy unit.
 //Returns array with three objects: first two are game coordinates, the third one is NSNumber with bool value. BOOL represents if friendly unit was selected
 -(NSArray *) unitPresentAtPosition:(CGPoint ) spritePoint winSize:(CGSize) winSize horizontalStep:(int) hStep verticalStep:(int) vStep currentPlayerID:(NSString *) playerID {
-    NSArray *gameCoordinates = [GameLogic cocosToGameCoordinate:spritePoint hStep:hStep vStep:vStep];
+    NSArray *gameCoordinates = [GameLogic cocosToGameCoordinate:spritePoint];
     NSUInteger x = [gameCoordinates[0] integerValue]; //floor(spritePoint.x / hStep);
     NSUInteger y = [gameCoordinates[1] integerValue]; //floor(spritePoint.y / vStep) - 1;
     NSLog(@"unitPresentAtPos x: %i, y: %i", x, y);
@@ -127,5 +127,16 @@
     NSDictionary *dictPlayer = [self.dictOfGame objectForKey:playerID];
     return [dictPlayer valueForKey:@"nation"];
 }
+
+-(NSInteger) getHealthLevelForUnit:(NSDictionary *) unitDict {
+    NSDictionary *dict = [unitDict objectForKey:[unitDict allKeys][0]];
+    return [[dict valueForKey:@"level_life"] integerValue];
+}
+
+-(NSArray *) getCoordsForUnit:(NSDictionary *) unitDict {
+    NSDictionary *dict = [unitDict objectForKey:[unitDict allKeys][0]];
+    return (NSArray *) [dict objectForKey:@"position"];
+}
+
 
 @end
