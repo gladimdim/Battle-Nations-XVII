@@ -124,7 +124,7 @@
     [dictPlayer setObject:dictBank forKey:@"bank"];
     NSMutableArray *fieldArray = [NSMutableArray arrayWithArray:[gameObj getFieldForPlayerID:playerID]];
     SEL s = NSSelectorFromString(unitName);
-    ArmyBuilder *army = [[ArmyBuilder alloc] initWithNationsName:@"ukraine"];
+    ArmyBuilder *army = [[ArmyBuilder alloc] initWithNationsName:[gameObj nationForPlayerID:playerID]];
     NSMutableDictionary *dictNewUnit = [NSMutableDictionary dictionaryWithDictionary:[army performSelector:s]];
     NSMutableDictionary *dictNaked = [NSMutableDictionary dictionaryWithDictionary:[dictNewUnit objectForKey:unitName]];
     [dictNaked setObject:coords forKey:@"position"];

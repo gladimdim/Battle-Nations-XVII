@@ -48,7 +48,6 @@
 	// add layer as a child to scene
 	[scene addChild: layer];
 	NSLog(@"pixel winsize: %@", NSStringFromCGSize([[CCDirector sharedDirector] winSizeInPixels]));
-    
 	// return the scene
 	return scene;
 }
@@ -74,7 +73,7 @@
         }
     }];
     
-    CCMenuItemFont *undoTurn = [CCMenuItemFont itemWithString:[NSString stringWithFormat:@"Turns: %i/5", self.arrayOfMoves.count] block:^(id sender) {
+    CCMenuItemFont *undoTurn = [CCMenuItemFont itemWithString:[NSString stringWithFormat:@"%i/5", self.arrayOfMoves.count] block:^(id sender) {
         if (self.arrayOfMoves.count > 0) {
             NSLog(@"moves: %i, states: %i", self.arrayOfMoves.count, self.arrayOfStates.count);
             [self.arrayOfMoves removeLastObject];
@@ -137,7 +136,8 @@
     }
     CCSprite *sprite = [CCSprite spriteWithFile:[NSString stringWithFormat:@"%@_%@.png", nationName, unitName]];
     if (!leftArmy) {
-        [sprite setScaleX:-1.0];
+        //[sprite setScaleX:-1.0];
+        [sprite setFlipX:YES];
     }
     CGPoint newPoint = [GameLogic gameToCocosCoordinate:position];
    // NSLog(@"placing sprite at %@ [%@]", NSStringFromCGPoint(newPoint), position);
@@ -302,8 +302,6 @@
                     //we need to add only coordinates to array of moves.
                     NSArray *arrayWithoutBool = @[self.unitWasSelectedPosition[0], self.unitWasSelectedPosition[1]];
                     NSArray *arrayOfPositionsInMove = @[arrayWithoutBool, newGameCoordinates];
-                    
-                    
                     NSDictionary *newDictOfGame = [GameLogic applyMove:arrayOfPositionsInMove toGame:self.gameObj forPlayerID:self.currentPlayerID];
                     self.gameObj = [[GameDictProcessor alloc] initWithDictOfGame:newDictOfGame];
                     [self.arrayOfMoves addObject:arrayOfPositionsInMove];
@@ -346,7 +344,6 @@
             if ([allowedCoordinates containsObject:proposedPosition]) {
                 NSLog(@"Placing unit. Specified valid final coordinate.");
                 NSDictionary *newDictOfGame = [GameLogic placeNewUnit:self.unitNameSelectedInBank forGame:self.gameObj forPlayerID:self.currentPlayerID atPosition:proposedPosition];
-                
                 //pay attention that we add array with only one object - array of final destination
                 //in future we will have to check if there is only one member in arrayOfMoves - it means we are placing new unit on board
                 [self.arrayOfMoves addObject:proposedPosition];
@@ -362,16 +359,13 @@
                 NSLog(@"Placing unit failed: specified final coordinate which is not allowed.");
                 return;
             }
-            
         }
         else {
             NSLog(@"Not enough qty for unit %@", self.unitNameSelectedInBank);
             self.unitNameSelectedInBank = nil;
             self.unitWasSelectedPosition = NO;
         }
-       
     }
 }
-
 
 @end

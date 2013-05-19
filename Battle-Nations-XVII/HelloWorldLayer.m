@@ -93,7 +93,7 @@
 		[self addChild:menu];
         
         //set default server and port
-        [[NSUserDefaults standardUserDefaults] setObject:@"https://10.0.1.2" forKey:@"server"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"https://82.196.1.103" forKey:@"server"];
         [[NSUserDefaults standardUserDefaults] setObject:@"8444" forKey:@"port"];
         //[[NSUserDefaults standardUserDefaults] setObject:@"gladimdim" forKey:@"playerID"];
 
