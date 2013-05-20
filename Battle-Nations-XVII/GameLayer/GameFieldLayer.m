@@ -257,7 +257,25 @@
         BOOL friendlyUnit = [nFriendlyUnit boolValue];
         if (friendlyUnit && [self.unitWasSelectedPosition[3] isEqualToString:@"healer"]) {
             [Animator animateSpriteDeselection:self.selectedSprite];
-            NSLog(@"healing is to be implemented");
+            BOOL canHeal = [GameLogic canAttackFrom:self.unitWasSelectedPosition to:positionOfSelectedUnit forPlayerID:self.currentPlayerID inGame:self.gameObj];
+            if (canHeal) {
+                NSDictionary *newDictOfGame = [GameLogic healUnitFrom:self.unitWasSelectedPosition fromPlayerID:self.currentPlayerID toUnit:positionOfSelectedUnit forGame:self.gameObj];
+                
+                if (newDictOfGame) {
+                    GameDictProcessor *newGameObj = [[GameDictProcessor alloc] initWithDictOfGame:newDictOfGame];
+                    NSArray *arrayWithoutBool = @[self.unitWasSelectedPosition[0], self.unitWasSelectedPosition[1]];
+                    [self.arrayOfMoves addObject:@[arrayWithoutBool, positionOfSelectedUnit]];
+                    self.gameObj = newGameObj;
+                    [self.arrayOfStates addObject:self.gameObj.dictOfGame];
+                    [self removeAllChildren];
+                    [self initObject];
+                    self.unitNameSelectedInBank = nil;
+                    self.unitWasSelectedPosition = nil;
+                }
+            }
+            else {
+                NSLog(@"Cannot attack.");
+            }
         }
         //enemy unit was selected
         //attack if not healer

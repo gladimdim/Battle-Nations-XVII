@@ -229,7 +229,43 @@
         }
     }
     return nil;
+}
 
++(NSDictionary *) healUnitFrom:(NSArray *) healerCoords fromPlayerID:(NSString *) playerID toUnit:(NSArray *) targetCoords forGame:(GameDictProcessor *) gameObj {
+    NSDictionary *dictOfHealer = [NSDictionary dictionaryWithDictionary:[gameObj.dictOfGame objectForKey:playerID]];
+    if (dictOfHealer) {
+        NSArray *field = (NSArray *) [dictOfHealer objectForKey:@"field"];
+        for (int i = 0; i < field.count; i++) {
+            NSDictionary *topUnit = (NSDictionary *) field[i];
+            NSDictionary *unit = [topUnit objectForKey:[topUnit allKeys][0]];
+            NSArray *position = (NSArray *) [unit objectForKey:@"position"];
+            if (position[0] == healerCoords[0] && position[1] == healerCoords[1]) {
+                NSInteger healValue = [unit valueForKey:@"heal"];
+
+                NSMutableDictionary *dictOfGame = [NSMutableDictionary dictionaryWithDictionary:gameObj.dictOfGame];
+                NSMutableDictionary *dictPlayer = [NSMutableDictionary dictionaryWithDictionary:[dictOfGame objectForKey:playerID]];
+                NSMutableArray *fieldArray = [NSMutableArray arrayWithArray:[gameObj getFieldForPlayerID:playerID]];
+                
+                for (int j = 0; j < fieldArray.count; j++) {
+                    NSMutableDictionary *topUnit2 = [NSMutableDictionary dictionaryWithDictionary:fieldArray[j]];
+                    NSMutableDictionary *unit2 = [NSMutableDictionary dictionaryWithDictionary:[topUnit2 objectForKey:[topUnit2 allKeys][0]]];
+                    NSArray *position2 = (NSArray *) [unit2 objectForKey:@"position"];
+                    if (position2[0] == targetCoords[0] && position2[1] == targetCoords[1]) {
+                        NSInteger initHealth = [[unit2 valueForKey:@"level_life"] integerValue];
+                        NSInteger finalHeath = initHealth + healValue > 100 ? 100 : initHealth + healValue;
+                        [unit2 setObject:@(finalHeath) forKey:@"level_life"];
+                        [topUnit2 setObject:unit2 forKey:[topUnit2 allKeys][0]];
+                        [fieldArray removeObjectAtIndex:j];
+                        [fieldArray addObject:topUnit2];
+                        [dictPlayer setObject:fieldArray forKey:@"field"];
+                        [dictOfGame setObject:dictPlayer forKey:playerID];
+                        return dictOfGame;
+                    }
+                }
+            }
+        }
+    }
+    return nil;
 }
 
 @end

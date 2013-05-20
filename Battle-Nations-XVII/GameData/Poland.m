@@ -33,7 +33,7 @@
 }
 
 -(NSDictionary *) healer {
-    NSDictionary *dict = [NSDictionary dictionaryWithObjects:@[@(100), @(3), @(35)] forKeys:@[@"level_life", @"range_move", @"heal"]];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjects:@[@(100), @(3), @(2), @(35)] forKeys:@[@"level_life", @"range_move", @"range_attack_length", @"heal"]];
     NSDictionary *dictToReturn = [NSDictionary dictionaryWithObject:dict forKey:@"healer"];
     return dictToReturn;
 }
