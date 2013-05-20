@@ -78,14 +78,49 @@
     }];
     
     CCMenuItem *itemCreate = [CCMenuItemFont itemWithString:@"I want to play" block:^(id sender) {
-        NewGame *game = [[NewGame alloc] init];
+       /* NewGame *game = [[NewGame alloc] init];
         [game askForNewGameForUser:[[NSUserDefaults standardUserDefaults] stringForKey:@"playerID"]  withEmail:@"kuku" forNation:@"poland" callBack:^(NSDictionary *returnDict) {
             NSLog(@"created new game: %@", returnDict);
-        }];
+        }];*/
+        [self buildMenuForArmySelection];
     }];
     [self.menu addChild:itemCreate];
     [self.menu addChild:refreshItem];
     [self.menu addChild:backItem];
+}
+
+-(void) buildMenuForArmySelection {
+    [self.menu removeAllChildren];
+    CCMenuItemFont *backItem = [CCMenuItemFont itemWithString:NSLocalizedString(@"Back", nil) block:^(id sender) {
+        [self buildMenuForListOfGames];
+    }];
+    
+    CCMenuItemFont *itemUkraine = [CCMenuItemFont itemWithString:NSLocalizedString(@"Ukraine", nil) block:^(id sender) {
+        NewGame *game = [[NewGame alloc] init];
+        [game askForNewGameForUser:[[NSUserDefaults standardUserDefaults] stringForKey:@"playerID"]  withEmail:@"kuku" forNation:@"ukraine" callBack:^(NSDictionary *returnDict) {
+            NSLog(@"created new game: %@", returnDict);
+            [self buildMenuForListOfGames];
+        }];
+    }];
+    
+    CCMenuItemFont *itemPoland = [CCMenuItemFont itemWithString:NSLocalizedString(@"Poland", nil) block:^(id sender) {
+        NewGame *game = [[NewGame alloc] init];
+        [game askForNewGameForUser:[[NSUserDefaults standardUserDefaults] stringForKey:@"playerID"]  withEmail:@"kuku" forNation:@"poland" callBack:^(NSDictionary *returnDict) {
+            NSLog(@"created new game: %@", returnDict);
+            [self buildMenuForListOfGames];
+        }];
+    }];
+    [self.menu addChild:itemUkraine];
+    [self.menu addChild:itemPoland];
+    [self.menu addChild:backItem];
+    
+    [self.menu alignItemsVertically];
+    [self.menu draw];
+}
+
+-(void) buildMenuForListOfGames {
+    [self.menu removeAllChildren];
+    [self getListOfGames];
 }
 
 -(void) getListOfGames {
