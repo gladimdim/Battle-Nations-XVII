@@ -14,5 +14,6 @@
 -(NSDictionary *) light_cavalry;
 -(NSDictionary *) heavy_cavalry;
 -(NSDictionary *) veteran;
+-(NSDictionary *) healer;
 -(NSDictionary *) super_unit;
 @end

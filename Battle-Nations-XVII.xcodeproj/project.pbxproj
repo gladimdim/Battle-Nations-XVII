@@ -183,6 +183,10 @@
 		F2E713B6173FD68F00F84E00 /* LICENSE_cocos2d.txt in Resources */ = {isa = PBXBuildFile; fileRef = F2E71345173FD68F00F84E00 /* LICENSE_cocos2d.txt */; };
 		F2E713B7173FD68F00F84E00 /* LICENSE_CocosDenshion.txt in Resources */ = {isa = PBXBuildFile; fileRef = F2E71346173FD68F00F84E00 /* LICENSE_CocosDenshion.txt */; };
 		F2E713B8173FD68F00F84E00 /* LICENSE_Kazmath.txt in Resources */ = {isa = PBXBuildFile; fileRef = F2E71347173FD68F00F84E00 /* LICENSE_Kazmath.txt */; };
+		F2F3F4F0174AA889002AA14E /* ukraine_healer-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F2F3F4EE174AA888002AA14E /* ukraine_healer-hd.png */; };
+		F2F3F4F1174AA889002AA14E /* ukraine_healer.png in Resources */ = {isa = PBXBuildFile; fileRef = F2F3F4EF174AA888002AA14E /* ukraine_healer.png */; };
+		F2F3F4F4174AA895002AA14E /* poland_healer-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F2F3F4F2174AA895002AA14E /* poland_healer-hd.png */; };
+		F2F3F4F5174AA895002AA14E /* poland_healer.png in Resources */ = {isa = PBXBuildFile; fileRef = F2F3F4F3174AA895002AA14E /* poland_healer.png */; };
 		F2F86B68173544D100742391 /* RegisterLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F86B67173544D100742391 /* RegisterLayer.m */; };
 		F2F86B6B173577EC00742391 /* NewGame.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F86B6A173577EC00742391 /* NewGame.m */; };
 /* End PBXBuildFile section */
@@ -516,6 +520,10 @@
 		F2E71345173FD68F00F84E00 /* LICENSE_cocos2d.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE_cocos2d.txt; path = libs/LICENSE_cocos2d.txt; sourceTree = "<group>"; };
 		F2E71346173FD68F00F84E00 /* LICENSE_CocosDenshion.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE_CocosDenshion.txt; path = libs/LICENSE_CocosDenshion.txt; sourceTree = "<group>"; };
 		F2E71347173FD68F00F84E00 /* LICENSE_Kazmath.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE_Kazmath.txt; path = libs/LICENSE_Kazmath.txt; sourceTree = "<group>"; };
+		F2F3F4EE174AA888002AA14E /* ukraine_healer-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ukraine_healer-hd.png"; path = "Resources/units/ukraine/ukraine_healer-hd.png"; sourceTree = "<group>"; };
+		F2F3F4EF174AA888002AA14E /* ukraine_healer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ukraine_healer.png; path = Resources/units/ukraine/ukraine_healer.png; sourceTree = "<group>"; };
+		F2F3F4F2174AA895002AA14E /* poland_healer-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "poland_healer-hd.png"; path = "Resources/units/poland/poland_healer-hd.png"; sourceTree = "<group>"; };
+		F2F3F4F3174AA895002AA14E /* poland_healer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = poland_healer.png; path = Resources/units/poland/poland_healer.png; sourceTree = "<group>"; };
 		F2F86B66173544D100742391 /* RegisterLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterLayer.h; sourceTree = "<group>"; };
 		F2F86B67173544D100742391 /* RegisterLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterLayer.m; sourceTree = "<group>"; };
 		F2F86B69173577EB00742391 /* NewGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewGame.h; path = network/NewGame.h; sourceTree = "<group>"; };
@@ -576,6 +584,8 @@
 		F211FF5B16F5337E009CF4A0 /* ukraine */ = {
 			isa = PBXGroup;
 			children = (
+				F2F3F4EE174AA888002AA14E /* ukraine_healer-hd.png */,
+				F2F3F4EF174AA888002AA14E /* ukraine_healer.png */,
 				F2B2E272173981C800ACFEA3 /* ukraine_veteran.png */,
 				F2B2E26B173981A400ACFEA3 /* ukraine_veteran-hd.png */,
 				F2B2E266173981A400ACFEA3 /* ukraine_heavy_cavalry-hd.png */,
@@ -592,6 +602,8 @@
 		F215CC1616FE2C5A0016D868 /* poland */ = {
 			isa = PBXGroup;
 			children = (
+				F2F3F4F2174AA895002AA14E /* poland_healer-hd.png */,
+				F2F3F4F3174AA895002AA14E /* poland_healer.png */,
 				F2E71088173EBB8F00F84E00 /* poland_heavy_cavalry.png */,
 				F2B2E27417398C4100ACFEA3 /* poland_heavy_cavalry-hd.png */,
 				F2B2E27517398C4100ACFEA3 /* poland_light_cavalry-hd.png */,
@@ -1211,6 +1223,10 @@
 				F2E713B6173FD68F00F84E00 /* LICENSE_cocos2d.txt in Resources */,
 				F2E713B7173FD68F00F84E00 /* LICENSE_CocosDenshion.txt in Resources */,
 				F2E713B8173FD68F00F84E00 /* LICENSE_Kazmath.txt in Resources */,
+				F2F3F4F0174AA889002AA14E /* ukraine_healer-hd.png in Resources */,
+				F2F3F4F1174AA889002AA14E /* ukraine_healer.png in Resources */,
+				F2F3F4F4174AA895002AA14E /* poland_healer-hd.png in Resources */,
+				F2F3F4F5174AA895002AA14E /* poland_healer.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -31,7 +31,7 @@
 }
 
 //checks if touched point contains friendly/enemy unit.
-//Returns array with three objects: first two are game coordinates, the third one is NSNumber with bool value. BOOL represents if friendly unit was selected
+//Returns array with four objects: first two are game coordinates, the third one is NSNumber with bool value. BOOL represents if friendly unit was selected. The fourth object is a name of unit (used to determine healers).
 -(NSArray *) unitPresentAtPosition:(CGPoint ) spritePoint winSize:(CGSize) winSize horizontalStep:(int) hStep verticalStep:(int) vStep currentPlayerID:(NSString *) playerID {
     NSArray *gameCoordinates = [GameLogic cocosToGameCoordinate:spritePoint];
     NSUInteger x = [gameCoordinates[0] integerValue]; //floor(spritePoint.x / hStep);
@@ -47,6 +47,7 @@
             BOOL friendlyUnit = [[self.dictOfGame valueForKey:@"player_left"] isEqualToString:playerID];
             NSMutableArray *arrayToReturn = [NSMutableArray arrayWithArray:position];
             [arrayToReturn addObject:[NSNumber numberWithBool:friendlyUnit]];
+            [arrayToReturn addObject:unitName];
             return arrayToReturn;
         }
     }
@@ -60,6 +61,7 @@
             BOOL friendlyUnit = [[self.dictOfGame valueForKey:@"player_right"] isEqualToString:playerID];
             NSMutableArray *arrayToReturn = [NSMutableArray arrayWithArray:position];
             [arrayToReturn addObject:[NSNumber numberWithBool:friendlyUnit]];
+            [arrayToReturn addObject:unitName];
             return arrayToReturn;
         }
     }

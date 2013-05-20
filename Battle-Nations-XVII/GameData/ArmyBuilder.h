@@ -15,5 +15,6 @@
 -(NSDictionary *) heavy_cavalry;
 -(NSDictionary *) veteran;
 -(NSDictionary *) super_unit;
+-(NSDictionary *) healer;
 -(ArmyBuilder *) initWithNationsName:(NSString *) nationName;
 @end

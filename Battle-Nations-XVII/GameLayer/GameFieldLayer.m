@@ -116,8 +116,11 @@
         else if ([unitName isEqualToString:@"veteran"]) {
             xPos = 3;
         }
-        else if ([unitName isEqualToString:@"super_unit"]) {
+        else if ([unitName isEqualToString:@"healer"]) {
             xPos = 4;
+        }
+        else if ([unitName isEqualToString:@"super_unit"]) {
+            xPos = 5;
         }
         
         NSArray *positionCoords = [NSArray arrayWithObjects:@(xPos), @(-1), nil];
@@ -217,6 +220,10 @@
                 self.bankSelected = YES;
                 break;
             case 4:
+                self.unitNameSelectedInBank = @"healer";
+                self.bankSelected = YES;
+                break;
+            case 5:
                 self.unitNameSelectedInBank = @"super_unit";
                 self.bankSelected = YES;
                 break;
@@ -248,13 +255,13 @@
         //healing
         NSNumber *nFriendlyUnit = (NSNumber *) positionOfSelectedUnit[2];
         BOOL friendlyUnit = [nFriendlyUnit boolValue];
-        if (friendlyUnit) {
+        if (friendlyUnit && [self.unitWasSelectedPosition[3] isEqualToString:@"healer"]) {
             [Animator animateSpriteDeselection:self.selectedSprite];
             NSLog(@"healing is to be implemented");
         }
         //enemy unit was selected
-        //attack
-        else {
+        //attack if not healer
+        else if (![self.unitWasSelectedPosition[3] isEqualToString:@"healer"]) {
             BOOL canAttack = [GameLogic canAttackFrom:self.unitWasSelectedPosition to:positionOfSelectedUnit forPlayerID:self.currentPlayerID inGame:self.gameObj];
             if (canAttack) {
                 NSDictionary *newDictOfGame = [GameLogic attackUnitFrom:self.unitWasSelectedPosition fromPlayerID:self.currentPlayerID toUnit:positionOfSelectedUnit forGame:self.gameObj];
