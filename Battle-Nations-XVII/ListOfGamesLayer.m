@@ -127,7 +127,7 @@
     [self.getter getListOfGamesFor:self.playerID withCallBack:^(NSDictionary *dict) {
         NSLog(@"dict: %@", dict);
         SEL selectorAllKeys = NSSelectorFromString(@"allKeys");
-        if ([dict respondsToSelector:selectorAllKeys] && [dict allKeys].count > 1) {
+        if ([dict respondsToSelector:selectorAllKeys]) {// && [dict allKeys].count > 1) {
             //CCMenuItemFont *errorItem = [CCMenuItemFont itemWithString:@"Retry"];
             [self.menu removeAllChildren];
             
