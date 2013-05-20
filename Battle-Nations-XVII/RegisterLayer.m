@@ -134,6 +134,9 @@
         }
         else {
             CCMenuItem *item = [CCMenuItemFont itemWithString:[NSString stringWithFormat:@"%@. Retry", result] block:^(id sender) {
+                //clear previous username and email saved in memory
+                self.username = nil;
+                self.email = nil;
                 [self showUsernameAlert];
             }];
             CCMenuItem *back = [CCMenuItemFont itemWithString:@"Back" block:^(id sender) {
@@ -142,6 +145,7 @@
             [self.menu removeAllChildren];
             [self.menu addChild:item];
             [self.menu addChild:back];
+            [self.menu alignItemsVertically];
         }
     }];
 }
