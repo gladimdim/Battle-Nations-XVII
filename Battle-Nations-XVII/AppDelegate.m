@@ -124,7 +124,18 @@
 	// make main window visible
 	[window_ makeKeyAndVisible];
 	
+    /*********Register for APNS**********/
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    
 	return YES;
+}
+
+-(void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSLog(@"My device token: %@", deviceToken);
+}
+
+-(void) application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"APNS could not be registered.");
 }
 
 // getting a call, pause the game
