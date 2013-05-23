@@ -122,8 +122,9 @@
 }
 
 -(void) registerUser {
+    NSString *deviceToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"deviceToken"];
     UserRegister *reg = [[UserRegister alloc] init];
-    [reg registerUser:self.username withEmail:self.email callBack:^(NSDictionary *message) {
+    [reg registerUser:self.username withEmail:self.email deviceToken:deviceToken callBack:^(NSDictionary *message) {
         NSLog(@"succesfully registered: %@", message);
         NSString *result = [message objectForKey:@"result"];
 

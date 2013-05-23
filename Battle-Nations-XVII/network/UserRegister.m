@@ -14,15 +14,15 @@
 @end
 
 @implementation UserRegister
--(void) registerUser:(NSString *) username withEmail:(NSString *) email callBack:(void (^) (NSDictionary  *)) callBackBlock {
+-(void) registerUser:(NSString *) username withEmail:(NSString *) email deviceToken:(NSString *)deviceToken callBack:(void (^)(NSDictionary *))callBackBlock {
     self.callBackBlock = callBackBlock;
     NSString *server = [[NSUserDefaults standardUserDefaults] stringForKey:@"server"];
     NSString *port = [[NSUserDefaults standardUserDefaults] stringForKey:@"port"];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@:%@/v1/register", server, port]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"PUT"];
-    
-    NSDictionary *jsonDict = [NSDictionary dictionaryWithObjects:@[username, email] forKeys:@[@"player-id", @"email"]];
+    deviceToken = deviceToken ? deviceToken : @"";
+    NSDictionary *jsonDict = [NSDictionary dictionaryWithObjects:@[username, email, deviceToken] forKeys:@[@"player-id", @"email", @"deviceToken"]];
     NSError *err;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:NSJSONReadingAllowFragments error:&err];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];

@@ -132,6 +132,10 @@
 
 -(void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSLog(@"My device token: %@", deviceToken);
+    NSString *strDeviceToken =  [[deviceToken description] stringByReplacingOccurrencesOfString:@"<" withString:@""];
+    strDeviceToken = [strDeviceToken stringByReplacingOccurrencesOfString:@">" withString:@""];
+    strDeviceToken = [strDeviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+    [[NSUserDefaults standardUserDefaults] setObject:strDeviceToken forKey:@"deviceToken"];
 }
 
 -(void) application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
