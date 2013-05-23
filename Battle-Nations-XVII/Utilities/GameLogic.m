@@ -100,7 +100,7 @@
                 //if it is possible to hit with melee attack - hit. If not - check for ranged attack.
                 if (distance > meleeAttack) {
                     NSInteger rangeAttack = [[unit valueForKey:@"range_attack_length"] integerValue];
-                    return rangeAttack > distance;
+                    return rangeAttack >= distance;
                 }
                 else {
                     return YES;

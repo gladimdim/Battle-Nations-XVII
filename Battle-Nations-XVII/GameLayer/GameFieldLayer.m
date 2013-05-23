@@ -237,7 +237,12 @@
     }
     
     NSArray *positionOfSelectedUnit = [self.gameObj unitPresentAtPosition:touchPoint winSize:[[CCDirector sharedDirector] winSize] horizontalStep:self.horizontalStep verticalStep:self.verticalStep currentPlayerID:self.currentPlayerID];
-    
+    //deselect if selected the same unit. Then return.
+    if ([self.unitWasSelectedPosition[0] integerValue] == [positionOfSelectedUnit[0] integerValue] && [self.unitWasSelectedPosition[1] integerValue] == [positionOfSelectedUnit[1] integerValue]) {
+        self.unitWasSelectedPosition = nil;
+        [Animator animateSpriteDeselection:self.selectedSprite];
+        return;
+    }
     //if there are 6 states (5 + 1 because the initial position counts as state) already - return
     if (self.arrayOfStates.count >= 6) {
         NSLog(@"Movement denied: There are already 5 moves");
@@ -299,12 +304,6 @@
                 NSLog(@"Cannot attack.");
             }
 
-        }
-        //deselect if selected the same unit
-        if ([self.unitWasSelectedPosition[0] integerValue] == [positionOfSelectedUnit[0] integerValue] && [self.unitWasSelectedPosition[1] integerValue] == [positionOfSelectedUnit[1] integerValue]) {
-            self.unitWasSelectedPosition = nil;
-            [Animator animateSpriteDeselection:self.selectedSprite];
-            return;
         }
         self.unitWasSelectedPosition = nil;
     }
