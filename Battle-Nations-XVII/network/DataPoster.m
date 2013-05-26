@@ -15,7 +15,7 @@
 
 @implementation DataPoster
 
--(void) sendMoves:(NSArray *) arrayOfMoves forGame:(GameDictProcessor*) gameObj withCallBack:(void (^) (BOOL)) callBackBlock {
+-(void) sendMoves:(NSArray *) arrayOfMoves forGame:(GameDictProcessor*) gameObj withCallBack:(void (^)(BOOL))callBackBlock {
     self.callBackBlock = callBackBlock;
     NSString *server = [[NSUserDefaults standardUserDefaults] stringForKey:@"server"];
     NSString *port = [[NSUserDefaults standardUserDefaults] stringForKey:@"port"];

@@ -140,5 +140,13 @@
     return (NSArray *) [dict objectForKey:@"position"];
 }
 
+-(NSDictionary *) initialTable {
+    return (NSDictionary *) [self.dictOfGame objectForKey:@"initial_table"];
+}
+
+-(NSArray *) arrayOfPreviousMoves {
+    return (NSArray *) [self.dictOfGame objectForKey:@"last_moves"];
+}
+
 
 @end

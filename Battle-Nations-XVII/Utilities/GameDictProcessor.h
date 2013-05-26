@@ -37,5 +37,6 @@
 -(NSString *) nationForPlayerID:(NSString *) playerID;
 -(NSInteger) getHealthLevelForUnit:(NSDictionary *) unitDict;
 -(NSArray *) getCoordsForUnit:(NSDictionary *) unitDict;
-
+-(NSDictionary *) initialTable;
+-(NSArray *) arrayOfPreviousMoves;
 @end

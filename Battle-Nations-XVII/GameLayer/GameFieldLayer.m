@@ -52,6 +52,10 @@
 	return scene;
 }
 
+-(void) playPreviousMoves {
+    
+}
+
 -(void) initObject {
     CGSize size = [[CCDirector sharedDirector] winSize];
     self.horizontalStep = floor(size.width / 9);
@@ -366,12 +370,13 @@
             NSLog(@"Placing new unit");
             //calculate if final destination is from two allowed positions for left/right player.
             NSSet *allowedCoordinates = [GameLogic getCoordinatesForNewUnitForGame:self.gameObj forPlayerID:self.currentPlayerID];
-            NSArray *proposedPosition = [GameLogic cocosToGameCoordinate:touchPoint];
+            NSMutableArray *proposedPosition = [NSMutableArray arrayWithArray:[GameLogic cocosToGameCoordinate:touchPoint]];
             if ([allowedCoordinates containsObject:proposedPosition]) {
                 NSLog(@"Placing unit. Specified valid final coordinate.");
                 NSDictionary *newDictOfGame = [GameLogic placeNewUnit:self.unitNameSelectedInBank forGame:self.gameObj forPlayerID:self.currentPlayerID atPosition:proposedPosition];
                 //pay attention that we add array with only one object - array of final destination
                 //in future we will have to check if there is only one member in arrayOfMoves - it means we are placing new unit on board
+                [proposedPosition addObject:self.unitNameSelectedInBank];
                 [self.arrayOfMoves addObject:proposedPosition];
                 self.gameObj = [[GameDictProcessor alloc] initWithDictOfGame:newDictOfGame];
                 self.bankSelected = NO;
