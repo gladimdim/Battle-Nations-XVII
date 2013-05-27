@@ -268,4 +268,22 @@
     return nil;
 }
 
+//returns true if healer is present at specified coordinates for specified playerID
+//in future can be abstracted to check for any unit name.
++(BOOL) healerPresentAt:(NSArray *) position forGame:(GameDictProcessor *) gameObj forPlayerID:(NSString *)playerId {
+    NSArray *field = [gameObj getFieldForPlayerID:playerId];
+    for (int i = 0; i < field.count; i++) {
+        NSDictionary *topUnit = (NSDictionary *) field[i];
+        NSString *unitName = (NSString *) [topUnit allKeys] [0];
+        NSDictionary *unit = [topUnit objectForKey:[topUnit allKeys][0]];
+        NSArray *positionOfUnit = (NSArray *) [unit objectForKey:@"position"];
+        if (position[0] == positionOfUnit[0] && positionOfUnit[1] == positionOfUnit[1]) {
+            if ([unitName isEqualToString:@"healer"]) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 @end

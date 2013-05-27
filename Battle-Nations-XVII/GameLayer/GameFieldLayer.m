@@ -261,12 +261,13 @@
     }
     
     //attack or heal or deselect
+    BOOL healerPresent = [GameLogic healerPresentAt:self.unitWasSelectedPosition forGame:self.gameObj forPlayerID:self.currentPlayerID];
     if (self.unitWasSelectedPosition && positionOfSelectedUnit) {
         //friendly unit was selected on second touch
         //healing
         NSNumber *nFriendlyUnit = (NSNumber *) positionOfSelectedUnit[2];
         BOOL friendlyUnit = [nFriendlyUnit boolValue];
-        if (friendlyUnit && [self.unitWasSelectedPosition[3] isEqualToString:@"healer"]) {
+        if (friendlyUnit && healerPresent) {
             [Animator animateSpriteDeselection:self.selectedSprite];
             BOOL canHeal = [GameLogic canAttackFrom:self.unitWasSelectedPosition to:positionOfSelectedUnit forPlayerID:self.currentPlayerID inGame:self.gameObj];
             if (canHeal) {
@@ -290,7 +291,7 @@
         }
         //enemy unit was selected
         //attack if not healer
-        else if (![self.unitWasSelectedPosition[3] isEqualToString:@"healer"]) {
+        else if (!healerPresent) {
             BOOL canAttack = [GameLogic canAttackFrom:self.unitWasSelectedPosition to:positionOfSelectedUnit forPlayerID:self.currentPlayerID inGame:self.gameObj];
             if (canAttack) {
                 NSDictionary *newDictOfGame = [GameLogic attackUnitFrom:self.unitWasSelectedPosition fromPlayerID:self.currentPlayerID toUnit:positionOfSelectedUnit forGame:self.gameObj];
@@ -326,19 +327,25 @@
             if (CGRectContainsPoint(node.boundingBox, oldPoint)) {
                 NSLog(@"found sprite");
                 if ([GameLogic canMoveFrom:self.unitWasSelectedPosition to:newGameCoordinates forPlayerID:self.currentPlayerID inGame:self.gameObj]) {
-                    //update gameObj dictionary with new position of unit
-                    //add gameObj to arrayOfMoves
-                    //this array contains initial position of unit and its target action;
-                    //we need to add only coordinates to array of moves.
-                    NSArray *arrayWithoutBool = @[self.unitWasSelectedPosition[0], self.unitWasSelectedPosition[1]];
-                    NSArray *arrayOfPositionsInMove = @[arrayWithoutBool, newGameCoordinates];
-                    NSDictionary *newDictOfGame = [GameLogic applyMove:arrayOfPositionsInMove toGame:self.gameObj forPlayerID:self.currentPlayerID];
-                    self.gameObj = [[GameDictProcessor alloc] initWithDictOfGame:newDictOfGame];
-                    [self.arrayOfMoves addObject:arrayOfPositionsInMove];
-                    [self.arrayOfStates addObject:self.gameObj.dictOfGame];
-                    [self removeAllChildren];
-                    [self initObject];
-                    self.unitWasSelectedPosition = nil;
+                    //run animation of sprite's move. When animation is done - do necessary tasks to update gameObj with new coordinates.
+                    CCMoveTo *actionMove = [CCMoveTo actionWithDuration:0.5f position:[GameLogic gameToCocosCoordinate:newGameCoordinates]];
+                    CCCallBlockN *actionMoveDone = [CCCallBlockN actionWithBlock:^(CCNode *node) {
+                        //update gameObj dictionary with new position of unit
+                        //add gameObj to arrayOfMoves
+                        //this array contains initial position of unit and its target action;
+                        //we need to add only coordinates to array of moves.
+                        NSArray *arrayWithoutBool = @[self.unitWasSelectedPosition[0], self.unitWasSelectedPosition[1]];
+                        NSArray *arrayOfPositionsInMove = @[arrayWithoutBool, newGameCoordinates];
+                        NSDictionary *newDictOfGame = [GameLogic applyMove:arrayOfPositionsInMove toGame:self.gameObj forPlayerID:self.currentPlayerID];
+                        self.gameObj = [[GameDictProcessor alloc] initWithDictOfGame:newDictOfGame];
+                        [self.arrayOfMoves addObject:arrayOfPositionsInMove];
+                        [self.arrayOfStates addObject:self.gameObj.dictOfGame];
+                        [self removeAllChildren];
+                        [self initObject];
+                        self.unitWasSelectedPosition = nil;
+                    }];
+                    [self.selectedSprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
+                    
                     return;
                 }
                 else {
@@ -376,7 +383,7 @@
                 NSDictionary *newDictOfGame = [GameLogic placeNewUnit:self.unitNameSelectedInBank forGame:self.gameObj forPlayerID:self.currentPlayerID atPosition:proposedPosition];
                 //pay attention that we add array with only one object - array of final destination
                 //in future we will have to check if there is only one member in arrayOfMoves - it means we are placing new unit on board
-                [proposedPosition addObject:self.unitNameSelectedInBank];
+               /////// [proposedPosition addObject:self.unitNameSelectedInBank];
                 [self.arrayOfMoves addObject:proposedPosition];
                 self.gameObj = [[GameDictProcessor alloc] initWithDictOfGame:newDictOfGame];
                 self.bankSelected = NO;

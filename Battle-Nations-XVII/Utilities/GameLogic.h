@@ -21,4 +21,5 @@
 +(NSDictionary *) healUnitFrom:(NSArray *) healerCoords fromPlayerID:(NSString *) playerID toUnit:(NSArray *) targetCoords forGame:(GameDictProcessor *) gameObj;
 +(int) horizontalStep;
 +(int) verticalStep;
++(BOOL) healerPresentAt:(NSArray *) position forGame:(GameDictProcessor *) gameObj forPlayerID:(NSString *) playerID;
 @end
