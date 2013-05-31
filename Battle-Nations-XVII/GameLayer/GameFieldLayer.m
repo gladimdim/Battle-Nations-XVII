@@ -101,7 +101,6 @@
     for (int i = 0; i < self.gameObj.arrayRightField.count; i++) {
         [self placeUnit:self.gameObj.arrayRightField[i] forLeftArmy:NO nationName:[self.gameObj.rightArmy valueForKey:@"nation"]];
     }
-    self.currentPlayerID = [[NSUserDefaults standardUserDefaults] stringForKey:@"playerID"];
     
     //show bank units
     NSArray *arrayBank = [self.gameObj getArrayOfUnitNamesInBankForPlayerID:self.currentPlayerID];

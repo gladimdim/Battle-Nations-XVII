@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface NewGame : NSObject <NSURLConnectionDelegate>
--(void) askForNewGameForUser:(NSString *) username withEmail:(NSString *) email forNation:(NSString *) nation callBack:(void (^) (NSDictionary *)) callBackBlock;
+-(void) askForNewGameForUser:(NSString *) username withEmail:(NSString *) email forNation:(NSString *) nation callBack:(void (^) (NSDictionary *, NSError *)) callBackBlock;
 @end

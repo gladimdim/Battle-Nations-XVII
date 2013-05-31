@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface ListOfGamesGetter : NSObject <NSURLConnectionDelegate>
--(void) getListOfGamesFor:(NSString *) playerID withCallBack:(void (^) (NSDictionary *)) callBackBlock;
+-(void) getListOfGamesFor:(NSString *) playerID withCallBack:(void (^) (NSDictionary *, NSError *)) callBackBlock;
 @end

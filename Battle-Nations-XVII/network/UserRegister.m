@@ -9,12 +9,12 @@
 #import "UserRegister.h"
 
 @interface UserRegister()
-@property (copy, nonatomic) void (^callBackBlock) (NSDictionary *);
+@property (copy, nonatomic) void (^callBackBlock) (NSDictionary *, NSError *err);
 @property NSMutableData * receivedData;
 @end
 
 @implementation UserRegister
--(void) registerUser:(NSString *) username withEmail:(NSString *) email deviceToken:(NSString *)deviceToken callBack:(void (^)(NSDictionary *))callBackBlock {
+-(void) registerUser:(NSString *) username withEmail:(NSString *) email deviceToken:(NSString *)deviceToken callBack:(void (^)(NSDictionary *, NSError *))callBackBlock {
     self.callBackBlock = callBackBlock;
     NSString *server = [[NSUserDefaults standardUserDefaults] stringForKey:@"server"];
     NSString *port = [[NSUserDefaults standardUserDefaults] stringForKey:@"port"];
@@ -68,13 +68,13 @@
         NSError *err;
         NSDictionary *returnDict = [NSJSONSerialization JSONObjectWithData:self.receivedData options:NSJSONReadingAllowFragments error:&err];
         
-        self.callBackBlock(returnDict);
+        self.callBackBlock(returnDict, nil);
     }
 }
 
 -(void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     NSLog(@"Error during getting list of games: %@", [error localizedDescription]);
-    self.callBackBlock(nil);
+    self.callBackBlock(nil, error);
 }
 
 @end

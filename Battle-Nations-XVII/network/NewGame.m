@@ -9,12 +9,12 @@
 #import "NewGame.h"
 
 @interface NewGame()
-@property (copy, nonatomic) void (^callBackBlock) (NSDictionary *);
+@property (copy, nonatomic) void (^callBackBlock) (NSDictionary *, NSError *);
 @property NSMutableData * receivedData;
 @end
 
 @implementation NewGame
--(void) askForNewGameForUser:(NSString *) username withEmail:(NSString *) email forNation:(NSString *) nation callBack:(void (^) (NSDictionary *)) callBackBlock {
+-(void) askForNewGameForUser:(NSString *) username withEmail:(NSString *) email forNation:(NSString *) nation callBack:(void (^) (NSDictionary *, NSError *err)) callBackBlock {
     self.callBackBlock = callBackBlock;
     NSString *server = [[NSUserDefaults standardUserDefaults] stringForKey:@"server"];
     NSString *port = [[NSUserDefaults standardUserDefaults] stringForKey:@"port"];
@@ -68,12 +68,12 @@
         NSError *err;
         NSDictionary *returnDict = [NSJSONSerialization JSONObjectWithData:self.receivedData options:NSJSONReadingAllowFragments error:&err];
         
-        self.callBackBlock(returnDict);
+        self.callBackBlock(returnDict, nil);
     }
 }
 
 -(void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     NSLog(@"Error during asking for new game: %@", [error localizedDescription]);
-    self.callBackBlock(nil);
+    self.callBackBlock(nil, error);
 }
 @end

@@ -9,12 +9,12 @@
 #import "ListOfGamesGetter.h"
 
 @interface ListOfGamesGetter()
-@property (copy, nonatomic) void (^callBackBlock) (NSDictionary *);
+@property (copy, nonatomic) void (^callBackBlock) (NSDictionary *, NSError *);
 @property NSMutableData *receivedData;
 @end
 
 @implementation ListOfGamesGetter
--(void) getListOfGamesFor:(NSString *) playerID withCallBack:(void (^) (NSDictionary *)) callBackBlock {
+-(void) getListOfGamesFor:(NSString *) playerID withCallBack:(void (^) (NSDictionary *, NSError *)) callBackBlock {
     self.callBackBlock = callBackBlock;
     NSString *server = [[NSUserDefaults standardUserDefaults] stringForKey:@"server"];
     NSString *port = [[NSUserDefaults standardUserDefaults] stringForKey:@"port"];
@@ -67,13 +67,13 @@
     if (string) {
         NSError *err;
         NSDictionary *returnDict = [NSJSONSerialization JSONObjectWithData:self.receivedData options:NSJSONReadingAllowFragments error:&err];
-        self.callBackBlock(returnDict);
+        self.callBackBlock(returnDict, nil);
     }
 }
 
 -(void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     NSLog(@"Error during getting list of games: %@", [error localizedDescription]);
-    self.callBackBlock(nil);
+    self.callBackBlock(nil, error);
 }
 
 @end

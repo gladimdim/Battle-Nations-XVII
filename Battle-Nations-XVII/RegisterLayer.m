@@ -124,7 +124,13 @@
 -(void) registerUser {
     NSString *deviceToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"deviceToken"];
     UserRegister *reg = [[UserRegister alloc] init];
-    [reg registerUser:self.username withEmail:self.email deviceToken:deviceToken callBack:^(NSDictionary *message) {
+    [reg registerUser:self.username withEmail:self.email deviceToken:deviceToken callBack:^(NSDictionary *message, NSError *err) {
+        //if error - immediately return and show alert
+        if (err) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error occurred", nil) message:[err localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
         NSLog(@"succesfully registered: %@", message);
         NSString *result = [message objectForKey:@"result"];
 

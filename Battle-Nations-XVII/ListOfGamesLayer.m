@@ -87,6 +87,7 @@
     [self.menu addChild:itemCreate];
     [self.menu addChild:refreshItem];
     [self.menu addChild:backItem];
+    [self.menu alignItemsVertically];
 }
 
 -(void) buildMenuForArmySelection {
@@ -97,17 +98,31 @@
     
     CCMenuItemFont *itemUkraine = [CCMenuItemFont itemWithString:NSLocalizedString(@"Ukraine", nil) block:^(id sender) {
         NewGame *game = [[NewGame alloc] init];
-        [game askForNewGameForUser:[[NSUserDefaults standardUserDefaults] stringForKey:@"playerID"]  withEmail:@"kuku" forNation:@"ukraine" callBack:^(NSDictionary *returnDict) {
+        [game askForNewGameForUser:[[NSUserDefaults standardUserDefaults] stringForKey:@"playerID"]  withEmail:@"kuku" forNation:@"ukraine" callBack:^(NSDictionary *returnDict, NSError *err) {
             NSLog(@"created new game: %@", returnDict);
-            [self buildMenuForListOfGames];
+            if (err) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error occurred", nil) message:[err localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+                return;
+            }
+            else {
+                [self  buildMenuForListOfGames];
+            }
         }];
     }];
     
     CCMenuItemFont *itemPoland = [CCMenuItemFont itemWithString:NSLocalizedString(@"Poland", nil) block:^(id sender) {
         NewGame *game = [[NewGame alloc] init];
-        [game askForNewGameForUser:[[NSUserDefaults standardUserDefaults] stringForKey:@"playerID"]  withEmail:@"kuku" forNation:@"poland" callBack:^(NSDictionary *returnDict) {
+        [game askForNewGameForUser:[[NSUserDefaults standardUserDefaults] stringForKey:@"playerID"]  withEmail:@"kuku" forNation:@"poland" callBack:^(NSDictionary *returnDict, NSError *err) {
             NSLog(@"created new game: %@", returnDict);
-            [self buildMenuForListOfGames];
+            if (err) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error occurred", nil) message:[err localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+                return;
+            }
+            else {
+                [self  buildMenuForListOfGames];
+            }
         }];
     }];
     [self.menu addChild:itemUkraine];
@@ -124,7 +139,15 @@
 }
 
 -(void) getListOfGames {
-    [self.getter getListOfGamesFor:self.playerID withCallBack:^(NSDictionary *dict) {
+    [self.getter getListOfGamesFor:self.playerID withCallBack:^(NSDictionary *dict, NSError *err) {
+        //if err is not nil - show alert and immediately return.
+        if (err) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error occurred", nil) message:[err localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            [self.menu removeAllChildren];
+            [self addStaticItems];
+            return;
+        }
         NSLog(@"dict: %@", dict);
         SEL selectorAllKeys = NSSelectorFromString(@"allKeys");
         if ([dict respondsToSelector:selectorAllKeys]) {// && [dict allKeys].count > 1) {
@@ -153,7 +176,7 @@
                     [[CCDirector sharedDirector] pushScene:[CCTransitionFadeDown transitionWithDuration:1.0 scene:[GameFieldLayer sceneWithDictOfGame:game]]];
                 }];
                 
-                                          
+                
                 //determine if it is player's turn
                 //BOOL leftArmyTurn = [game objectForKey:@"left_army_turn"];
                 // [item setIsEnabled:(leftArmyTurn && [playerLeft isEqualToString:self.playerID])];
@@ -165,7 +188,6 @@
         [self addStaticItems];
         [self.menu alignItemsVertically];
         [self.menu draw];
-        
     }];
 
 }
