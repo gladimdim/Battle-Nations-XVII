@@ -64,6 +64,8 @@
     CCMenuItemFont *back = [CCMenuItemFont itemWithString:@"Back" block:^(id sender) {
         [[CCDirector sharedDirector] popScene];
     }];
+    self.currentPlayerID = [[NSUserDefaults standardUserDefaults] stringForKey:@"playerID"];
+    self.bMyTurn = [self.gameObj isMyTurn:self.currentPlayerID];
     CCMenuItemFont *send = [CCMenuItemFont itemWithString:@"Send" block:^(id sender) {
         if ([self.gameObj isMyTurn:self.currentPlayerID]) {
             DataPoster *poster = [[DataPoster alloc] init];
@@ -77,7 +79,7 @@
         }
     }];
     
-    CCMenuItemFont *undoTurn = [CCMenuItemFont itemWithString:[NSString stringWithFormat:@"%i/5", self.arrayOfMoves.count] block:^(id sender) {
+    CCMenuItemFont *undoTurn = [CCMenuItemFont itemWithString:[NSString stringWithFormat:@"%i/%i", self.arrayOfMoves.count, self.bMyTurn ? 5 : 0] block:^(id sender) {
         if (self.arrayOfMoves.count > 0) {
             NSLog(@"moves: %i, states: %i", self.arrayOfMoves.count, self.arrayOfStates.count);
             [self.arrayOfMoves removeLastObject];
@@ -100,7 +102,6 @@
         [self placeUnit:self.gameObj.arrayRightField[i] forLeftArmy:NO nationName:[self.gameObj.rightArmy valueForKey:@"nation"]];
     }
     self.currentPlayerID = [[NSUserDefaults standardUserDefaults] stringForKey:@"playerID"];
-    self.bMyTurn = [self.gameObj isMyTurn:self.currentPlayerID];
     
     //show bank units
     NSArray *arrayBank = [self.gameObj getArrayOfUnitNamesInBankForPlayerID:self.currentPlayerID];
