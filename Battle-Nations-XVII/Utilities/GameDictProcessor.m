@@ -148,5 +148,9 @@
     return (NSArray *) [self.dictOfGame objectForKey:@"last_moves"];
 }
 
+-(NSString *) oppositePlayerID:(NSString *) currentPlayerID {
+   return [[self leftPlayerID] isEqualToString:currentPlayerID] ? [self rightPlayerID] : [self leftPlayerID];
+}
+
 
 @end

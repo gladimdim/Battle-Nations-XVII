@@ -12,6 +12,7 @@
 		F215CC1816FE2C6D0016D868 /* ukraine_infantry-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F215CC1716FE2C6D0016D868 /* ukraine_infantry-hd.png */; };
 		F215CC1A16FE2C7E0016D868 /* poland_infantry-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F215CC1916FE2C7E0016D868 /* poland_infantry-hd.png */; };
 		F215CC1D16FE47BA0016D868 /* GameLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = F215CC1C16FE47BA0016D868 /* GameLogic.m */; };
+		F2256228175B7AEB00B8A207 /* RecordPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2256227175B7AEB00B8A207 /* RecordPlayer.m */; };
 		F24F5C271708BE3200ADB2CC /* DataPoster.m in Sources */ = {isa = PBXBuildFile; fileRef = F24F5C261708BE3200ADB2CC /* DataPoster.m */; };
 		F276CE1416F49A2D009D09E7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F276CE1316F49A2D009D09E7 /* QuartzCore.framework */; };
 		F276CE1616F49A2D009D09E7 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F276CE1516F49A2D009D09E7 /* OpenGLES.framework */; };
@@ -200,6 +201,8 @@
 		F215CC1916FE2C7E0016D868 /* poland_infantry-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "poland_infantry-hd.png"; path = "Resources/units/poland/poland_infantry-hd.png"; sourceTree = "<group>"; };
 		F215CC1B16FE47BA0016D868 /* GameLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameLogic.h; path = Utilities/GameLogic.h; sourceTree = "<group>"; };
 		F215CC1C16FE47BA0016D868 /* GameLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameLogic.m; path = Utilities/GameLogic.m; sourceTree = "<group>"; };
+		F2256226175B7AEB00B8A207 /* RecordPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecordPlayer.h; path = Utilities/RecordPlayer.h; sourceTree = "<group>"; };
+		F2256227175B7AEB00B8A207 /* RecordPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecordPlayer.m; path = Utilities/RecordPlayer.m; sourceTree = "<group>"; };
 		F24F5C251708BE3200ADB2CC /* DataPoster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataPoster.h; path = network/DataPoster.h; sourceTree = "<group>"; };
 		F24F5C261708BE3200ADB2CC /* DataPoster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataPoster.m; path = network/DataPoster.m; sourceTree = "<group>"; };
 		F276CE1016F49A2D009D09E7 /* Battle-Nations-XVII.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Battle-Nations-XVII.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -559,6 +562,8 @@
 				F215CC1C16FE47BA0016D868 /* GameLogic.m */,
 				F2E71071173E656F00F84E00 /* Animator.h */,
 				F2E71072173E656F00F84E00 /* Animator.m */,
+				F2256226175B7AEB00B8A207 /* RecordPlayer.h */,
+				F2256227175B7AEB00B8A207 /* RecordPlayer.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1361,6 +1366,7 @@
 				F2E713B3173FD68F00F84E00 /* vec2.c in Sources */,
 				F2E713B4173FD68F00F84E00 /* vec3.c in Sources */,
 				F2E713B5173FD68F00F84E00 /* vec4.c in Sources */,
+				F2256228175B7AEB00B8A207 /* RecordPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

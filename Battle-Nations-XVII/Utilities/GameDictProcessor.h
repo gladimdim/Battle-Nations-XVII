@@ -39,4 +39,5 @@
 -(NSArray *) getCoordsForUnit:(NSDictionary *) unitDict;
 -(NSDictionary *) initialTable;
 -(NSArray *) arrayOfPreviousMoves;
+-(NSString *) oppositePlayerID:(NSString *) currentPlayerID;
 @end
