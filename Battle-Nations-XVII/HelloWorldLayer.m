@@ -96,6 +96,7 @@
         [[NSUserDefaults standardUserDefaults] setObject:@"https://82.196.1.103" forKey:@"server"];
         [[NSUserDefaults standardUserDefaults] setObject:@"8444" forKey:@"port"];
         //[[NSUserDefaults standardUserDefaults] setObject:@"gladimdim" forKey:@"playerID"];
+      //  [[NSUserDefaults standardUserDefaults] setObject:@"gl" forKey:@"email"];
 
 	}
 	return self;
