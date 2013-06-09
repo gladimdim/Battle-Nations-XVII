@@ -64,8 +64,8 @@
     self.verticalStep = floor(size.height / 6);
     NSLog(@"horizontal step: %i, vertical: %i", self.horizontalStep, self.verticalStep);
     CCMenuItemFont *back = [CCMenuItemFont itemWithString:@"Back" block:^(id sender) {
-       // [[CCDirector sharedDirector] popScene];
-        [self replayMoves];
+        [[CCDirector sharedDirector] popScene];
+       // [self replayMoves];
     }];
     self.currentPlayerID = [[NSUserDefaults standardUserDefaults] stringForKey:@"playerID"];
     self.bMyTurn = [self.gameObj isMyTurn:self.currentPlayerID];
@@ -340,12 +340,13 @@
                 if ([GameLogic canMoveFrom:initPosition to:newGameCoordinates forPlayerID:playerID inGame:self.gameObj]) {
                     //run animation of sprite's move. When animation is done - do necessary tasks to update gameObj with new coordinates.
                     CCMoveTo *actionMove = [CCMoveTo actionWithDuration:0.5f position:[GameLogic gameToCocosCoordinate:newGameCoordinates]];
-                    CCCallBlockN *actionMoveDone = [CCCallBlockN actionWithBlock:^(CCNode *node) {
+                    CCCallBlock *actionMoveDone = [CCCallBlock actionWithBlock:^(CCNode *node) {
                         //update gameObj dictionary with new position of unit
                         //add gameObj to arrayOfMoves
                         //this array contains initial position of unit and its target action;
                         //we need to add only coordinates to array of moves.
-                        NSArray *arrayWithoutBool = @[self.unitWasSelectedPosition[0], self.unitWasSelectedPosition[1]];
+                        NSLog(@"Running animation for moving sprite");
+                        NSArray *arrayWithoutBool = @[initPosition[0], initPosition[1]]; //@[self.unitWasSelectedPosition[0], self.unitWasSelectedPosition[1]];
                         NSArray *arrayOfPositionsInMove = @[arrayWithoutBool, newGameCoordinates];
                         NSDictionary *newDictOfGame = [GameLogic applyMove:arrayOfPositionsInMove toGame:self.gameObj forPlayerID:playerID];
                         self.gameObj = [[GameDictProcessor alloc] initWithDictOfGame:newDictOfGame];
@@ -355,7 +356,8 @@
                         [self initObject];
                         self.unitWasSelectedPosition = nil;
                     }];
-                    [self.selectedSprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
+                [self.selectedSprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
+                   
                     
                     return;
                 }
@@ -391,12 +393,14 @@
 }
 
 -(void) replayMoves {
-    NSArray *arrayLastMoves = [self.gameObj arrayOfPreviousMoves];
+    NSArray *arrayLastMoves = [NSMutableArray arrayWithArray:[self.gameObj arrayOfPreviousMoves]];
     GameDictProcessor *initialGameObj = [[GameDictProcessor alloc] initWithDictOfGame:[[self.downloadedGameObj initialTable] objectForKey:@"game"]];
     self.gameObj = initialGameObj;
     [self removeAllChildren];
     [self initObject];
+    
     [self makeMoveFromReplay:self.gameObj arrayOfMoves:[NSMutableArray arrayWithArray:arrayLastMoves]];
+
 }
 
 -(void) makeMoveFromReplay:(GameDictProcessor *) gameObject arrayOfMoves:(NSMutableArray *) arrayLastMoves {
@@ -418,10 +422,22 @@
         NSArray *move = [arrayLastMoves objectAtIndex:0];
         //if object is NSArray (not the string actually) - it means there are two arrays with coordinate, so it is move 
         if ([move[1] isKindOfClass:[NSArray class]]) {
+            //we need to rescan all sprite to find which sprite was selected.
+            //THIS IS VERY IMPORTANT as without self.selectedSprite being correctly initialized animation does not work and CCCallBlocks are send to wrong instance (they are not
+            //called at all).
+            for (int i = 0; i < [self children].count; i++) {
+                CCSprite *sprite = (CCSprite *) [[self children] objectAtIndex:i];
+                if (CGRectContainsPoint([sprite boundingBox], [GameLogic gameToCocosCoordinate:move[0]])) {
+                    [Animator animateSpriteDeselection:self.selectedSprite];
+                    self.selectedSprite = sprite;
+                }
+            }
+
             NSLog(@"kuku");
-            double delayInSeconds = 2.0;
+            double delayInSeconds = 1;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            dispatch_after(popTime, dispatch_get_current_queue(), ^(void){
+                NSLog(@"Making move: %@", move);
                 [self makeMoveFromPosition:move[0] touchedPoint:[GameLogic gameToCocosCoordinate:move[1]] forPlayerID:[gameObject oppositePlayerID:self.currentPlayerID]];
                 [arrayLastMoves removeObjectAtIndex:0];
                 [self makeMoveFromReplay:self.gameObj arrayOfMoves:arrayLastMoves];
@@ -429,12 +445,13 @@
         }
         //if second object in move is String - it means new unit was placed on board.
         else if ([move[1] isKindOfClass:[NSString class]]) {
-            double delayInSeconds = 2.0;
+            double delayInSeconds = 1.0;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                NSLog(@"Making new board: %@", move);
                 [self placeNewUnitOnBoardForGame:self.gameObj unitName:move[1] proposedPosition:move[0] forPlayerID:[self.gameObj oppositePlayerID:self.currentPlayerID]];
                 [arrayLastMoves removeObjectAtIndex:0];
-                [self makeMoveFromReplay:self.gameObj arrayOfMoves:arrayLastMoves];
+             [self makeMoveFromReplay:self.gameObj arrayOfMoves:arrayLastMoves];
             });
         }
     }
